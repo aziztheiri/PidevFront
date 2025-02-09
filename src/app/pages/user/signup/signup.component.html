@@ -1,0 +1,89 @@
+<div class="signup-container">
+    <!-- Company Logo -->
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="logo" style="text-align: center;">
+            <img src="assets/images/magh.png" alt="Company Logo">
+          </div>
+          
+        
+      <!-- Success and Error Alerts -->
+      <div class="alert alert-success" *ngIf="messageType === 'success'">
+        {{ message }}
+      </div>
+      <div class="alert alert-danger" *ngIf="messageType === 'error'">
+        {{ message }}
+      </div>
+  
+      <!-- CIN Field -->
+      <div class="form-group">
+        <label for="cin" style="color:#004a8d;">CIN :</label>
+        <input id="cin" type="text" formControlName="cin" 
+               [ngClass]="{'is-invalid': signupForm.get('cin')?.touched && signupForm.get('cin')?.invalid}">
+        <div *ngIf="signupForm.get('cin')?.touched && signupForm.get('cin')?.invalid">
+          <small class="error-message" *ngIf="signupForm.get('cin')?.errors?.['required']">
+            CIN is required.
+          </small>
+        </div>
+      </div>
+  
+      <!-- Name Field -->
+      <div class="form-group">
+        <label for="name" style="color:#004a8d;">Name :</label>
+        <input id="name" type="text" formControlName="name" 
+               [ngClass]="{'is-invalid': signupForm.get('name')?.touched && signupForm.get('name')?.invalid}">
+        <div *ngIf="signupForm.get('name')?.touched && signupForm.get('name')?.invalid">
+          <small class="error-message" *ngIf="signupForm.get('name')?.errors?.['required']">
+            Name is required.
+          </small>
+        </div>
+      </div>
+  
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email" style="color:#004a8d;">Email :</label>
+        <input id="email" type="email" formControlName="email" 
+               [ngClass]="{'is-invalid': signupForm.get('email')?.touched && signupForm.get('email')?.invalid}">
+        <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+          <small class="error-message" *ngIf="signupForm.get('email')?.errors?.['required']">
+            Email is required.
+          </small>
+          <small class="error-message" *ngIf="signupForm.get('email')?.errors?.['email']">
+            Please enter a valid email.
+          </small>
+        </div>
+      </div>
+  
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" style="color:#004a8d;">Password :</label>
+        <input id="password" type="password" formControlName="password" 
+               [ngClass]="{'is-invalid': signupForm.get('password')?.touched && signupForm.get('password')?.invalid}">
+        <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+          <small class="error-message" *ngIf="signupForm.get('password')?.errors?.['required']">
+            Password is required.
+          </small>
+          <small class="error-message" *ngIf="signupForm.get('password')?.errors?.['minlength']">
+            Password must be at least 6 characters long.
+          </small>
+        </div>
+      </div>
+  
+      <!-- Profile Image Field -->
+      <div class="form-group">
+        <label style="color:#004a8d;">Profile Image :</label>
+        <div class="image-upload-container">
+            <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*">
+            <div class="image-preview" *ngIf="imagePreview">
+              <img [src]="imagePreview" alt="Preview">
+              <button type="button" class="btn btn-sm btn-danger" (click)="removeImage(fileInput)">×</button>
+            </div>
+            
+        </div>
+        <small>If no image is selected, a default profile image will be used.</small>
+      </div>
+  
+      <button type="submit" class="submit-btn">Sign Up</button>
+    </form>
+  </div>
+  

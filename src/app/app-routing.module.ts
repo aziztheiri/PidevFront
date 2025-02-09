@@ -4,6 +4,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { FullUserComponent } from './layouts/fullUser/full.component';
 import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/user/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent, // Login is defined at the root
+  },
+  {
+    path: 'signup',
+    component: SignupComponent, // Login is defined at the root
   },
   {
     path: 'admin',
