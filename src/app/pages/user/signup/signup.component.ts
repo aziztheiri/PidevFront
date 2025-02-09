@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -16,11 +17,13 @@ export class SignupComponent {
   message: string = '';
   imagePreview: string | ArrayBuffer | null = null;
   messageType: 'success' | 'error' | null = null;
-
+  loading: boolean = false;
   constructor(
     private fb: FormBuilder, 
     private userService: UserService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router : Router
+
   ) {}
 
   ngOnInit(): void {
@@ -95,7 +98,7 @@ export class SignupComponent {
 
     // If no image is selected, use the preloaded default image.
     const imageToSend = this.selectedImage ? this.selectedImage : this.defaultImage;
-
+    this.loading = true;
     this.userService.signup(user, imageToSend).subscribe({
       next: (response) => {
         this.message = 'User created successfully!';
@@ -103,16 +106,17 @@ export class SignupComponent {
         this.signupForm.reset();
         this.selectedImage = undefined;
         this.imagePreview = null;
+        this.userService.signupEmail = this.signupForm.value.email;
+        this.router.navigate(['/verify']);
       },
       error: (error) => {
         this.messageType = 'error';
         this.message = 'Signup failed: Email or CIN already exists';
+        this.loading = false; // 🔥 **Fix: Stop loading on error**
 
-        // Scroll to error message
-        setTimeout(() => {
-          const alert = document.querySelector('.alert-danger');
-          if (alert) alert.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+      },
+      complete: () => {
+        this.loading = false; // 👈 Stop loading
       }
     });
   }

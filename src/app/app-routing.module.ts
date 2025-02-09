@@ -5,6 +5,7 @@ import { FullComponent } from './layouts/full/full.component';
 import { FullUserComponent } from './layouts/fullUser/full.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/user/signup/signup.component';
+import { OtpVerificationComponent } from './pages/user/otp-verification/otp-verification.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent, // Login is defined at the root
+  },
+  {
+    path: 'verify',
+    component: OtpVerificationComponent, // Login is defined at the root
   },
   {
     path: 'admin',

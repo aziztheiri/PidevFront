@@ -127,7 +127,19 @@
       height: 100%;
       object-fit: cover;
     }
-  
+    .loading-spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    
+      img {
+        max-width: 20px;
+  max-height: 20px;
+  object-fit: contain;
+      }
+    }
+    
     button {
       position: absolute;
       top: 2px;

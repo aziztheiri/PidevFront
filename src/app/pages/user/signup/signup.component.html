@@ -8,12 +8,12 @@
           
         
       <!-- Success and Error Alerts -->
-      <div class="alert alert-success" *ngIf="messageType === 'success'">
+      <div *ngIf="message" [ngClass]="{'success-message': messageType === 'success', 'error-message': messageType === 'error'}">
+        <span *ngIf="messageType === 'success'">✅</span>
+        <span *ngIf="messageType === 'error'">❌</span>
         {{ message }}
       </div>
-      <div class="alert alert-danger" *ngIf="messageType === 'error'">
-        {{ message }}
-      </div>
+      
   
       <!-- CIN Field -->
       <div class="form-group">
@@ -83,7 +83,10 @@
         <small>If no image is selected, a default profile image will be used.</small>
       </div>
   
-      <button type="submit" class="submit-btn">Sign Up</button>
+      <button type="submit" [disabled]="loading" class="submit-btn">
+        {{ loading ? 'Signing Up...' : 'Sign Up' }}
+      </button>
+      
     </form>
   </div>
   

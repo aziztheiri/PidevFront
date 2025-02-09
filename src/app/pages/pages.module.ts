@@ -12,9 +12,10 @@ import { AppDashboardComponent } from './admin/dashboard/dashboard.component';
 import { UsersComponent } from './admin/users/users.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './user/signup/signup.component';
+import { OtpVerificationComponent } from './user/otp-verification/otp-verification.component';
 
 @NgModule({
-  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent],
+  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent],
   imports: [
     CommonModule,
     MaterialModule,

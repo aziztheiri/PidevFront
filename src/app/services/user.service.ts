@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators'; // ✅ Import tap operator
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private baseUrl = 'http://localhost:8083/users';
+  public signupEmail: string | null = null;
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +19,18 @@ export class UserService {
     if (image) {
       formData.append('image', image);
     }
-
+    return this.http.post(`${this.baseUrl}`, formData).pipe(
+      tap(() => {
+        // Store email in localStorage after successful signup
+        localStorage.setItem('signupEmail', user.email);
+      })
+    );
     return this.http.post(`${this.baseUrl}`, formData);
+  }
+  verifyOtp(data: { email: string, otp: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/verify`, data, { responseType: 'text' });
+  }
+  resendOtp(email: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/resend-otp`, { email },{ responseType: 'text' });
   }
 }
