@@ -18,22 +18,33 @@ export class SignupComponent {
   imagePreview: string | ArrayBuffer | null = null;
   messageType: 'success' | 'error' | null = null;
   loading: boolean = false;
+
   constructor(
     private fb: FormBuilder, 
     private userService: UserService,
     private http: HttpClient,
-    private router : Router
-
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    // Build the form
+    // Build the form with the new validation rules
     this.signupForm = this.fb.group({
-      cin: ['', Validators.required],
-      name: ['', Validators.required],
+      cin: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(8),
+        Validators.pattern('^[0-9]+$') // Only allows numeric characters
+      ]],
+      name: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      location: ['', Validators.required],
+      password: ['', [
+        Validators.required,
+        // Must be at least 6 characters, contain at least one uppercase letter and one symbol
+        Validators.pattern('^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$')
+      ]]
     });
+    
 
     // Preload the default image from assets (adjust the path if needed)
     this.http.get('assets/images/magh.png', { responseType: 'blob' })
@@ -74,12 +85,13 @@ export class SignupComponent {
     };
     reader.readAsDataURL(file);
   }
+
   removeImage(fileInput: HTMLInputElement): void {
     this.selectedImage = undefined;
     this.imagePreview = null;
     fileInput.value = ''; // This clears the file input
   }
-  
+
   onSubmit(): void {
     this.message = '';
     this.messageType = null;
@@ -93,7 +105,9 @@ export class SignupComponent {
       cin: this.signupForm.value.cin,
       name: this.signupForm.value.name,
       email: this.signupForm.value.email,
-      password: this.signupForm.value.password
+      password: this.signupForm.value.password,
+      location:this.signupForm.value.location
+      // You can add location to your User model if needed.
     };
 
     // If no image is selected, use the preloaded default image.
@@ -112,11 +126,10 @@ export class SignupComponent {
       error: (error) => {
         this.messageType = 'error';
         this.message = 'Signup failed: Email or CIN already exists';
-        this.loading = false; // 🔥 **Fix: Stop loading on error**
-
+        this.loading = false; // Stop loading on error
       },
       complete: () => {
-        this.loading = false; // 👈 Stop loading
+        this.loading = false; // Stop loading
       }
     });
   }

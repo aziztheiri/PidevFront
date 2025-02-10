@@ -168,4 +168,31 @@
       padding: 12px;
     }
   }
+  /* signup.component.scss */
+
+.form-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group select:focus {
+  border-color: #004a8d;
+  box-shadow: 0 0 0 2px rgba(0, 74, 141, 0.2);
+  outline: none;
+}
+input.ng-touched.ng-invalid,
+select.ng-touched.ng-invalid {
+  border-color: red;
+}
+
+input.ng-touched.ng-valid,
+select.ng-touched.ng-valid {
+  border-color: green;
+}
+
   

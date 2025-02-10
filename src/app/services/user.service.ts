@@ -33,4 +33,11 @@ export class UserService {
   resendOtp(email: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/resend-otp`, { email },{ responseType: 'text' });
   }
+  getAllUsers(): Observable<User[]> {
+
+    return this.http.get<User[]>(`${this.baseUrl}`);
+  }
+  deleteUser(cin: string): Observable<string> {
+    return this.http.delete(`${this.baseUrl}/${cin}`, { responseType: 'text' });
+  }
 }

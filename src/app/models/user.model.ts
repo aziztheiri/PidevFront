@@ -5,4 +5,6 @@ export interface User {
     password: string;
     // Optionally, the image URL can be defined here once returned by the backend
     image?: string;
+    location:string;
+    showMenu?: boolean;
   }
