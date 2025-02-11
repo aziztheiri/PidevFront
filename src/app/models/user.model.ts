@@ -7,4 +7,5 @@ export interface User {
     image?: string;
     location:string;
     showMenu?: boolean;
+
   }

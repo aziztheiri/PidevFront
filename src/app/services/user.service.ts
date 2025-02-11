@@ -40,4 +40,18 @@ export class UserService {
   deleteUser(cin: string): Observable<string> {
     return this.http.delete(`${this.baseUrl}/${cin}`, { responseType: 'text' });
   }
+  updateUser(cin: string, user: User, image?: File): Observable<User> {
+    const formData = new FormData();
+  
+    // Fix: Append user as a plain string (not a Blob)
+    formData.append('user', JSON.stringify(user));
+  
+    if (image) {
+      formData.append('image', image);
+    }
+  
+    return this.http.put<User>(`${this.baseUrl}/${cin}`, formData);
+  }
+  
+  
 }
