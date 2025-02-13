@@ -1,0 +1,97 @@
+.users-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.user-card {
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.active {
+  color: #2ecc71; // Green for active users
+  font-weight: bold;
+}
+
+.inactive {
+  color: #e74c3c; // Red for inactive users
+  font-weight: bold;
+}
+
+.paiements-controls {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.paiements-controls button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 30px;
+  transition: background-color 0.3s ease, transform 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.paiements-controls button:first-child {
+  background-color: #3498db; // Blue for "Paiements en ligne"
+  color: white;
+
+  &:hover {
+    background-color: #2980b9; // Darker blue on hover
+  }
+}
+
+.paiements-controls button:last-child {
+  background-color: #e74c3c; // Red for "Paiements sur place"
+  color: white;
+
+  &:hover {
+    background-color: #c0392b; // Darker red on hover
+  }
+}
+
+.paiements-en-ligne-container,
+.paiements-sur-place-container {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.paiements-en-ligne-container h2,
+.paiements-sur-place-container h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+

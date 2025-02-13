@@ -1,0 +1,31 @@
+<!-- Boutons pour afficher ou masquer les paiements en ligne et sur place -->
+<div class="paiements-controls">
+  <button mat-raised-button color="primary" (click)="togglePaiementsEnLigne()">
+    Paiements en ligne
+  </button>
+  <button mat-raised-button color="primary" (click)="togglePaiementsSurPlace()">
+    Paiements sur place
+  </button>
+</div>
+
+<!-- Paiements en ligne -->
+<div *ngIf="paiementsEnLigneVisible" class="paiements-en-ligne-container">
+  <h2>Paiements en ligne</h2>
+  <ul>
+    <li *ngFor="let paiement of paiementsEnLigne">
+      {{ paiement.montant }} - {{ paiement.date_paiement }} - Carte: {{ paiement.numeroCarte }}
+      <button mat-raised-button color="warn" (click)="deletePaiement(paiement.id_p)">Supprimer</button>
+    </li>
+  </ul>
+</div>
+
+<!-- Paiements sur place -->
+<div *ngIf="paiementsSurPlaceVisible" class="paiements-sur-place-container">
+  <h2>Paiements sur place</h2>
+  <ul>
+    <li *ngFor="let paiement of paiementsSurPlace">
+      {{ paiement.montant }} - {{ paiement.date_paiement }} - Agence: {{ paiement.agence }} - RDV: {{ paiement.date_rdv }}
+      <button mat-raised-button color="warn" (click)="deletePaiement(paiement.id_p)">Supprimer</button>
+    </li>
+  </ul>
+</div>
