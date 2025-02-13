@@ -1,0 +1,20 @@
+
+  .sidebar-list {
+    color: #f38f1d;
+  }
+  
+  .sidebar-list .mat-list-item {
+    color: #f38f1d;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .sidebar-list .mat-list-item:hover,
+  .sidebar-list .mat-list-item.activeMenu {
+    background-color: #f38f1d;
+    color: #004a8d;
+  }
+  .activeMenu {
+    background-color: #004a8d !important; // Blue background
+    font-weight: bold;
+  }
+  
