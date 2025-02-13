@@ -56,8 +56,9 @@ body {
     }
     
     &::placeholder {
-      color: #a0aec0;
+      color: #004a8d;
     }
+    
   }
 
   .search-icon {
@@ -65,10 +66,12 @@ body {
     left: 25px;
     top: 50%;
     transform: translateY(-50%);
-    color: $primary-color;
+    color: $primary-color;  // Ensure $primary-color is defined
     font-size: 24px;
     opacity: 0.8;
+    z-index: 10;  // This makes sure the icon stays on top of the input
   }
+  
 }
 
 /* Heading */
@@ -190,8 +193,8 @@ h1 {
     
     h2 {
       color: $primary-color;
-      margin: 0 0 10px;
-      font-size: 1.8rem;
+      margin: 0 1px 10px;
+      font-size: 1.3rem;
       font-weight: 700;
     }
     
@@ -308,7 +311,7 @@ h1 {
   }
 
   h2 {
-    margin-top: 0;
+    line-height: 3;
     color: #004a8d;
     text-align: center;
   }

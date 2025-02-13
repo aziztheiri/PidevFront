@@ -31,8 +31,11 @@
             <li (click)="deleteUser(user)">
               <i class="fa fa-trash"></i> Delete
             </li>
-            <li (click)="deactivateUser(user)">
+            <li *ngIf="user.verified" (click)="deactivateUser(user)">
               <i class="fa fa-ban"></i> Deactivate
+            </li>
+            <li *ngIf="!user.verified" (click)="activateUser(user)">
+              <i class="fa fa-check"></i> Activate
             </li>
           </ul>
         </div>
@@ -50,6 +53,8 @@
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>CIN:</strong> {{ user.cin }}</p>
         <p *ngIf="user.location"><strong>Location:</strong> {{ user.location }}</p>
+        <p><strong>Status:</strong> {{ user.verified ? 'Verified' : 'Not Verified' }}</p>
+
       </div>
     </div>
   </div>

@@ -82,6 +82,20 @@ export class UsersComponent {
       fileInput.value = '';
     }
   }
+  activateUser(user: any): void {
+    if (confirm(`Are you sure you want to activate ${user.name}?`)) {
+      this.userService.activateUser(user.cin).subscribe({
+        next: () => {
+          user.verified = true;  // Mark user as activated in the UI
+          alert(`${user.name} has been activated.`);
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Error activating user.');
+        }
+      });
+    }
+  }
   deactivateUser(user: any): void {
     if (confirm(`Are you sure you want to deactivate ${user.name}?`)) {
       this.userService.desactivateUser(user.cin).subscribe({

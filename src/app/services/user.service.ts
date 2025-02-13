@@ -55,5 +55,8 @@ export class UserService {
   desactivateUser(cin: string): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/desactivate/${cin}`, {});
   }
+  activateUser(cin: string): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/activate/${cin}`, {});
+  }
   
 }
