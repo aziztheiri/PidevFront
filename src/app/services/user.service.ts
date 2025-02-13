@@ -52,6 +52,8 @@ export class UserService {
   
     return this.http.put<User>(`${this.baseUrl}/${cin}`, formData);
   }
-  
+  desactivateUser(cin: string): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/desactivate/${cin}`, {});
+  }
   
 }

@@ -68,11 +68,34 @@ export class UsersComponent {
 
   openUpdateModal(user: User): void {
     this.selectedUser = { ...user };
-    this.selectedImageFile = undefined; // Fix: Use undefined, not null
-    this.imagePreview = null;
+    this.selectedImageFile = undefined;
     this.successMessage = '';
+    
+    // Show existing image if available
+    if (user.image) {
+      this.imagePreview = user.image;
+    }
+    
+    // Reset file input (optional)
+    const fileInput = document.getElementById('image') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
   }
-
+  deactivateUser(user: any): void {
+    if (confirm(`Are you sure you want to deactivate ${user.name}?`)) {
+      this.userService.desactivateUser(user.cin).subscribe({
+        next: () => {
+          user.verified = false;  // Mark user as deactivated in UI
+          alert(`${user.name} has been deactivated.`);
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Error deactivating user.');
+        }
+      });
+    }
+  }
   closeUpdateModal(): void {
     this.selectedUser = null;
     this.successMessage = '';

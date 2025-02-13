@@ -187,12 +187,12 @@
 }
 input.ng-touched.ng-invalid,
 select.ng-touched.ng-invalid {
-  border-color: red;
+  border-color: red !important;
 }
 
 input.ng-touched.ng-valid,
 select.ng-touched.ng-valid {
-  border-color: green;
+  border-color: green !important;
 }
 
   

@@ -1,11 +1,13 @@
-export interface User {
-    cin: string;
-    email: string;
-    name: string;
-    password: string;
-    // Optionally, the image URL can be defined here once returned by the backend
-    image?: string;
-    location:string;
-    showMenu?: boolean;
 
-  }
+export interface User {
+  cin: string;
+  email: string;
+  name: string;
+  password: string;
+  image?: string;
+  location: string;
+  userRole: number;
+  showMenu?: boolean;
+  verified?: boolean ;
+  creationDate:Date;
+}

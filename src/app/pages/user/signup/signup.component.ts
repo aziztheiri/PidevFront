@@ -106,7 +106,9 @@ export class SignupComponent {
       name: this.signupForm.value.name,
       email: this.signupForm.value.email,
       password: this.signupForm.value.password,
-      location:this.signupForm.value.location
+      location:this.signupForm.value.location,
+      userRole:1,     // Default role value
+      creationDate: new Date()    
       // You can add location to your User model if needed.
     };
 

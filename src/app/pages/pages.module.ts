@@ -13,6 +13,9 @@ import { UsersComponent } from './admin/users/users.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './user/signup/signup.component';
 import { OtpVerificationComponent } from './user/otp-verification/otp-verification.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent],
@@ -22,6 +25,8 @@ import { OtpVerificationComponent } from './user/otp-verification/otp-verificati
     FormsModule,
     ReactiveFormsModule,
     NgApexchartsModule,
+    NgxChartsModule,
+    MatCardModule,
     RouterModule.forChild(PagesRoutes),
     TablerIconsModule.pick(TablerIcons),
   ],
