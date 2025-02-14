@@ -6,23 +6,34 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Accueil',
-    iconName: 'home', // 🏠 Home icon for the dashboard
+    iconName: 'home',
     route: '/user/home',
   },
   {
-    displayName: 'Mes Devis',
-    iconName: 'file-text', // 📄 Represents documents/quotes
-    route: '/user/devis',
+    displayName: 'Devis',
+    iconName: 'file-text',
+    expanded: false,
+    children: [
+      {
+        displayName: 'Demander un devis',
+        iconName: 'file-plus',
+        route: '/user/demander-devis',
+      },
+      {
+        displayName: 'Consulter les devis',
+        iconName: 'file-text',
+        route: '/user/consulter-devis',
+      },
+    ],
   },
   {
     displayName: 'Mes Réclamations',
-    iconName: 'message-circle', // 💬 Represents user feedback or complaints
+    iconName: 'message-circle',
     route: '/user/reclamations',
   },
   {
     displayName: 'Mes Sinistres',
-    iconName: 'alert-triangle', // ⚠️ Represents incidents/claims
+    iconName: 'alert-triangle',
     route: '/user/sinistres',
   },
-  
 ];

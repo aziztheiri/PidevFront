@@ -1,21 +1,37 @@
 <div mat-subheader *ngIf="item.navCap" class="nav-caption">
   {{ item.navCap }}
 </div>
+
+<!-- Parent Item with Children -->
+<mat-list-item *ngIf="item.children && item.children.length" (click)="onItemSelected(item)">
+  <i-tabler class="routeIcon" name="{{ item.iconName }}" matListItemIcon></i-tabler>
+  <span class="hide-menu">{{ item.displayName }}</span> <!-- Ensure this is correct -->
+  <mat-icon *ngIf="item.children" class="menu-arrow">
+    {{ item.expanded ? 'expand_less' : 'expand_more' }}
+  </mat-icon>
+</mat-list-item>
+
+<!-- Child Items -->
+<div *ngIf="item.expanded && item.children && item.children.length" class="child-menu">
+  <app1-nav-item
+    *ngFor="let child of item.children"
+    [item]="child"
+    [depth]="depth + 1"
+  ></app1-nav-item>
+</div>
+
+<!-- Single Item (No Children) -->
 <a
   mat-list-item
+  *ngIf="!item.children || !item.children.length"
   (click)="onItemSelected(item)"
   [ngClass]="{
     'mat-toolbar mat-primary activeMenu': item.route
       ? router.isActive(item.route, true)
-      : false,
+      : false
   }"
   class="menu-list-item"
-  *ngIf="!item.navCap"
 >
-  <i-tabler
-    class="routeIcon"
-    name="{{ item.iconName }}"
-    matListItemIcon
-  ></i-tabler>
-  <span class="hide-menu">{{ item.displayName }}</span>
+  <i-tabler class="routeIcon" name="{{ item.iconName }}" matListItemIcon></i-tabler>
+  <span class="hide-menu">{{ item.displayName }}</span> <!-- Ensure this is correct -->
 </a>

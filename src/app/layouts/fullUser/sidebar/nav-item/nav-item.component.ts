@@ -7,7 +7,6 @@ import { NavService } from '../../../../services/nav.service';
   selector: 'app1-nav-item',
   templateUrl: './nav-itemUser.component.html',
   styleUrls: ['../sidebar.component.scss'],
-
 })
 export class AppNavUserItemComponent implements OnChanges {
   @Input() item: NavItem | any;
@@ -22,16 +21,21 @@ export class AppNavUserItemComponent implements OnChanges {
   ngOnChanges() {
     this.navService.currentUrl.subscribe((url: string) => {
       if (this.item.route && url) {
+        // Handle active state logic if needed
       }
     });
   }
 
   onItemSelected(item: NavItem) {
     if (!item.children || !item.children.length) {
+      // If the item has no children, navigate to its route
       this.router.navigate([item.route]);
+    } else {
+      // If the item has children, toggle the expansion
+      item.expanded = !item.expanded;
     }
 
-    // scroll
+    // Scroll to the top of the page
     document.querySelector('.page-wrapper')?.scroll({
       top: 0,
       left: 0,
