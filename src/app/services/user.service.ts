@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators'; // ✅ Import tap operator
 
 @Injectable({
@@ -12,14 +12,19 @@ export class UserService {
   public signupEmail: string | null = null;
 
   constructor(private http: HttpClient) { }
-
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('accessToken');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
   signup(user: User, image?: File): Observable<any> {
     const formData = new FormData();
     formData.append('user', JSON.stringify(user));
     if (image) {
       formData.append('image', image);
     }
-    return this.http.post(`${this.baseUrl}`, formData).pipe(
+    return this.http.post(`${this.baseUrl}/signup`, formData).pipe(
       tap(() => {
         // Store email in localStorage after successful signup
         localStorage.setItem('signupEmail', user.email);
@@ -34,29 +39,28 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/resend-otp`, { email },{ responseType: 'text' });
   }
   getAllUsers(): Observable<User[]> {
-
-    return this.http.get<User[]>(`${this.baseUrl}`);
+    return this.http.get<User[]>(`${this.baseUrl}/admin`, { headers: this.getAuthHeaders() });
   }
   deleteUser(cin: string): Observable<string> {
-    return this.http.delete(`${this.baseUrl}/${cin}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/admin/${cin}`, { 
+      headers: this.getAuthHeaders(), 
+      responseType: 'text' 
+    });
   }
   updateUser(cin: string, user: User, image?: File): Observable<User> {
     const formData = new FormData();
-  
-    // Fix: Append user as a plain string (not a Blob)
     formData.append('user', JSON.stringify(user));
-  
     if (image) {
       formData.append('image', image);
     }
-  
-    return this.http.put<User>(`${this.baseUrl}/${cin}`, formData);
+    return this.http.put<User>(`${this.baseUrl}/admin/${cin}`, formData, { headers: this.getAuthHeaders() });
   }
   desactivateUser(cin: string): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}/desactivate/${cin}`, {});
+    return this.http.post<User>(`${this.baseUrl}/admin/desactivate/${cin}`, {}, { headers: this.getAuthHeaders() });
   }
+
   activateUser(cin: string): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}/activate/${cin}`, {});
+    return this.http.post<User>(`${this.baseUrl}/admin/activate/${cin}`, {}, { headers: this.getAuthHeaders() });
   }
   
 }

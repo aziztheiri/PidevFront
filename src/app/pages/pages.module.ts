@@ -15,10 +15,12 @@ import { SignupComponent } from './user/signup/signup.component';
 import { OtpVerificationComponent } from './user/otp-verification/otp-verification.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatCardModule } from '@angular/material/card';
+import { LogoutComponent } from './logout/logout.component';
+import { KeycloakAngularModule } from 'keycloak-angular';
 
 
 @NgModule({
-  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent],
+  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent,LogoutComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -26,6 +28,7 @@ import { MatCardModule } from '@angular/material/card';
     ReactiveFormsModule,
     NgApexchartsModule,
     NgxChartsModule,
+    KeycloakAngularModule,
     MatCardModule,
     RouterModule.forChild(PagesRoutes),
     TablerIconsModule.pick(TablerIcons),

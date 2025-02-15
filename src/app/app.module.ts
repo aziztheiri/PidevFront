@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,8 @@ import { FullUserComponent } from './layouts/fullUser/full.component';
 import { HeaderUserComponent } from './layouts/fullUser/header/header.component';
 import { AppNavUserItemComponent } from './layouts/fullUser/sidebar/nav-item/nav-item.component';
 import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.component';
+// app.module.ts
+
 
 @NgModule({
   declarations: [
@@ -48,10 +51,12 @@ import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.compone
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    KeycloakAngularModule,
     ReactiveFormsModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
   ],
+
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
 })
