@@ -112,9 +112,17 @@
 
     <!-- Profile Image Field -->
     <div class="form-group">
-      <label style="color:#004a8d;">Profile Image :</label>
+      <label style="color:#004a8d;">Upload Image :</label>
       <div class="image-upload-container">
-        <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*">
+        <!-- Hidden file input -->
+        <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+        
+        <!-- Clickable upload logo -->
+        <div class="upload-logo" (click)="fileInput.click()">
+          <img src="/assets/images/image-upload.png" alt="Upload Logo" class="upload-icon">
+        </div>
+        
+        <!-- Image preview -->
         <div class="image-preview" *ngIf="imagePreview">
           <img [src]="imagePreview" alt="Preview">
           <button type="button" class="btn btn-sm btn-danger" (click)="removeImage(fileInput)">×</button>
@@ -122,6 +130,7 @@
       </div>
       <small>If no image is selected, a default profile image will be used.</small>
     </div>
+    
 
     <button type="submit" [disabled]="loading" class="submit-btn">
       {{ loading ? 'Signing Up...' : 'Sign Up' }}

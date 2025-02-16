@@ -122,15 +122,25 @@
       <!-- File Input for Image Update -->
       <div class="form-group">
         <label for="image">Profile Image:</label>
-        <input type="file" id="image" (change)="onImageSelected($event)">
+        
+        <!-- Hidden file input with a template reference -->
+        <input type="file" #fileInput (change)="onImageSelected($event)" style="display: none;">
+        
+        <!-- Clickable upload logo -->
+        <div class="upload-logo" (click)="fileInput.click()">
+          <img src="/assets/images/image-upload.png" alt="Upload Logo" class="upload-icon">
+        </div>
       </div>
+      
       <!-- Image Preview -->
       <div class="form-group" *ngIf="imagePreview || selectedUser?.image">
         <label>Image Preview:</label>
         <img [src]="imagePreview || selectedUser.image" alt="Image Preview" class="preview-image">
       </div>
+      
       <!-- Submit Button -->
       <button type="submit" class="update-btn">Update User</button>
+      
     </form>
   </div>
 </div>

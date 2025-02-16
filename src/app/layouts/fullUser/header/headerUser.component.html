@@ -10,14 +10,14 @@
   <div class="toolbar-section center-section" style="flex: 1; text-align: center; margin-top: 10px;">
     <span class="welcome-text"
           style="color: #f38f1d; font-size: 1.2rem; font-weight: 600;">
-      Bienvenue dans le dashboard admin 
+      Bienvenue{{ userName ? ', ' + userName : '' }} dans votre espace client
     </span>
   </div>
 
   <!-- Right Section: Profile Dropdown -->
   <div class="toolbar-section right-section" style="display: flex; align-items: center;">
     <button mat-icon-button [matMenuTriggerFor]="profilemenu" aria-label="Notifications">
-      <img src="/assets/images/profile/user-1.jpg"
+      <img [src]="userImageUrl || '/assets/images/profile/default-user.jpg'"
            class="rounded-circle object-cover"
            width="140"
            alt="User Profile" />
@@ -42,7 +42,7 @@
         My Task
       </button>
       <div class="p-x-12 m-t-12">
-        <!-- Logout Button that calls logout() -->
+        <!-- Logout Button -->
         <button mat-stroked-button color="primary" class="w-100" (click)="logout()">
           Logout
         </button>

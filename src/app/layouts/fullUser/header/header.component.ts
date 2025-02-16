@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 
@@ -23,10 +24,22 @@ export class HeaderUserComponent {
   @Output() toggleCollapsed = new EventEmitter<void>();
 
   showFiller = false;
+  userName: string = ''; 
+  userImageUrl: string | undefined = ''; // Propriété pour l'image de l'utilisateur
 
- 
   constructor(private authService: AuthService, private router: Router,public dialog: MatDialog) {}
-
+  ngOnInit(): void {
+    // Call getUserDetails() to fetch the full user information using the email from the token
+    this.authService.getUserDetails().subscribe({
+      next: (user: User) => {
+        this.userName = user.name; // display the name from the returned user
+        this.userImageUrl = user.image;
+      },
+      error: (err) => {
+        console.error('Error fetching user details:', err);
+      }
+    });
+  }
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);

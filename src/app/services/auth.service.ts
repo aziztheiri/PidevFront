@@ -1,9 +1,10 @@
 // auth.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as jwt_decode from 'jwt-decode';
 import { tap } from 'rxjs/operators'; // ✅ Import tap operator
+import { User } from '../models/user.model';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,12 @@ export class AuthService {
   private logoutUrl = `${this.keycloakUrl}/protocol/openid-connect/logout`;
 
   constructor(private http: HttpClient) {}
-
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('accessToken');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
   login(username: string, password: string): Observable<any> {
     const body = new HttpParams()
       .set('client_id', this.clientId)
@@ -79,7 +85,24 @@ export class AuthService {
       }
     });
   }
-
+  getUserInfo(): { email?: string } | null {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      return null;
+    }
+    const decoded = this.decodeToken(token);
+    return {
+      email: decoded.email
+    };
+  }
+  getUserDetails(): Observable<User> {
+    const userInfo = this.getUserInfo();
+    console.log(userInfo?.email);
+    if (userInfo && userInfo.email) {
+      return this.http.get<User>(`${this.apiUrl}/user/getemail/${userInfo.email}`,{ headers: this.getAuthHeaders() });
+    }
+    return throwError(() => new Error('User email not found in token'));
+  }
   // 🔹 Clear Session
   private clearSession(): void {
     localStorage.removeItem('accessToken');

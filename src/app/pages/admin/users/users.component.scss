@@ -396,3 +396,25 @@ h1 {
   margin-bottom: 15px;
   font-size: 16px;
 }
+
+.upload-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px; /* Adjust the size */
+  height: 50px;
+  border: 2px dashed #004a8d;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.upload-logo:hover {
+  border-color: #003366;
+}
+
+.upload-icon {
+  width: 24px; /* Reduce icon size */
+  height: 24px;
+}
