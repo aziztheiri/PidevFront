@@ -1,0 +1,64 @@
+<form [formGroup]="paiementForm" (ngSubmit)="addPaiement()" class="paiement-form">
+  <label for="montant">Montant:</label>
+  <input id="montant" type="number" formControlName="montant">
+  <div *ngIf="paiementForm.controls['montant'].invalid && paiementForm.controls['montant'].touched" class="error-message">
+    Montant requis et doit être supérieur à 0.
+  </div>
+
+  <label for="type">Type:</label>
+  <select id="type" formControlName="type">
+    <option value="">Sélectionner...</option>
+    <option value="en ligne">En ligne</option>
+    <option value="sur place">Sur place</option>
+  </select>
+
+  <div *ngIf="paiementForm.value.type === 'en ligne'">
+    <label for="numeroCarte">Numéro de Carte:</label>
+    <input id="numeroCarte" type="text" formControlName="numeroCarte" (input)="onCardNumberChange()">
+
+    <!-- Affichage dynamique du logo -->
+    <div *ngIf="cardType">
+      <img *ngIf="cardType === 'visa'" src="../../../../../assets/logos/visa.png" alt="Visa" width="40">
+      <img *ngIf="cardType === 'mastercard'" src="assets/logos/mastercard.png" alt="Mastercard" width="40">
+      <img *ngIf="cardType === 'amex'" src="assets/logos/amex.png" alt="American Express" width="40">
+      <img *ngIf="cardType === 'discover'" src="assets/logos/discover.png" alt="Discover" width="40">
+    </div>
+
+    <div *ngIf="paiementForm.controls['numeroCarte'].invalid && paiementForm.controls['numeroCarte'].touched" class="error-message">
+      Le numéro de carte est requis et doit comporter 16 chiffres.
+    </div>
+
+
+    <label for="expiration">Date d'Expiration:</label>
+    <input id="expiration" type="month" formControlName="expiration">
+    <div *ngIf="paiementForm.controls['expiration'].hasError('expired') && paiementForm.controls['expiration'].touched" class="error-message">
+      La date d'expiration est invalide. Elle doit être dans le futur.
+    </div>
+    <div *ngIf="paiementForm.controls['expiration'].invalid && paiementForm.controls['expiration'].touched" class="error-message">
+      La date d'expiration doit être au format MM/AAAA.
+    </div>
+
+
+    <label for="cvv">CVV:</label>
+    <input id="cvv" type="text" formControlName="cvv">
+    <div *ngIf="paiementForm.controls['cvv'].invalid && paiementForm.controls['cvv'].touched" class="error-message">
+      Le CVV est requis et doit comporter 3 ou 4 chiffres.
+    </div>
+  </div>
+
+  <div *ngIf="paiementForm.value.type === 'sur place'">
+    <label for="agence">Agence:</label>
+    <input id="agence" type="text" formControlName="agence">
+    <div *ngIf="paiementForm.controls['agence'].invalid && paiementForm.controls['agence'].touched" class="error-message">
+      L'agence est requise.
+    </div>
+
+    <label for="date_rdv">Date RDV:</label>
+    <input id="date_rdv" type="date" formControlName="date_rdv">
+    <div *ngIf="paiementForm.controls['date_rdv'].invalid && paiementForm.controls['date_rdv'].touched" class="error-message">
+      La date de rendez-vous est requise.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="paiementForm.invalid">Ajouter Paiement</button>
+</form>

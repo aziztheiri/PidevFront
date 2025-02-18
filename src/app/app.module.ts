@@ -27,9 +27,11 @@ import { FullUserComponent } from './layouts/fullUser/full.component';
 import { HeaderUserComponent } from './layouts/fullUser/header/header.component';
 import { AppNavUserItemComponent } from './layouts/fullUser/sidebar/nav-item/nav-item.component';
 import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.component';
-
+import { PaiementfrontComponent } from './pages/user/mespaiements/paiementfront/paiementfront.component';
+import {CommonModule} from "@angular/common";
 @NgModule({
   declarations: [
+    PaiementfrontComponent,
     AppComponent,
     FullComponent,
     BlankComponent,
@@ -48,6 +50,7 @@ import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.compone
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),

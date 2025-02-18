@@ -1,0 +1,64 @@
+// Conteneur du formulaire
+.paiement-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+// Label des champs
+.paiement-form label {
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+// Champs de saisie
+.paiement-form input,
+.paiement-form select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #dcdcdc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+// Effet au focus sur les champs
+.paiement-form input:focus,
+.paiement-form select:focus {
+  border-color: #3498db;
+  box-shadow: 0px 0px 8px rgba(52, 152, 219, 0.5);
+  outline: none;
+}
+
+// Bouton de soumission
+.paiement-form button {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #c95018;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+// Effet au survol du bouton
+.paiement-form button:hover {
+  background-color: #c95018;
+  transform: scale(1.05);
+}
+
+// Message d'erreur des champs invalides
+.paiement-form .error-message {
+  color: #c95018;
+  font-size: 14px;
+  margin-top: -10px;
+}

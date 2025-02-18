@@ -6,9 +6,11 @@ import { UsersComponent } from './admin/users/users.component';
 import { MesdevisComponent } from './user/mesdevis/mesdevis.component';
 import { MessinistresComponent } from './user/messinistres/messinistres.component';
 import { MesreclamationsComponent } from './user/mesreclamations/mesreclamations.component';
+import { PaiementfrontComponent } from "./user/mespaiements/paiementfront/paiementfront.component";
+
 
 export const PagesRoutes: Routes = [
- 
+
   {
     path: 'home',
     component: HomeComponent,
@@ -33,6 +35,11 @@ export const PagesRoutes: Routes = [
     path: 'reclamations',
     component: MesreclamationsComponent,
     data: { title: 'Reclamations' },
+  },
+
+  { path: 'paiement',
+    component: PaiementfrontComponent,
+    data: { title: 'Paiement' },
   },
 
 ];
