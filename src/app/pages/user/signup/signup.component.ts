@@ -37,6 +37,8 @@ export class SignupComponent {
       ]],
       name: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
+      age: ['', [Validators.required, Validators.min(18)]],
+      gender: ['', Validators.required],
       location: ['', Validators.required],
       password: ['', [
         Validators.required,
@@ -108,7 +110,9 @@ export class SignupComponent {
       password: this.signupForm.value.password,
       location:this.signupForm.value.location,
       userRole:1,     // Default role value
-      creationDate: new Date()    
+      creationDate: new Date()    ,
+      age: this.signupForm.value.age,
+      gender: this.signupForm.value.gender
       // You can add location to your User model if needed.
     };
 

@@ -10,4 +10,6 @@ export interface User {
   showMenu?: boolean;
   verified?: boolean ;
   creationDate:Date;
+  age:number;
+  gender:string;
 }

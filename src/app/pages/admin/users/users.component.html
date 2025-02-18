@@ -54,7 +54,8 @@
         <p><strong>CIN:</strong> {{ user.cin }}</p>
         <p *ngIf="user.location"><strong>Location:</strong> {{ user.location }}</p>
         <p><strong>Status:</strong> {{ user.verified ? 'Verified' : 'Not Verified' }}</p>
-
+        <p><strong>Age:</strong> {{ user.age }}</p>
+        <p><strong>Gender:</strong> {{ user.gender }}</p>
       </div>
     </div>
   </div>
@@ -111,14 +112,22 @@
           <option value="Kebili">Kebili</option>
         </select>
       </div>
+    
       <div class="form-group">
-        <label for="password">Password:</label>
-        <input 
-          type="password" 
-          id="password" 
-          [(ngModel)]="selectedUser.password" 
-          name="password">
+        <label for="age">Age:</label>
+        <input type="number" id="age" [(ngModel)]="selectedUser.age" name="age" required>
       </div>
+
+      <!-- Gender Field -->
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select id="gender" [(ngModel)]="selectedUser.gender" name="gender" required>
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+
       <!-- File Input for Image Update -->
       <div class="form-group">
         <label for="image">Profile Image:</label>

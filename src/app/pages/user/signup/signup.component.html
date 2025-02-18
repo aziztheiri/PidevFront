@@ -95,6 +95,37 @@
       </div>
     </div>
 
+    <!-- Age Field -->
+    <div class="form-group">
+      <label for="age" style="color:#004a8d;">Age :</label>
+      <input id="age" type="number" formControlName="age" 
+             [ngClass]="{'is-invalid': signupForm.get('age')?.touched && signupForm.get('age')?.invalid}">
+      <div *ngIf="signupForm.get('age')?.touched && signupForm.get('age')?.invalid">
+        <small class="error-message" *ngIf="signupForm.get('age')?.errors?.['required']">
+          Age is required.
+        </small>
+        <small class="error-message" *ngIf="signupForm.get('age')?.errors?.['min']">
+          You must be at least 18 years old.
+        </small>
+      </div>
+    </div>
+
+    <!-- Gender Field -->
+    <div class="form-group">
+      <label for="gender" style="color:#004a8d;">Gender :</label>
+      <select id="gender" formControlName="gender" 
+              [ngClass]="{'is-invalid': signupForm.get('gender')?.touched && signupForm.get('gender')?.invalid}">
+        <option value="">Select your gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+      <div *ngIf="signupForm.get('gender')?.touched && signupForm.get('gender')?.invalid">
+        <small class="error-message" *ngIf="signupForm.get('gender')?.errors?.['required']">
+          Gender is required.
+        </small>
+      </div>
+    </div>
+
     <!-- Password Field -->
     <div class="form-group">
       <label for="password" style="color:#004a8d;">Password :</label>
@@ -131,7 +162,6 @@
       <small>If no image is selected, a default profile image will be used.</small>
     </div>
     
-
     <button type="submit" [disabled]="loading" class="submit-btn">
       {{ loading ? 'Signing Up...' : 'Sign Up' }}
     </button>

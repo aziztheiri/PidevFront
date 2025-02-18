@@ -2,24 +2,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  template: `
-    <h2>Login</h2>
-    <form (submit)="login()">
-      <div>
-        <label>Username:</label>
-        <input type="text" [(ngModel)]="username" name="username" required />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input type="password" [(ngModel)]="password" name="password" required />
-      </div>
-      <button type="submit">Login</button>
-      <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
-    </form>
-  `
+  templateUrl: './login.component.html',  
+  styleUrls: ['./login.component.scss']  
 })
 export class LoginComponent {
   username = '';
@@ -27,7 +15,7 @@ export class LoginComponent {
   errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
-
+ 
   login() {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
@@ -57,9 +45,20 @@ export class LoginComponent {
         }
       },
       error: (err) => {
-        console.error(err);
-        this.errorMessage = 'Invalid credentials or server error.';
+      console.error(err);
+      
+      // Check if the error response includes a description
+      if (err.error && err.error.error_description) {
+        const description = err.error.error_description.toLowerCase();
+        if (description.includes('disabled')) {
+          this.errorMessage = 'Your account is disabled. Please contact support.';
+        } else {
+          this.errorMessage = err.error.error_description;
+        }
+      } else {
+        this.errorMessage = 'Invalid credentials.';
       }
-    });
+    }
+  });
   }
 }

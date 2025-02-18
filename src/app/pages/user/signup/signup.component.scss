@@ -207,7 +207,16 @@
   color: #333;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
+.form-group input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 .form-group select:focus {
   border-color: #004a8d;
   box-shadow: 0 0 0 2px rgba(0, 74, 141, 0.2);
