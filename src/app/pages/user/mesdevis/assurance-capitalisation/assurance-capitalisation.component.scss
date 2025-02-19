@@ -1,45 +1,64 @@
 .page-wrapper {
-    padding: 20px;
-  
-    h1 {
-      color: #004a8d;
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-  
-    p {
-      color: #f38f1d;
-      margin-bottom: 20px;
-    }
-  
-    form, .form-display {
+  padding: 20px;
+
+  h1 {
+    color: #004a8d;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #f38f1d;
+    margin-bottom: 20px;
+  }
+
+  .form-card {
+    padding: 20px; // Add padding inside the card
+    border-radius: 8px; // Rounded corners
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Add a subtle shadow
+    background-color: white; // Ensure the card has a white background
+    margin-bottom: 20px; // Add space below the card
+
+    form {
       display: flex;
       flex-direction: column;
       gap: 20px;
-  
+
       mat-form-field {
         width: 100%;
         max-width: 500px;
       }
-  
+
       .orange-button {
         background-color: #f38f1d;
         color: white;
         margin-top: 20px;
       }
     }
-  
-    .form-display {
-      margin-top: 20px;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-  
-      h2 {
-        color: #004a8d;
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-      }
-    }
   }
+
+  .form-display {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  
+    h2 {
+      color: #004a8d;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+  
+    .form-row {
+      display: flex; // Use flexbox to align items in a row
+      flex-wrap: wrap; // Allow wrapping to the next line if necessary
+      gap: 20px; // Space between fields
+  
+      .form-field {
+        flex: 1; // Allow fields to grow and fill the available space
+        min-width: 200px; // Set a minimum width for each field
+        max-width: 300px; // Set a maximum width for each field
+      }
+      
+    }}}

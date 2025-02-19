@@ -1,0 +1,23 @@
+.success-message {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #d4edda; // Light green background
+  border: 1px solid #c3e6cb; // Border color
+  color: #155724; // Text color
+  border-radius: 5px; // Rounded corners
+  text-align: center; // Center the text
+
+  p {
+    margin: 10px 0; // Space between paragraphs
+  }
+
+  .back-button {
+    margin-top: 10px;
+    background-color: #f38f1d; // Button color
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+}

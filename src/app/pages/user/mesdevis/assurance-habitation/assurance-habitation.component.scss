@@ -1,0 +1,92 @@
+.container {
+    max-width: 600px; // Maximum width for the container
+    margin: 0 auto; // Center the container
+    padding: 20px; // Padding inside the container
+    border-radius: 8px; // Rounded corners
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow
+    background-color: white; // White background
+  }
+  
+  h2 {
+    color: #004a8d; // Title color
+    font-size: 1.5rem; // Title size
+    margin-bottom: 10px; // Space below title
+  }
+  
+  p {
+    color: #f38f1d; // Text color
+    margin-bottom: 20px; // Space below paragraph
+  }
+  
+  .pack-container {
+    display: flex; // Use flexbox for layout
+    flex-direction: column; // Stack cards vertically
+    gap: 15px; // Space between pack cards
+  }
+  
+  .pack-card {
+    padding: 20px; // Padding inside the card
+    border-radius: 8px; // Rounded corners
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow for cards
+    transition: transform 0.2s; // Smooth transition for hover effect
+    cursor: pointer; // Change cursor to pointer on hover
+  
+    &:hover {
+      transform: scale(1.02); // Slightly enlarge on hover
+    }
+  
+    button {
+      background-color: white; // Set the initial background color to white
+      color: #f38f1d; // Set the text color to match your theme
+      border: 1px solid #f38f1d; // Add a border to match the text color
+      border-radius: 5px; // Rounded corners
+      padding: 10px 20px; // Padding for the button
+      cursor: pointer; // Change cursor to pointer
+  
+      &:hover {
+        background-color: #f38f1d; // Change background color on hover
+        color: white; // Change text color on hover
+      }
+    }
+  }
+  
+  .form-container {
+    margin-top: 20px; // Space above form
+  }
+  
+  .mat-form-field {
+    width: 100%; // Full width for form fields
+    margin-bottom: 15px; // Space below each form field
+  }
+  
+  button {
+    padding: 10px 20px; // Padding for buttons
+    background-color: #f38f1d; // Button color
+    color: white; // Text color for buttons
+    border: none; // No border
+    border-radius: 5px; // Rounded corners
+    cursor: pointer; // Change cursor to pointer
+  
+    &:hover {
+      background-color: #e67e22; // Darker shade on hover
+    }
+  }
+  
+  button:disabled {
+    background-color: #ccc; // Gray background for disabled buttons
+    cursor: not-allowed; // Change cursor to indicate disabled state
+  }
+  
+  .success-message {
+    margin-top: 20px; // Space above success message
+    padding: 15px; // Padding inside success message
+    background-color: #d4edda; // Light green background
+    border: 1px solid #c3e6cb; // Border color
+    color: #155724; // Text color
+    border-radius: 5px; // Rounded corners
+  }
+  
+  .success-message button {
+    margin-top: 10px; // Space above button in success message
+    background-color: #28a745; // Success button color
+  }

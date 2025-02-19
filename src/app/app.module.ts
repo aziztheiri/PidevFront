@@ -27,7 +27,7 @@ import { FullUserComponent } from './layouts/fullUser/full.component';
 import { HeaderUserComponent } from './layouts/fullUser/header/header.component';
 import { AppNavUserItemComponent } from './layouts/fullUser/sidebar/nav-item/nav-item.component';
 import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.component';
-
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +52,8 @@ import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.compone
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
   ],
-  exports: [TablerIconsModule],
+  exports: [TablerIconsModule,
+    MatNativeDateModule,],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

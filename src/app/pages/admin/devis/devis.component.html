@@ -1,0 +1,70 @@
+<div class="page-wrapper">
+    <h1>Consulter les Devis</h1>
+    <p class="subtitle">Consultez et suivez vos devis</p>
+  
+    <!-- Card Wrapper for Table -->
+    <mat-card class="table-card">
+      <!-- Table -->
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+        </ng-container>
+  
+        <!-- Référence Column -->
+        <ng-container matColumnDef="reference">
+          <th mat-header-cell *matHeaderCellDef>Référence</th>
+          <td mat-cell *matCellDef="let element">{{ element.reference }}</td>
+        </ng-container>
+  
+        <!-- Fait le Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Fait le</th>
+          <td mat-cell *matCellDef="let element">{{ element.date | date }}</td>
+        </ng-container>
+  
+        <!-- Total TTC Column -->
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef>Total TTC</th>
+          <td mat-cell *matCellDef="let element">{{ element.total | currency }}</td>
+        </ng-container>
+  
+        <!-- Statut Column -->
+        <ng-container matColumnDef="statut">
+          <th mat-header-cell *matHeaderCellDef>Statut</th>
+          <td mat-cell *matCellDef="let element">{{ element.statut }}</td>
+        </ng-container>
+  
+        <!-- Header and Row Definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </mat-card>
+  
+   <!-- Statistics Section -->
+<mat-card class="stats-card">
+    <mat-card-title>Statistiques par Type d'Assurance</mat-card-title>
+    <mat-card-content>
+      <div class="d-flex justify-content-between align-items-center">
+        <h4 class="mat-headline-5">Total Devis: {{ totalDevis }}</h4>
+        <mat-form-field appearance="outline" class="theme-select">
+          <mat-select value="type" placeholder="Select Type">
+            <mat-option *ngFor="let type of assuranceTypes" [value]="type.name">
+              {{ type.name }}: {{ type.count }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <apx-chart
+        [series]="assuranceChart.series"
+        [chart]="assuranceChart.chart"
+        [legend]="assuranceChart.legend"
+        [labels]="assuranceChart.labels"
+        [colors]="assuranceChart.colors"
+        [dataLabels]="assuranceChart.dataLabels"
+        [tooltip]="assuranceChart.tooltip"
+      ></apx-chart>
+    </mat-card-content>
+  </mat-card>
+  </div>

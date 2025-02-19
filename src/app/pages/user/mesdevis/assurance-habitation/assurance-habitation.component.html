@@ -1,1 +1,38 @@
-<p>assurance-habitation works!</p>
+<div class="container">
+    <h2>Choisissez votre Pack d'Assurance Habitation</h2>
+    <p>Contactez-nous pour tous vos besoins en assurance.</p>
+  
+    <div class="pack-container">
+      <mat-card class="pack-card" (click)="selectPack('pack1')">
+        <mat-card-title>Pack 1</mat-card-title>
+        <mat-card-content>
+          <p>Description du Pack 1</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Choisir Pack 1</button>
+        </mat-card-actions>
+      </mat-card>
+  
+      <mat-card class="pack-card" (click)="selectPack('pack2')">
+        <mat-card-title>Pack 2</mat-card-title>
+        <mat-card-content>
+          <p>Description du Pack 2</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Choisir Pack 2</button>
+        </mat-card-actions>
+      </mat-card>
+  
+      <mat-card class="pack-card" (click)="selectPack('pack3')">
+        <mat-card-title>Pack 3</mat-card-title>
+        <mat-card-content>
+          <p>Description du Pack 3</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary">Choisir Pack 3</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  
+    <router-outlet></router-outlet>
+  </div>

@@ -14,10 +14,17 @@ import { AssuranceAccidentsComponent } from './user/mesdevis/assurance-accidents
 import { AssuranceCapitalisationComponent } from './user/mesdevis/assurance-capitalisation/assurance-capitalisation.component';
 import { AssurancePrevoyanceComponent } from './user/mesdevis/assurance-prevoyance/assurance-prevoyance.component';
 import { AssuranceSanteInternationaleComponent } from './user/mesdevis/assurance-sante-internationale/assurance-sante-internationale.component';
+import { Step1Component } from './user/mesdevis/assurance-scolaire/step1/step1.component';
+import { Step2Component } from './user/mesdevis/assurance-scolaire/step2/step2.component';
+import { Step3Component } from './user/mesdevis/assurance-scolaire/step3/step3.component';
+import { Step1avComponent } from './user/mesdevis/assurance-voyage/step1av/step1av.component';
+import { Step2avComponent } from './user/mesdevis/assurance-voyage/step2av/step2av.component';
+import { Step3avComponent } from './user/mesdevis/assurance-voyage/step3av/step3av.component';
+import { SuccessMessageComponent } from './user/mesdevis/assurance-sante-internationale/success-message/success-message.component';
+import { FormComponent } from './user/mesdevis/assurance-habitation/form/form.component';
 
 
 export const PagesRoutes: Routes = [
- 
   {
     path: 'home',
     component: HomeComponent,
@@ -49,39 +56,56 @@ export const PagesRoutes: Routes = [
     data: { title: 'Consulter les Devis' },
   },
   {
-    path: 'demander-devis/scolaire',
+    path: 'mesdevis/assurance-scolaire',
     component: AssuranceScolaireComponent,
     data: { title: 'Assurance Scolaire' },
+    children: [
+      { path: '', redirectTo: 'step1', pathMatch: 'full' },
+      { path: 'step1', component: Step1Component },
+      { path: 'step2', component: Step2Component },
+      { path: 'step3', component: Step3Component },
+    ],
   },
   {
-    path: 'demander-devis/voyage',
+    path: 'mesdevis/assurance-voyage',
     component: AssuranceVoyageComponent,
     data: { title: 'Assurance Voyage' },
+    children: [
+      { path: '', redirectTo: 'step1', pathMatch: 'full' },
+      { path: 'step1', component: Step1avComponent },
+      { path: 'step2', component: Step2avComponent },
+      { path: 'step3', component: Step3avComponent },
+    ],
   },
   {
-    path: 'demander-devis/habitation',
+    path: 'mesdevis/assurance-habitation',
     component: AssuranceHabitationComponent,
-    data: { title: 'Assurance Habitation' },
   },
   {
-    path: 'demander-devis/accidents',
+    path: 'mesdevis/assurance-habitation/form/:pack',
+    component: FormComponent,
+  },
+  {
+    path: 'mesdevis/assurance-accidents',
     component: AssuranceAccidentsComponent,
     data: { title: 'Assurance Accidents' },
   },
   {
-    path: 'demander-devis/capitalisation',
+    path: 'mesdevis/assurance-capitalisation',
     component: AssuranceCapitalisationComponent,
     data: { title: 'Assurance Capitalisation' },
   },
   {
-    path: 'demander-devis/prevoyance',
+    path: 'mesdevis/assurance-prevoyance',
     component: AssurancePrevoyanceComponent,
     data: { title: 'Assurance Prévoyance' },
   },
   {
-    path: 'demander-devis/sante-internationale',
+    path: 'mesdevis/assurance-sante-internationale',
     component: AssuranceSanteInternationaleComponent,
     data: { title: 'Assurance Santé Internationale' },
+    children: [
+      { path: 'success', component: SuccessMessageComponent },
+    ],
   },
-
 ];

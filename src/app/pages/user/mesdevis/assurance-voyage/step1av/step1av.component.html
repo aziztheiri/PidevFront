@@ -1,0 +1,67 @@
+<div class="page-wrapper">
+    <h1>Simuler votre Assurance Voyage</h1>
+    <p>Veuillez remplir les informations ci-dessous pour simuler votre assurance voyage.</p>
+  
+    <div class="form-card">
+      <form (ngSubmit)="onSimuler()">
+        <!-- Durée du contrat -->
+        <mat-form-field appearance="outline">
+          <mat-label>Durée du contrat</mat-label>
+          <mat-select [(ngModel)]="dureeContrat" name="dureeContrat" required>
+            <mat-option value="1-8">1 à 8 Jours</mat-option>
+            <mat-option value="9-16">9 à 16 Jours</mat-option>
+            <mat-option value="17-32">17 à 32 Jours</mat-option>
+            <mat-option value="33-60">33 à 60 Jours</mat-option>
+            <mat-option value="61-90">61 à 90 Jours</mat-option>
+            <mat-option value="365">Une Année</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <!-- Date Depart -->
+        <mat-form-field appearance="outline">
+          <mat-label>Date Départ</mat-label>
+          <input matInput [matDatepicker]="departPicker" [(ngModel)]="dateDepart" name="dateDepart" required>
+          <mat-datepicker-toggle matSuffix [for]="departPicker"></mat-datepicker-toggle>
+          <mat-datepicker #departPicker></mat-datepicker>
+        </mat-form-field>
+  
+        <!-- Date Retour -->
+        <mat-form-field appearance="outline">
+          <mat-label>Date Retour</mat-label>
+          <input matInput [matDatepicker]="retourPicker" [(ngModel)]="dateRetour" name="dateRetour" required>
+          <mat-datepicker-toggle matSuffix [for]="retourPicker"></mat-datepicker-toggle>
+          <mat-datepicker #retourPicker></mat-datepicker>
+        </mat-form-field>
+  
+        <!-- Pays -->
+        <mat-form-field appearance="outline">
+          <mat-label>Pays de Destination</mat-label>
+          <mat-select [(ngModel)]="paysDestination" name="paysDestination" required>
+            <mat-option *ngFor="let pays of paysList" [value]="pays">{{ pays }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <!-- Nationalité -->
+        <mat-form-field appearance="outline">
+          <mat-label>Nationalité</mat-label>
+          <mat-select [(ngModel)]="nationalite" name="nationalite" required>
+            <mat-option value="tunisienne">Tunisienne</mat-option>
+            <mat-option value="autre">Autre</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <!-- Tranche d'âge -->
+        <mat-form-field appearance="outline">
+          <mat-label>Tranche d'âge</mat-label>
+          <mat-select [(ngModel)]="ageTranche" name="ageTranche" required>
+            <mat-option value="1-70">Entre 1 et 70 ans</mat-option>
+            <mat-option value="71-75">71 à 75 ans</mat-option>
+            <mat-option value="76-80">76 à 80 ans</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <!-- Submit Button -->
+        <button mat-raised-button class="orange-button" type="submit">Simuler</button>
+      </form>
+    </div>
+  </div>

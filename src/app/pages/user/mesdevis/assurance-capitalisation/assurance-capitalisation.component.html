@@ -1,8 +1,9 @@
 <div class="page-wrapper">
-    <h1>Sacre Capitalisation</h1>
-    <p>Remplissez le formulaire ci-dessous pour obtenir votre devis.</p>
-  
-    <!-- Form -->
+  <h1>Sacre Capitalisation</h1>
+  <p>Remplissez le formulaire ci-dessous pour obtenir votre devis.</p>
+
+  <!-- First Form in a Card -->
+  <mat-card class="form-card">
     <form (ngSubmit)="onSubmit($event)" #capitalisationForm="ngForm">
       <!-- Date d'effet -->
       <mat-form-field appearance="fill">
@@ -11,25 +12,25 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-  
+
       <!-- Durée -->
       <mat-form-field appearance="fill">
         <mat-label>Durée (1 à 100 ans)</mat-label>
         <input matInput type="number" name="duree" ngModel min="1" max="100" required>
       </mat-form-field>
-  
+
       <!-- Capital initial -->
       <mat-form-field appearance="fill">
         <mat-label>Capital initial (0 à 99 000 €)</mat-label>
         <input matInput type="number" name="capitalInitial" ngModel min="0" max="99000" required>
       </mat-form-field>
-  
+
       <!-- Versement régulier -->
       <mat-form-field appearance="fill">
         <mat-label>Versement régulier (0 à 10 000 €)</mat-label>
         <input matInput type="number" name="versementRegulier" ngModel min="0" max="10000" required>
       </mat-form-field>
-  
+
       <!-- Fréquence versement régulier -->
       <mat-form-field appearance="fill">
         <mat-label>Fréquence versement régulier</mat-label>
@@ -40,56 +41,67 @@
           <mat-option value="Mensuel">Mensuel</mat-option>
         </mat-select>
       </mat-form-field>
-  
+
       <!-- Prime Variable -->
       <mat-checkbox name="primeVariable" ngModel>Prime Variable</mat-checkbox>
-  
+
       <!-- Valider Button -->
       <button mat-raised-button type="submit" [disabled]="capitalisationForm.invalid" class="orange-button">
         Valider
       </button>
     </form>
-  
-    <!-- Display Form Data -->
-    <div *ngIf="formSubmitted" class="form-display">
-      <h2>Nous vous prions de bien remplir le formulaire ci-dessous. Votre devis vous sera envoyé par email.</h2>
-  
-      <!-- Nom et Prénom -->
-      <mat-form-field appearance="fill">
-        <mat-label>Nom et Prénom</mat-label>
-        <input matInput name="nomPrenom" ngModel required>
-        <mat-icon matSuffix>person</mat-icon>
-      </mat-form-field>
-  
-      <!-- Email -->
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" name="email" ngModel required>
-        <mat-icon matSuffix>email</mat-icon>
-      </mat-form-field>
-  
-      <!-- Confirmer Email -->
-      <mat-form-field appearance="fill">
-        <mat-label>Confirmer Email</mat-label>
-        <input matInput type="email" name="confirmEmail" ngModel required>
-        <mat-icon matSuffix>email</mat-icon>
-      </mat-form-field>
-  
-      <!-- Téléphone -->
-      <mat-form-field appearance="fill">
-        <mat-label>Téléphone</mat-label>
-        <input matInput type="tel" name="telephone" ngModel required>
-        <mat-icon matSuffix>phone</mat-icon>
-      </mat-form-field>
-  
-      <!-- Conditions -->
-      <mat-checkbox name="conditions" ngModel required>
-        J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page.
-      </mat-checkbox>
-  
-      <!-- Obtenir Devis Button -->
-      <button mat-raised-button class="orange-button" (click)="obtenirDevis()">
-        Obtenir votre devis par mail
-      </button>
-    </div>
+  </mat-card>
+
+ <!-- Display Form Data -->
+<div *ngIf="formSubmitted" class="form-display">
+  <h2>Nous vous prions de bien remplir le formulaire ci-dessous. Votre devis vous sera envoyé par email.</h2>
+
+  <div class="form-row">
+    <!-- Nom et Prénom -->
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Nom et Prénom</mat-label>
+      <input matInput name="nomPrenom" ngModel required>
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
   </div>
+    
+
+
+    <!-- Email -->
+    <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" name="email" ngModel required>
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+  </div>
+
+    <!-- Confirmer Email -->
+    <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Confirmer Email</mat-label>
+      <input matInput type="email" name="confirmEmail" ngModel required>
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+  </div>
+
+    <!-- Téléphone -->
+    <div class="form-row">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Téléphone</mat-label>
+      <input matInput type="tel" name="telephone" ngModel required>
+      <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <!-- Conditions -->
+  <mat-checkbox name="conditions" ngModel required>
+    J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page.
+  </mat-checkbox>
+
+  <!-- Obtenir Devis Button -->
+  <button mat-raised-button class="orange-button" (click)="obtenirDevis()">
+    Obtenir votre devis par mail
+  </button>
+</div>
+</div>
