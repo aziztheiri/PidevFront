@@ -2,9 +2,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as jwt_decode from 'jwt-decode';
-import { tap } from 'rxjs/operators'; // ✅ Import tap operator
+import { catchError, tap } from 'rxjs/operators';
 import { User } from '../models/user.model';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError ,BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,8 @@ export class AuthService {
   private clientId = 'pidev-client';
   private apiUrl = 'http://localhost:8083/users';
   private realm = 'pidev-realm';  // Update with your actual realm name
-
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
   private keycloakUrl = `http://localhost:8180/realms/${this.realm}`;
   private logoutUrl = `${this.keycloakUrl}/protocol/openid-connect/logout`;
 
@@ -25,7 +26,7 @@ export class AuthService {
       'Authorization': `Bearer ${token}`
     });
   }
-  login(username: string, password: string): Observable<any> {
+  /*login(username: string, password: string): Observable<any> {
     const body = new HttpParams()
       .set('client_id', this.clientId)
       .set('username', username)
@@ -43,7 +44,25 @@ export class AuthService {
         }
       })
     );
-  }
+  }*/
+    login(username: string, password: string): Observable<any> {
+      return this.http.post<any>('http://localhost:8083/users/login', null, {
+        params: { username, password }
+      }).pipe(
+        tap(response => {
+          // If the response contains tokens, store them
+          if (response && response.access_token && response.refresh_token) {
+            localStorage.setItem('accessToken', response.access_token);
+            localStorage.setItem('refreshToken', response.refresh_token);
+          }
+        }),
+        catchError(error => {
+          // Handle error (e.g., account deactivation or invalid credentials)
+          console.error('Login error:', error);
+          return throwError(() => error);
+        })
+      );
+    }
   decodeToken(token: string): any {
     return jwt_decode.jwtDecode(token);
   }
@@ -99,7 +118,9 @@ export class AuthService {
     const userInfo = this.getUserInfo();
     console.log(userInfo?.email);
     if (userInfo && userInfo.email) {
-      return this.http.get<User>(`${this.apiUrl}/user/getemail/${userInfo.email}`,{ headers: this.getAuthHeaders() });
+      return this.http.get<User>(`${this.apiUrl}/user/getemail/${userInfo.email}`,{ headers: this.getAuthHeaders() }).pipe(
+        tap(user => this.currentUserSubject.next(user))
+      );
     }
     return throwError(() => new Error('User email not found in token'));
   }

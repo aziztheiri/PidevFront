@@ -55,6 +55,14 @@ export class UserService {
     }
     return this.http.put<User>(`${this.baseUrl}/admin/${cin}`, formData, { headers: this.getAuthHeaders() });
   }
+  updateNotAdminUser(cin: string, user: User, image?: File): Observable<User> {
+    const formData = new FormData();
+    formData.append('user', JSON.stringify(user));
+    if (image) {
+      formData.append('image', image);
+    }
+    return this.http.put<User>(`${this.baseUrl}/user/${cin}`, formData, { headers: this.getAuthHeaders() });
+  }
   desactivateUser(cin: string): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/admin/desactivate/${cin}`, {}, { headers: this.getAuthHeaders() });
   }

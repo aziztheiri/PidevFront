@@ -48,7 +48,10 @@ export class LoginComponent {
       console.error(err);
       
       // Check if the error response includes a description
-      if (err.error && err.error.error_description) {
+      if (err.status === 403) {
+        // Extracting the message sent from the backend
+        this.errorMessage = err.error ? err.error : 'Access Denied: Your account may be locked.';
+      } else if (err.error && err.error.error_description) {
         const description = err.error.error_description.toLowerCase();
         if (description.includes('disabled')) {
           this.errorMessage = 'Your account is disabled. Please contact support.';
@@ -56,7 +59,7 @@ export class LoginComponent {
           this.errorMessage = err.error.error_description;
         }
       } else {
-        this.errorMessage = 'Invalid credentials.';
+        this.errorMessage = 'Invalid credentials . Please try again.';
       }
     }
   });

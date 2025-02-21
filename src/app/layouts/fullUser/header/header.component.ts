@@ -27,21 +27,27 @@ export class HeaderUserComponent {
   userName: string = ''; 
   userImageUrl: string | undefined = ''; // Propriété pour l'image de l'utilisateur
 
+
   constructor(private authService: AuthService, private router: Router,public dialog: MatDialog) {}
   ngOnInit(): void {
     // Call getUserDetails() to fetch the full user information using the email from the token
-    this.authService.getUserDetails().subscribe({
-      next: (user: User) => {
-        this.userName = user.name; // display the name from the returned user
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.userName = user.name;
         this.userImageUrl = user.image;
-      },
-      error: (err) => {
-        console.error('Error fetching user details:', err);
       }
+    });
+
+    // Initial fetch to load user data
+    this.authService.getUserDetails().subscribe({
+      error: (err) => console.error('Error fetching user details:', err)
     });
   }
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+  goToProfile(): void {
+    this.router.navigate(['/user/profile']); 
   }
 }

@@ -17,10 +17,11 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatCardModule } from '@angular/material/card';
 import { LogoutComponent } from './logout/logout.component';
 import { KeycloakAngularModule } from 'keycloak-angular';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 
 @NgModule({
-  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent,LogoutComponent],
+  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent,LogoutComponent,UserProfileComponent],
   imports: [
     CommonModule,
     MaterialModule,

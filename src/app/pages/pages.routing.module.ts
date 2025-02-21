@@ -7,6 +7,7 @@ import { MesdevisComponent } from './user/mesdevis/mesdevis.component';
 import { MessinistresComponent } from './user/messinistres/messinistres.component';
 import { MesreclamationsComponent } from './user/mesreclamations/mesreclamations.component';
 import { LogoutComponent } from './logout/logout.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 export const PagesRoutes: Routes = [
  
@@ -39,6 +40,11 @@ export const PagesRoutes: Routes = [
     path: 'logout',
     component: LogoutComponent,
     data: { title: 'logout' },
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent,
+    data: { title: 'profile' },
   },
 
 ];
