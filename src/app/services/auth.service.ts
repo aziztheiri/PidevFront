@@ -12,7 +12,7 @@ import { Observable, throwError ,BehaviorSubject } from 'rxjs';
 export class AuthService {
   private tokenUrl = 'http://localhost:8180/realms/pidev-realm/protocol/openid-connect/token';
   private clientId = 'pidev-client';
-  private apiUrl = 'http://localhost:8083/users';
+  private apiUrl = 'http://localhost:8090/users';
   private realm = 'pidev-realm';  // Update with your actual realm name
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
@@ -46,7 +46,7 @@ export class AuthService {
     );
   }*/
     login(username: string, password: string): Observable<any> {
-      return this.http.post<any>('http://localhost:8083/users/login', null, {
+      return this.http.post<any>('http://localhost:8090/users/login', null, {
         params: { username, password }
       }).pipe(
         tap(response => {
