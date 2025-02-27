@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AssuranceVoyageComponent } from '../assurance-voyage.component'; // Import AssuranceVoyageComponent
 
 @Component({
   selector: 'app-step1av',
@@ -18,10 +19,19 @@ export class Step1avComponent {
     'France', 'Allemagne', 'Italie', 'Espagne', 'États-Unis', 'Canada', // Add your list of countries excluding Tunisia
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private assuranceVoyageComponent: AssuranceVoyageComponent) {}
 
   onSimuler() {
-    // Add form validation or logic if needed
-    this.router.navigate(['/mesdevis/assurance-voyage/step2av']); // Redirect to Step 2
+    const step1Data = {
+      dureeContrat: this.dureeContrat,
+      dateDepart: this.dateDepart,
+      dateRetour: this.dateRetour,
+      paysDestination: this.paysDestination,
+      nationalite: this.nationalite,
+      ageTranche: this.ageTranche
+    };
+
+    // Navigate to Step 2
+    this.router.navigate(['/user/mesdevis/assurance-voyage/step2'], { state: { step1Data } });
   }
 }

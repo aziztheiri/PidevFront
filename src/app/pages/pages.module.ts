@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PagesRoutes } from './pages.routing.module';
 import { MaterialModule } from '../material.module'; // Import MaterialModule
+import {MatIconModule} from '@angular/material/icon'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Add ReactiveFormsModule if needed
 import { NgApexchartsModule } from 'ng-apexcharts';
 // icons
@@ -58,7 +59,8 @@ import { DevisComponent } from './admin/devis/devis.component';
   ],
   imports: [
     CommonModule,
-    MaterialModule, // Import MaterialModule here
+    MaterialModule,
+    MatIconModule, // Import MaterialModule here
     FormsModule,
     ReactiveFormsModule, // Add if you're using reactive forms
     NgApexchartsModule,

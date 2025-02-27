@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AssuranceVoyageComponent } from '../assurance-voyage.component'; // Import AssuranceVoyageComponent
 
 @Component({
   selector: 'app-step2av',
@@ -6,14 +8,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./step2av.component.scss']
 })
 export class Step2avComponent {
-  
+  step1Data: any;
+  primeTotale: number = 45.65; // Assuming this is the total prime
+
+  constructor(private router: Router, private assuranceVoyageComponent: AssuranceVoyageComponent) {
+    const navigation = this.router.getCurrentNavigation();
+    this.step1Data = navigation?.extras.state?.['step1Data'];
+  }
+
   previousStep() {
-    // Logic to redirect to step 1
-    console.log('Redirecting to step 1');
+    this.router.navigate(['/user/mesdevis/assurance-voyage/step1']);
   }
 
   nextStep() {
-    // Logic to redirect to step 3
-    console.log('Redirecting to step 3');
+    const step2Data = {
+      primeTotale: this.primeTotale
+    };
+
+    // Navigate to Step 3
+    this.router.navigate(['/user/mesdevis/assurance-voyage/step3'], { state: { step1Data: this.step1Data, step2Data } });
   }
 }

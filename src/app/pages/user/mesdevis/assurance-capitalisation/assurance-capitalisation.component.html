@@ -34,7 +34,7 @@
       <!-- Fréquence versement régulier -->
       <mat-form-field appearance="fill">
         <mat-label>Fréquence versement régulier</mat-label>
-        <mat-select name="frequenceVersement" ngModel required>
+        <mat-select name="frequence" ngModel required>
           <mat-option value="Annuelle">Annuelle</mat-option>
           <mat-option value="Semestrielle">Semestrielle</mat-option>
           <mat-option value="Trimestrielle">Trimestrielle</mat-option>
@@ -52,56 +52,57 @@
     </form>
   </mat-card>
 
- <!-- Display Form Data -->
-<div *ngIf="formSubmitted" class="form-display">
-  <h2>Nous vous prions de bien remplir le formulaire ci-dessous. Votre devis vous sera envoyé par email.</h2>
+  <!-- Display Form Data -->
+  <div *ngIf="formSubmitted" class="form-display">
+    <h2>Nous vous prions de bien remplir le formulaire ci-dessous. Votre devis vous sera envoyé par email.</h2>
 
-  <div class="form-row">
-    <!-- Nom et Prénom -->
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>Nom et Prénom</mat-label>
-      <input matInput name="nomPrenom" ngModel required>
-      <mat-icon matSuffix>person</mat-icon>
-    </mat-form-field>
+    <!-- Second Form in a Card -->
+    <mat-card class="form-card">
+      <form>
+        <!-- Nom -->
+        <mat-form-field appearance="fill">
+          <mat-label>Nom</mat-label>
+          <input matInput name="nom" ngModel required>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <!-- Prénom -->
+        <mat-form-field appearance="fill">
+          <mat-label>Prénom</mat-label>
+          <input matInput name="prenom" ngModel required>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" name="email" ngModel required>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <!-- Confirmer Email -->
+        <mat-form-field appearance="fill">
+          <mat-label>Confirmer Email</mat-label>
+          <input matInput type="email" name="confirmEmail" ngModel required>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <!-- Téléphone -->
+        <mat-form-field appearance="fill">
+          <mat-label>Téléphone</mat-label>
+          <input matInput type="tel" name="telephone" ngModel required>
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+
+        <!-- Conditions -->
+        <mat-checkbox name="conditions" ngModel required>
+          J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page.
+        </mat-checkbox>
+
+        <!-- Obtenir Devis Button -->
+        <button mat-raised-button class="orange-button" (click)="obtenirDevis()">
+          Obtenir votre devis par mail
+        </button>
+      </form>
+    </mat-card>
   </div>
-    
-
-
-    <!-- Email -->
-    <div class="form-row">
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>Email</mat-label>
-      <input matInput type="email" name="email" ngModel required>
-      <mat-icon matSuffix>email</mat-icon>
-    </mat-form-field>
-  </div>
-
-    <!-- Confirmer Email -->
-    <div class="form-row">
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>Confirmer Email</mat-label>
-      <input matInput type="email" name="confirmEmail" ngModel required>
-      <mat-icon matSuffix>email</mat-icon>
-    </mat-form-field>
-  </div>
-
-    <!-- Téléphone -->
-    <div class="form-row">
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>Téléphone</mat-label>
-      <input matInput type="tel" name="telephone" ngModel required>
-      <mat-icon matSuffix>phone</mat-icon>
-    </mat-form-field>
-  </div>
-
-  <!-- Conditions -->
-  <mat-checkbox name="conditions" ngModel required>
-    J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page.
-  </mat-checkbox>
-
-  <!-- Obtenir Devis Button -->
-  <button mat-raised-button class="orange-button" (click)="obtenirDevis()">
-    Obtenir votre devis par mail
-  </button>
-</div>
 </div>

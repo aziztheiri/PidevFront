@@ -1,80 +1,52 @@
-.container {
-  max-width: 600px;
-  margin: 0 auto;
+.page-wrapper {
   padding: 20px;
-  border-radius: 8px; // Rounded corners
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow
-  background-color: white; // White background
-}
 
-h2 {
-  color: #004a8d; // Title color
-  font-size: 1.5rem; // Title size
-  margin-bottom: 10px; // Space below title
-}
+  h2 {
+    color: #004a8d;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
 
-p {
-  color: #f38f1d; // Text color
-  margin-bottom: 20px; // Space below paragraph
-}
+  p {
+    color: #f38f1d;
+    margin-bottom: 20px;
+  }
 
-.form-group {
-  margin-bottom: 15px;
-}
+  .form-card {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin-bottom: 20px;
 
-label {
-  display: block;
-  margin-bottom: 5px;
-}
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="date"],
-textarea {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc; // Border color
-  border-radius: 4px; // Rounded corners
-}
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
 
-button {
-  padding: 10px 20px;
-  background-color: #f38f1d; // Button color
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+        mat-form-field {
+          width: 100%;
+          max-width: 500px;
+        }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
+        mat-checkbox {
+          margin-top: 10px;
+        }
+      }
 
-.success-message {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  color: #155724;
-  border-radius: 5px;
-}
-
-.success-message button {
-  margin-top: 10px;
-  background-color: #28a745; // Success button color
-}
-.orange-button {
-  background-color: #f38f1d; // Button color
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #e67e22; // Darker shade on hover
+      .orange-button {
+        background-color: #f38f1d;
+        color: white;
+        margin-top: 20px;
+        align-self: center;
+        padding: 10px 30px;
+        font-size: 1rem;
+      }
+    }
   }
 }

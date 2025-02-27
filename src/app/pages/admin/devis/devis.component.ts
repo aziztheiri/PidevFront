@@ -1,40 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { DevisService } from '../../../services/devis.service';
+import { Devis } from '../../../models/devis.model';
 import {
   ApexChart,
   ApexAxisChartSeries,
   ApexDataLabels,
   ApexLegend,
   ApexTooltip,
-  ApexPlotOptions,
 } from 'ng-apexcharts';
-
-interface Devis {
-  type: string;
-  reference: string;
-  date: Date;
-  total: number;
-  statut: string;
-}
 
 @Component({
   selector: 'app-devis',
   templateUrl: './devis.component.html',
   styleUrls: ['./devis.component.scss'],
 })
-export class DevisComponent {
-  displayedColumns: string[] = ['type', 'reference', 'date', 'total', 'statut'];
-  dataSource: Devis[] = [
-    { type: 'accidents', reference: 'REF001', date: new Date(), total: 150.00, statut: 'En attente' },
-    { type: 'capitalisation', reference: 'REF002', date: new Date(), total: 200.00, statut: 'Confirmé' },
-    { type: 'habitation', reference: 'REF003', date: new Date(), total: 250.00, statut: 'Annulé' },
-    { type: 'prevoyance', reference: 'REF004', date: new Date(), total: 300.00, statut: 'En attente' },
-    { type: 'sante-internationale', reference: 'REF005', date: new Date(), total: 350.00, statut: 'Confirmé' },
-    { type: 'scolaire', reference: 'REF006', date: new Date(), total: 400.00, statut: 'En attente' },
-    { type: 'voyage', reference: 'REF007', date: new Date(), total: 450.00, statut: 'Confirmé' },
+export class DevisComponent implements OnInit {
+  displayedColumns: string[] = [
+    'id',
+    'typeAssurance',
+    'montant',
+    'dateCalcul',
+    'statut',
+    'dateDebutContrat',
+    'dateFinContrat',
   ];
+  dataSource: MatTableDataSource<Devis>;
+  totalDevis: number = 0;
+  assuranceTypes: { name: string; count: number }[] = [];
+  selectedType: string = '';
+  searchText: string = '';
 
-  totalDevis: number = 0; // Declare totalDevis property
-  assuranceTypes: { name: string; count: number }[] = []; // Declare assuranceTypes property
+  // Chart configurations
   assuranceChart: {
     series: ApexAxisChartSeries;
     chart: ApexChart;
@@ -43,7 +42,6 @@ export class DevisComponent {
     colors: string[];
     dataLabels: { enabled: boolean };
     tooltip: { theme: string };
-    plotOptions: ApexPlotOptions; // Add plotOptions to the chart type
   } = {
     series: [],
     chart: {
@@ -54,43 +52,107 @@ export class DevisComponent {
       show: true,
     },
     labels: [],
-    colors: ['#f38f1d'], // Set the color to orange
+    colors: ['#f38f1d'],
     dataLabels: {
       enabled: true,
     },
     tooltip: {
       theme: 'light',
     },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: '30%', // Adjust the width of the bars
-        // Remove endingShape as it's not a valid property
-      },
+  };
+
+  statusChart: {
+    series: number[];
+    chart: ApexChart;
+    labels: string[];
+    colors: string[];
+    dataLabels: { enabled: boolean };
+    tooltip: { theme: string };
+  } = {
+    series: [],
+    chart: {
+      type: 'pie',
+      height: 350,
+    },
+    labels: [],
+    colors: ['#004a8d', '#f38f1d', '#28a745', '#dc3545'],
+    dataLabels: {
+      enabled: true,
+    },
+    tooltip: {
+      theme: 'light',
     },
   };
 
-  constructor() {
-    this.calculateStatistics();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private devisService: DevisService) {
+    this.dataSource = new MatTableDataSource<Devis>([]);
   }
 
-  calculateStatistics() {
-    this.totalDevis = this.dataSource.length; // Calculate total devis
+  ngOnInit(): void {
+    this.loadDevis();
+  }
 
-    const typeCounts: { [key: string]: number } = this.dataSource.reduce((acc, devis) => {
-      acc[devis.type] = (acc[devis.type] || 0) + 1;
+  loadDevis(): void {
+    this.devisService.getAllDevis().subscribe(
+      (data: Devis[]) => {
+        this.dataSource.data = data;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.calculateStatistics();
+        this.calculateStatusStatistics();
+      },
+      (error) => {
+        console.error('Error fetching devis:', error);
+      }
+    );
+  }
+
+  applyFilter(): void {
+    this.dataSource.filter = this.searchText.trim().toLowerCase();
+  }
+
+  calculateStatistics(): void {
+    this.totalDevis = this.dataSource.data.length;
+
+    const typeCounts: { [key: string]: number } = this.dataSource.data.reduce((acc, devis) => {
+      acc[devis.typeAssurance] = (acc[devis.typeAssurance] || 0) + 1;
       return acc;
     }, {} as { [key: string]: number });
 
-    this.assuranceTypes = Object.keys(typeCounts).map(type => ({
+    this.assuranceTypes = Object.keys(typeCounts).map((type) => ({
       name: type,
       count: typeCounts[type],
     }));
 
-    this.assuranceChart.series = [{
-      name: 'Types d\'Assurance',
-      data: Object.values(typeCounts),
-    }];
+    // Update the bar chart data
+    this.assuranceChart.series = [
+      {
+        name: "Types d'Assurance",
+        data: Object.values(typeCounts),
+      },
+    ];
     this.assuranceChart.labels = Object.keys(typeCounts);
+  }
+
+  calculateStatusStatistics(): void {
+    const statusCounts: { [key: string]: number } = this.dataSource.data.reduce((acc, devis) => {
+      acc[devis.statut] = (acc[devis.statut] || 0) + 1;
+      return acc;
+    }, {} as { [key: string]: number });
+
+    // Update the pie chart data
+    this.statusChart.series = Object.values(statusCounts) as number[];
+    this.statusChart.labels = Object.keys(statusCounts);
+  }
+
+  formatId(id: number): string {
+    if (id < 100) {
+      return `REF${String(id).padStart(2, '0')}`;
+    } else {
+      return `REF${id}`;
+    }
   }
 }

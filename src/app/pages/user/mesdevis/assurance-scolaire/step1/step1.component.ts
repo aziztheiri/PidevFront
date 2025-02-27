@@ -25,28 +25,19 @@ export class Step1Component {
   }
 
   nextStep() {
-    if (this.selectedType === 'female' || this.selectedType === 'male') {
-      // Handle individual form submission
-      console.log({
-        idType: this.idType,
-        idNumber: this.idNumber,
-        lastName: this.lastName,
-        firstName: this.firstName,
-        phoneNumber: this.phoneNumber,
-        email: this.email,
-        termsAccepted: this.termsAccepted
-      });
-    } else if (this.selectedType === 'etablissement') {
-      // Handle establishment form submission
-      console.log({
-        fiscalId: this.fiscalId,
-        companyName: this.companyName,
-        phoneNumber: this.phoneNumber,
-        email: this.email,
-        termsAccepted: this.termsAccepted
-      });
-    }
+    const step1Data = {
+      selectedType: this.selectedType,
+      idType: this.idType,
+      idNumber: this.idNumber,
+      lastName: this.lastName,
+      firstName: this.firstName,
+      phoneNumber: this.phoneNumber,
+      email: this.email,
+      termsAccepted: this.termsAccepted,
+      fiscalId: this.fiscalId,
+      companyName: this.companyName
+    };
 
-    this.router.navigate(['/user/mesdevis/assurance-scolaire/step2']);
+    this.router.navigate(['/user/mesdevis/assurance-scolaire/step2'], { state: { step1Data } });
   }
 }
