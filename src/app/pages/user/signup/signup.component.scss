@@ -231,5 +231,20 @@ input.ng-touched.ng-valid,
 select.ng-touched.ng-valid {
   border-color: green !important;
 }
+.signup-link {
+  text-align: center;
+  margin-top: 15px;
+  color: #004a8d;
+}
+
+.signup-link a {
+  color: #f38f1d;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
 
   

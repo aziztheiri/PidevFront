@@ -82,11 +82,25 @@ $background-color: #fff;
   justify-content: center;
   z-index: 2000;
 }
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 4px;
+}
+input.ng-touched.ng-invalid,
+select.ng-touched.ng-invalid {
+  border-color: red !important;
+}
+
+input.ng-touched.ng-valid,
+select.ng-touched.ng-valid {
+  border-color: green !important;
+}
 
 .modal {
   background-color: $background-color;
   border-radius: 8px;
-  width: 400px;
+  width: 500px;
   max-width: 90%;
   padding: 20px;
   position: relative;

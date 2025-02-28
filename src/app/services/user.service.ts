@@ -71,4 +71,11 @@ export class UserService {
     return this.http.post<User>(`${this.baseUrl}/admin/activate/${cin}`, {}, { headers: this.getAuthHeaders() });
   }
   
+  updatePassword(cin: string, oldPassword: string, newPassword: string): Observable<string> {
+    const body = { oldPassword, newPassword };
+    return this.http.put(`${this.baseUrl}/user/password/${cin}`, body, { 
+      headers: this.getAuthHeaders(), 
+      responseType: 'text' 
+    });
+  }
 }

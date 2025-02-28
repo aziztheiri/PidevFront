@@ -15,7 +15,8 @@ export class UsersComponent {
   successMessage: string = '';
   imagePreview: string | ArrayBuffer | null = null;
   selectedImageFile: File | undefined;
-
+  sortBy: string = '';
+  filterVerified: string = '';
   constructor(private userService: UserService) { }
 
   search_item: string = '';
@@ -57,13 +58,36 @@ export class UsersComponent {
     }
   }
 
-  filterUsers() {
+  filterUsers(): User[] {
     const searchTerm = this.search_item.toLowerCase();
-    return this.users.filter(user =>
+
+    // Initial search filtering
+    let filteredUsers = this.users.filter(user =>
       user.cin.toLowerCase().includes(searchTerm) ||
       user.email.toLowerCase().includes(searchTerm) ||
       (user.location ? user.location.toLowerCase().includes(searchTerm) : false)
     );
+
+    // Filter by verification status if selected
+    if (this.filterVerified === 'verified') {
+      filteredUsers = filteredUsers.filter(user => user.verified);
+    } else if (this.filterVerified === 'notVerified') {
+      filteredUsers = filteredUsers.filter(user => !user.verified);
+    }
+
+    // Apply sorting if a sort field is selected
+    if (this.sortBy) {
+      filteredUsers.sort((a: any, b: any) => {
+        if (a[this.sortBy] < b[this.sortBy]) {
+          return -1;
+        } else if (a[this.sortBy] > b[this.sortBy]) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+    return filteredUsers;
   }
 
   openUpdateModal(user: User): void {

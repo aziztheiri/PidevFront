@@ -50,4 +50,7 @@ export class HeaderUserComponent {
   goToProfile(): void {
     this.router.navigate(['/user/profile']); 
   }
+  gotoUpdate():void{
+    this.router.navigate(['/user/updatePassword'])
+  }
 }

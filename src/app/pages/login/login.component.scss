@@ -39,7 +39,107 @@
     font-weight: bold;
   }
   
-  /* Input styling */
+  /* Input styling *//* Center the page vertically and horizontally */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0; /* optional background color */
+}
+
+/* Container for the entire login form */
+.login-container {
+  max-width: 500px; /* increased width */
+  width: 100%;
+  padding: 40px; /* extra padding for a bigger look */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo container styling */
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 200px; /* Adjust size as needed */
+  height: auto;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Spacing for form groups */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Label styling */
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #004a8d;
+  font-weight: bold;
+}
+
+/* Input styling */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Button styling with orange background */
+button {
+  padding: 10px;
+  background-color: #f38f1d; /* Orange color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #e37e0b; /* Slightly darker orange on hover */
+}
+
+/* Error message styling */
+.error-message {
+  margin-top: 15px;
+  color: red;
+  text-align: center;
+}
+
+/* Sign up link styling */
+.signup-link {
+  text-align: center;
+  margin-top: 15px;
+  color: #004a8d;
+}
+
+.signup-link a {
+  color: #f38f1d;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
   input[type="text"],
   input[type="password"] {
     width: 100%;

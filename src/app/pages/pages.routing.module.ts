@@ -8,6 +8,7 @@ import { MessinistresComponent } from './user/messinistres/messinistres.componen
 import { MesreclamationsComponent } from './user/mesreclamations/mesreclamations.component';
 import { LogoutComponent } from './logout/logout.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { UpdateUserComponent } from './user/update-user/update-user.component';
 
 export const PagesRoutes: Routes = [
  
@@ -45,6 +46,11 @@ export const PagesRoutes: Routes = [
     path: 'profile',
     component: UserProfileComponent,
     data: { title: 'profile' },
+  },
+  {
+    path: 'updatePassword',
+    component: UpdateUserComponent,
+    data: { title: 'updatePassword' },
   },
 
 ];

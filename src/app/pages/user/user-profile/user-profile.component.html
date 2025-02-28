@@ -1,101 +1,164 @@
 <!-- User Profile Display -->
 <div class="user-profile-page">
-    <h1>User Profile</h1>
-    <div class="user-info">
-      <img [src]="user?.image || '/assets/images/profile/default-user.jpg'" alt="Profile Image" class="profile-img">
-      <p><strong>Name:</strong> {{ user?.name }}</p>
-      <p><strong>Email:</strong> {{ user?.email }}</p>
-      <p><strong>Location:</strong> {{ user?.location }}</p>
-      <p><strong>Age:</strong> {{ user?.age }}</p>
-      <p><strong>Gender:</strong> {{ user?.gender }}</p>
-    </div>
-    <button (click)="openUpdateModal(user)">Update Profile</button>
+  <h1>User Profile</h1>
+  <div class="user-info">
+    <img [src]="user?.image || '/assets/images/profile/default-user.jpg'" alt="Profile Image" class="profile-img">
+    <p><strong>Name:</strong> {{ user?.name }}</p>
+    <p><strong>Email:</strong> {{ user?.email }}</p>
+    <p><strong>Location:</strong> {{ user?.location }}</p>
+    <p><strong>Age:</strong> {{ user?.age }}</p>
+    <p><strong>Gender:</strong> {{ user?.gender }}</p>
   </div>
-  
-  <!-- Update User Modal -->
-  <div class="modal-overlay" *ngIf="selectedUser">
-    <div class="modal">
-      <span class="close" (click)="closeUpdateModal()">&times;</span>
-      <h2>Update User</h2>
-  
-      <!-- Success Message -->
-      <div *ngIf="successMessage" class="success-message">
-        {{ successMessage }}
+  <button (click)="openUpdateModal(user)">Update Profile</button>
+</div>
+
+<!-- Update User Modal -->
+<div class="modal-overlay" *ngIf="selectedUser">
+  <div class="modal">
+    <span class="close" (click)="closeUpdateModal()">&times;</span>
+    <h2>Update User</h2>
+
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <!-- Note: Added template reference variable for the form -->
+    <form #updateForm="ngForm" (ngSubmit)="submitUpdate(updateForm)">
+      <!-- Name Field with Validation -->
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="selectedUser.name"
+          name="name"
+          #name="ngModel"
+          required
+          minlength="5"
+        />
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error">
+          <div *ngIf="name.errors?.['required']">Name is required.</div>
+          <div *ngIf="name.errors?.['minlength']">Name must be at least 5 characters.</div>
+        </div>
       </div>
-  
-      <form (ngSubmit)="submitUpdate()">
-        <div class="form-group">
-          <label for="name">Name:</label>
-          <input type="text" id="name" [(ngModel)]="selectedUser.name" name="name" required>
+
+      <!-- Email Field with Validation -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="selectedUser.email"
+          name="email"
+          #email="ngModel"
+          required
+          email
+        />
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+          <div *ngIf="email.errors?.['required']">Email is required.</div>
+          <div *ngIf="email.errors?.['email']">Please enter a valid email.</div>
         </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" [(ngModel)]="selectedUser.email" name="email" required>
+      </div>
+
+      <!-- Location Field with Validation -->
+      <div class="form-group">
+        <label for="location">Location:</label>
+        <select
+          id="location"
+          [(ngModel)]="selectedUser.location"
+          name="location"
+          #location="ngModel"
+          required
+        >
+          <option value="">Select a location</option>
+          <option value="Tunis">Tunis</option>
+          <option value="Ariana">Ariana</option>
+          <option value="Ben Arous">Ben Arous</option>
+          <option value="Manouba">Manouba</option>
+          <option value="Nabeul">Nabeul</option>
+          <option value="Zaghouan">Zaghouan</option>
+          <option value="Bizerte">Bizerte</option>
+          <option value="Béja">Béja</option>
+          <option value="Jendouba">Jendouba</option>
+          <option value="Kef">Kef</option>
+          <option value="Siliana">Siliana</option>
+          <option value="Sousse">Sousse</option>
+          <option value="Monastir">Monastir</option>
+          <option value="Mahdia">Mahdia</option>
+          <option value="Sfax">Sfax</option>
+          <option value="Kairouan">Kairouan</option>
+          <option value="Kasserine">Kasserine</option>
+          <option value="Sidi Bouzid">Sidi Bouzid</option>
+          <option value="Gabès">Gabès</option>
+          <option value="Medenine">Medenine</option>
+          <option value="Tataouine">Tataouine</option>
+          <option value="Gafsa">Gafsa</option>
+          <option value="Tozeur">Tozeur</option>
+          <option value="Kebili">Kebili</option>
+        </select>
+        <div *ngIf="location.invalid && (location.dirty || location.touched)" class="error">
+          <div *ngIf="location.errors?.['required']">Location is required.</div>
         </div>
-        <div class="form-group">
-          <label for="location">Location:</label>
-          <select id="location" [(ngModel)]="selectedUser.location" name="location">
-            <option value="">Select a location</option>
-            <option value="Tunis">Tunis</option>
-            <option value="Ariana">Ariana</option>
-            <option value="Ben Arous">Ben Arous</option>
-            <option value="Manouba">Manouba</option>
-            <option value="Nabeul">Nabeul</option>
-            <option value="Zaghouan">Zaghouan</option>
-            <option value="Bizerte">Bizerte</option>
-            <option value="Béja">Béja</option>
-            <option value="Jendouba">Jendouba</option>
-            <option value="Kef">Kef</option>
-            <option value="Siliana">Siliana</option>
-            <option value="Sousse">Sousse</option>
-            <option value="Monastir">Monastir</option>
-            <option value="Mahdia">Mahdia</option>
-            <option value="Sfax">Sfax</option>
-            <option value="Kairouan">Kairouan</option>
-            <option value="Kasserine">Kasserine</option>
-            <option value="Sidi Bouzid">Sidi Bouzid</option>
-            <option value="Gabès">Gabès</option>
-            <option value="Medenine">Medenine</option>
-            <option value="Tataouine">Tataouine</option>
-            <option value="Gafsa">Gafsa</option>
-            <option value="Tozeur">Tozeur</option>
-            <option value="Kebili">Kebili</option>
-          </select>
+      </div>
+
+      <!-- Age Field with Validation -->
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input
+          type="number"
+          id="age"
+          [(ngModel)]="selectedUser.age"
+          name="age"
+          #age="ngModel"
+          required
+          min="18"
+          max="90"
+        />
+        <div *ngIf="age.invalid && (age.dirty || age.touched)" class="error">
+          <div *ngIf="age.errors?.['required']">Age is required.</div>
+          <div *ngIf="age.errors?.['min'] || age.errors?.['max']">Age must be between 18 and 90.</div>
         </div>
-      
-        <div class="form-group">
-          <label for="age">Age:</label>
-          <input type="number" id="age" [(ngModel)]="selectedUser.age" name="age" required>
+      </div>
+
+      <!-- Gender Field with Validation -->
+      <div class="form-group">
+        <label for="gender">Gender:</label>
+        <select
+          id="gender"
+          [(ngModel)]="selectedUser.gender"
+          name="gender"
+          #gender="ngModel"
+          required
+        >
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="error">
+          <div *ngIf="gender.errors?.['required']">Gender is required.</div>
         </div>
-  
-        <!-- Gender Field -->
-        <div class="form-group">
-          <label for="gender">Gender:</label>
-          <select id="gender" [(ngModel)]="selectedUser.gender" name="gender" required>
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
+      </div>
+
+      <!-- File Input for Image Update -->
+      <div class="form-group">
+        <label for="image">Profile Image:</label>
+        <input type="file" #fileInput (change)="onImageSelected($event)" style="display: none;" />
+        <div class="upload-logo" (click)="fileInput.click()">
+          <img src="/assets/images/image-upload.png" alt="Upload Logo" class="upload-icon" />
         </div>
-  
-        <!-- File Input for Image Update -->
-        <div class="form-group">
-          <label for="image">Profile Image:</label>
-          <input type="file" #fileInput (change)="onImageSelected($event)" style="display: none;">
-          <div class="upload-logo" (click)="fileInput.click()">
-            <img src="/assets/images/image-upload.png" alt="Upload Logo" class="upload-icon">
-          </div>
-        </div>
-        
-        <!-- Image Preview -->
-        <div class="form-group" *ngIf="imagePreview || selectedUser?.image">
-          <label>Image Preview:</label>
-          <img [src]="imagePreview || selectedUser.image" alt="Image Preview" class="preview-image">
-        </div>
-        
-        <!-- Submit Button -->
-        <button type="submit" class="update-btn">Update User</button>
-      </form>
-    </div>
+      </div>
+
+      <!-- Image Preview -->
+      <div class="form-group" *ngIf="imagePreview || selectedUser?.image">
+        <label>Image Preview:</label>
+        <img [src]="imagePreview || selectedUser.image" alt="Image Preview" class="preview-image" />
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="update-btn" [disabled]="updateForm.invalid">
+        Update User
+      </button>
+    </form>
   </div>
-  
+</div>

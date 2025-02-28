@@ -18,10 +18,11 @@ import { MatCardModule } from '@angular/material/card';
 import { LogoutComponent } from './logout/logout.component';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { UpdateUserComponent } from './user/update-user/update-user.component';
 
 
 @NgModule({
-  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent,LogoutComponent,UserProfileComponent],
+  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent,LogoutComponent,UserProfileComponent,UpdateUserComponent],
   imports: [
     CommonModule,
     MaterialModule,
