@@ -118,8 +118,8 @@ input.server-error.ng-touched {
   background-color: #f38f1d;
   color: white;
   width: 100%;
-  padding: 1rem;
   font-size: 1.1rem;
+  border-radius: 10px;
 }
 
 .delete-confirm-btn:hover {
@@ -284,14 +284,8 @@ input.server-error.ng-touched {
   width: 24px;
   height: 24px;
 }
-button:not(.delete-btn) {
-  background-color: #004a8d;
-  color: white;
-}
 
-button:hover:not(.delete-btn) {
-  background-color: #003366;
-}
+
 
 .delete-btn {
   background-color: #f38f1d;

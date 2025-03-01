@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -23,7 +24,8 @@ export class UserProfileComponent {
   deleteError: string = '';
   constructor(
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class UserProfileComponent {
       (response: any) => {
         // Handle successful deletion, e.g., logout or navigate away
         alert('Account deleted successfully.');
-        // Additional logic such as redirecting the user can be added here.
+        this.router.navigate(['/login']);
       },
       (error: any) => {
         let errorMsg: string = '';
