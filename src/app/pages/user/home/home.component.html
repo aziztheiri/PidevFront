@@ -1,1 +1,8 @@
-<p>home works!</p>
+<div class="container">
+    <h2>Today's Insurance Highlights</h2>
+    <button (click)="fetchContent()">Get Updates</button>
+    <div *ngIf="responseText" class="response-box">
+      <!-- Clean the text then safely render it as HTML -->
+      <div [innerHTML]="responseText | cleanContent | safeHtml"></div>
+    </div>
+  </div>

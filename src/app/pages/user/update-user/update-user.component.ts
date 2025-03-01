@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-
+import { MustMatch } from './match';
 @Component({
   selector: 'app-update-user',
   templateUrl: './update-user.component.html',
   styleUrls: ['./update-user.component.scss']
 })
 export class UpdateUserComponent {
+  
   passwordForm!: FormGroup;
   successMessage: string = '';
   errorMessage: string = '';
@@ -18,9 +19,13 @@ export class UpdateUserComponent {
   ngOnInit(): void {
     this.passwordForm = this.fb.group({
       oldPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      newPassword: ['', [
+        Validators.required,
+        Validators.pattern('^(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{6,}$')
+      ]],
       confirmPassword: ['', Validators.required]
-    });
+    }, { validator: MustMatch('newPassword', 'confirmPassword') });
+  
     this.auth.getUserDetails().subscribe({
       next: (user: User) => {
         this.cin = user.cin;

@@ -1,27 +1,43 @@
 <div class="update-password-container">
-    <h2>Update Password</h2>
-    <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="oldPassword">Old Password</label>
-        <input id="oldPassword" type="password" formControlName="oldPassword" placeholder="Enter your current password">
+  <h2>Update Password</h2>
+  <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
+    <!-- Old Password -->
+    <div class="form-group">
+      <label for="oldPassword">Old Password</label>
+      <input id="oldPassword" type="password" formControlName="oldPassword" placeholder="Enter your current password">
+      <div *ngIf="passwordForm.get('oldPassword')?.touched && passwordForm.get('oldPassword')?.invalid" class="error-message">
+        <div *ngIf="passwordForm.get('oldPassword')?.errors?.['required']">Old password is required.</div>
       </div>
-  
-      <div class="form-group">
-        <label for="newPassword">New Password</label>
-        <input id="newPassword" type="password" formControlName="newPassword" placeholder="Enter your new password">
+    </div>
+
+    <!-- New Password -->
+    <div class="form-group">
+      <label for="newPassword">New Password</label>
+      <input id="newPassword" type="password" formControlName="newPassword" placeholder="Enter your new password">
+      <div *ngIf="passwordForm.get('newPassword')?.touched && passwordForm.get('newPassword')?.invalid" class="error-message">
+        <div *ngIf="passwordForm.get('newPassword')?.errors?.['required']">New password is required.</div>
+        <div *ngIf="passwordForm.get('newPassword')?.errors?.['pattern']">
+          Password must be at least 6 characters, contain at least one uppercase letter, and one symbol.
+        </div>
       </div>
-  
-      <div class="form-group">
-        <label for="confirmPassword">Confirm New Password</label>
-        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Confirm your new password">
+    </div>
+
+    <!-- Confirm New Password -->
+    <div class="form-group">
+      <label for="confirmPassword">Confirm New Password</label>
+      <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Confirm your new password">
+      <div *ngIf="passwordForm.get('confirmPassword')?.touched && passwordForm.get('confirmPassword')?.invalid" class="error-message">
+        <div *ngIf="passwordForm.get('confirmPassword')?.errors?.['required']">Confirm password is required.</div>
+        <div *ngIf="passwordForm.get('confirmPassword')?.errors?.['mustMatch']">Passwords do not match.</div>
       </div>
+    </div>
+
+    <!-- General Messages -->
+    <div class="messages">
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </div>
   
-      <div class="messages">
-        <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
-        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-      </div>
-  
-      <button type="submit">Update Password</button>
-    </form>
-  </div>
-  
+    <button type="submit">Update Password</button>
+  </form>
+</div>

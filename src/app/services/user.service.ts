@@ -10,7 +10,10 @@ import { tap } from 'rxjs/operators'; // ✅ Import tap operator
 export class UserService {
   private baseUrl = 'http://localhost:8090/users';
   public signupEmail: string | null = null;
-
+  private apiUrl = 'http://localhost:8090/users/gemini-content';
+  getGeminiContent(): Observable<{ text: string }> { // Specify response type
+    return this.http.post<{ text: string }>(this.apiUrl, {});
+  }
   constructor(private http: HttpClient) { }
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('accessToken');
@@ -18,6 +21,14 @@ export class UserService {
       'Authorization': `Bearer ${token}`
     });
   }
+  deleteUserr(cin: string, oldPassword: string): Observable<any> {
+    const payload = { cin, oldPassword };
+    return this.http.post(`${this.baseUrl}/user/delete-user`, payload, { 
+      headers: this.getAuthHeaders(), 
+      responseType: 'text' 
+    });
+  }
+  
   signup(user: User, image?: File): Observable<any> {
     const formData = new FormData();
     formData.append('user', JSON.stringify(user));

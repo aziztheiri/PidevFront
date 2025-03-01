@@ -51,9 +51,16 @@ $background-color: #fff;
     }
   }
 
+  .action-buttons {
+    display: flex;
+    justify-content: center;  // Centers the buttons
+    gap: 1rem;                // Adds horizontal space between buttons
+    margin-top: 1.5rem;       // Optional: space above the container
+  }
+  
+  // Button styles
   button {
-    display: block;
-    margin: 0 auto;
+    display: inline-block; // Allows buttons to sit next to each other
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     color: #fff;
@@ -62,9 +69,17 @@ $background-color: #fff;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-
+  
     &:hover {
       background-color: darken($accent-orange, 10%);
+    }
+  }
+  
+  // Optional: Specific style for the delete button (if different color is desired)
+  .delete-btn {
+    background-color: #004a8d;
+    &:hover {
+      background-color: #004a8d;
     }
   }
 }
@@ -96,6 +111,20 @@ input.ng-touched.ng-valid,
 select.ng-touched.ng-valid {
   border-color: green !important;
 }
+input.server-error.ng-touched {
+  border-color: red !important;
+}
+.delete-confirm-btn {
+  background-color: #f38f1d;
+  color: white;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+.delete-confirm-btn:hover {
+  background-color: #d67d17;
+}
 
 .modal {
   background-color: $background-color;
@@ -106,6 +135,7 @@ select.ng-touched.ng-valid {
   position: relative;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   text-align: left;
+  animation: modalSlideIn 0.3s ease-out;
 
   .close {
     position: absolute;
@@ -189,7 +219,15 @@ select.ng-touched.ng-valid {
   border: none;
   padding: 5px 0;
 }
+.server-error {
+  border-color: red !important;
+}
 
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 4px;
+} 
 .current-image {
   margin-top: 5px;
   font-size: 0.9em;
@@ -245,4 +283,48 @@ select.ng-touched.ng-valid {
 .upload-icon {
   width: 24px;
   height: 24px;
+}
+button:not(.delete-btn) {
+  background-color: #004a8d;
+  color: white;
+}
+
+button:hover:not(.delete-btn) {
+  background-color: #003366;
+}
+
+.delete-btn {
+  background-color: #f38f1d;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #d67d17;
+}
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .user-profile-page {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  .profile-img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .user-info p {
+    font-size: 1rem;
+  }
 }

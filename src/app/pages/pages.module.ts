@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PagesRoutes } from './pages.routing.module';
@@ -19,10 +19,13 @@ import { LogoutComponent } from './logout/logout.component';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { UpdateUserComponent } from './user/update-user/update-user.component';
+import { HomeComponent } from './user/home/home.component';
+import { SafeHtmlPipe } from './user/home/pipe';
+import { CleanContentPipe } from './user/home/clean';
 
 
 @NgModule({
-  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent,LogoutComponent,UserProfileComponent,UpdateUserComponent],
+  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent,LogoutComponent,UserProfileComponent,UpdateUserComponent,HomeComponent,SafeHtmlPipe,CleanContentPipe],
   imports: [
     CommonModule,
     MaterialModule,

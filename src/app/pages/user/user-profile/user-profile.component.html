@@ -9,8 +9,12 @@
     <p><strong>Age:</strong> {{ user?.age }}</p>
     <p><strong>Gender:</strong> {{ user?.gender }}</p>
   </div>
-  <button (click)="openUpdateModal(user)">Update Profile</button>
-</div>
+  <div class="action-buttons">
+    <button (click)="openUpdateModal(user)">Update Profile</button>
+    <button class="delete-btn" (click)="openDeleteModal()">Delete Account</button>
+  </div>
+  </div>
+
 
 <!-- Update User Modal -->
 <div class="modal-overlay" *ngIf="selectedUser">
@@ -158,6 +162,36 @@
       <!-- Submit Button -->
       <button type="submit" class="update-btn" [disabled]="updateForm.invalid">
         Update User
+      </button>
+    </form>
+  </div>
+</div>
+<!-- Delete Account Modal -->
+<div class="modal-overlay" *ngIf="showDeleteModal">
+  <div class="modal">
+    <span class="close" (click)="closeDeleteModal()">&times;</span>
+    <h2>Confirm Account Deletion</h2>
+    <p>Please enter your current password to confirm account deletion.</p>
+    <form #deleteForm="ngForm" (ngSubmit)="confirmDelete(deleteForm)">
+      <div class="form-group">
+        <label for="oldPassword">Password:</label>
+        <input
+          type="password"
+          id="oldPassword"
+          name="oldPassword"
+          [(ngModel)]="oldPasswordForDelete"
+          [ngClass]="{'server-error': deleteError}"
+          #oldPassword="ngModel"
+          required
+        />
+        <div *ngIf="oldPassword.invalid && (oldPassword.dirty || oldPassword.touched)" class="error">
+          <div *ngIf="oldPassword.errors?.['required']">Password is required.</div>
+        </div>
+        <!-- Error message control styled in red -->
+        <div *ngIf="deleteError" class="error-message">{{ deleteError }}</div>
+      </div>
+      <button type="submit" [disabled]="deleteForm.invalid" class="delete-confirm-btn">
+        Confirm Delete
       </button>
     </form>
   </div>

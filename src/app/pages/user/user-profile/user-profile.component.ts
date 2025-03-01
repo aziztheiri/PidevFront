@@ -18,7 +18,9 @@ export class UserProfileComponent {
   successMessage: string = '';
   imagePreview: string | ArrayBuffer | null = null;
   selectedImageFile: File | undefined;
-
+  showDeleteModal: boolean = false;
+  oldPasswordForDelete: string = '';
+  deleteError: string = '';
   constructor(
     private userService: UserService,
     private authService: AuthService
@@ -27,7 +29,44 @@ export class UserProfileComponent {
   ngOnInit(): void {
     this.fetchUserDetails();
   }
+  openDeleteModal(): void {
+    this.deleteError = '';
+    this.oldPasswordForDelete = '';
+    this.showDeleteModal = true;
+  }
 
+  // Closes the deletion modal
+  closeDeleteModal(): void {
+    this.showDeleteModal = false;
+  }
+  confirmDelete(form: NgForm): void {
+    if (form.invalid) return;
+    this.userService.deleteUserr(this.user.cin, this.oldPasswordForDelete).subscribe(
+      (response: any) => {
+        // Handle successful deletion, e.g., logout or navigate away
+        alert('Account deleted successfully.');
+        // Additional logic such as redirecting the user can be added here.
+      },
+      (error: any) => {
+        let errorMsg: string = '';
+        if (error.error) {
+          if (typeof error.error === 'string') {
+            errorMsg = error.error;
+          } else if (error.error.error) {
+            errorMsg = error.error.error;
+          } else {
+            errorMsg = JSON.stringify(error.error);
+          }
+        } else if (error.message) {
+          errorMsg = error.message;
+        } else {
+          errorMsg = 'Wrong old password ';
+        }
+        this.deleteError = 'Wrong old password ';
+      }
+    );
+  }
+  
   private fetchUserDetails(): void {
     this.authService.getUserDetails().subscribe({
       next: (user: User) => {

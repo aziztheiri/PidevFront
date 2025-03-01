@@ -1,0 +1,99 @@
+/* Base Styles */
+body {
+    background-color: #f4f6f8;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #444;
+  }
+  
+  /* Main Container */
+  .container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header */
+  .container h2 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #004a8d; /* Blue */
+  }
+  
+  /* Button Styling */
+  button {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 25px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #004a8d; /* Blue */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #f38f1d; /* Orange */
+  }
+  
+  /* Response Box */
+  .response-box {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    line-height: 1.6;
+  }
+  
+  /* Headings and Paragraphs in the Response */
+  .response-box h3 {
+    margin-top: 0;
+    color: #004a8d; /* Blue */
+    font-size: 1.5em;
+  }
+  
+  .response-box p {
+    margin: 10px 0;
+  }
+  
+  /* List Styling */
+  .response-box ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .response-box li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .response-box li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #004a8d; /* Blue */
+    font-weight: bold;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 600px) {
+    .container {
+      margin: 20px;
+      padding: 15px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      font-size: 0.9em;
+    }
+  }
+  
