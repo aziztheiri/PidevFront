@@ -22,10 +22,12 @@ import { UpdateUserComponent } from './user/update-user/update-user.component';
 import { HomeComponent } from './user/home/home.component';
 import { SafeHtmlPipe } from './user/home/pipe';
 import { CleanContentPipe } from './user/home/clean';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
-  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent,LogoutComponent,UserProfileComponent,UpdateUserComponent,HomeComponent,SafeHtmlPipe,CleanContentPipe],
+  declarations: [AppDashboardComponent,UsersComponent,LoginComponent,SignupComponent,OtpVerificationComponent,LogoutComponent,UserProfileComponent,UpdateUserComponent,HomeComponent,SafeHtmlPipe,CleanContentPipe,ForgotPasswordComponent,ResetPasswordComponent],
   imports: [
     CommonModule,
     MaterialModule,

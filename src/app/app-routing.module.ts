@@ -9,6 +9,8 @@ import { FullUserComponent } from './layouts/fullUser/full.component';
 import { AuthGuard } from './services/auth.guard'; 
 import { RoleGuard } from './services/role.guard';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'verify', component: OtpVerificationComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   {
     path: 'admin',
     component: FullComponent,

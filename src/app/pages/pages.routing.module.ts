@@ -9,6 +9,7 @@ import { MesreclamationsComponent } from './user/mesreclamations/mesreclamations
 import { LogoutComponent } from './logout/logout.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { UpdateUserComponent } from './user/update-user/update-user.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 export const PagesRoutes: Routes = [
  
@@ -51,6 +52,16 @@ export const PagesRoutes: Routes = [
     path: 'updatePassword',
     component: UpdateUserComponent,
     data: { title: 'updatePassword' },
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    data: { title: 'forgot-password' },
+  },
+  {
+    path: 'reset-password',
+    component: ForgotPasswordComponent,
+    data: { title: 'forgot-password' },
   },
 
 ];

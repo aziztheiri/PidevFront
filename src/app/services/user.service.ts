@@ -11,6 +11,13 @@ export class UserService {
   private baseUrl = 'http://localhost:8090/users';
   public signupEmail: string | null = null;
   private apiUrl = 'http://localhost:8090/users/gemini-content';
+  requestPasswordReset(email: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/forgot-password`, { email }, { responseType: 'text' });
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reset-password`, { token, newPassword }, { responseType: 'text' });
+  }
   getGeminiContent(): Observable<{ text: string }> { // Specify response type
     return this.http.post<{ text: string }>(this.apiUrl, {});
   }
