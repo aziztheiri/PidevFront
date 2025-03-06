@@ -1,4 +1,4 @@
-<!-- Boutons pour afficher ou masquer les paiements en ligne et sur place -->
+
 <div class="paiements-controls">
   <button mat-raised-button color="primary" (click)="togglePaiementsEnLigne()">
     Paiements en ligne
@@ -8,24 +8,44 @@
   </button>
 </div>
 
-<!-- Paiements en ligne -->
-<div *ngIf="paiementsEnLigneVisible" class="paiements-en-ligne-container">
-  <h2>Paiements en ligne</h2>
-  <ul>
-    <li *ngFor="let paiement of paiementsEnLigne">
-      {{ paiement.montant }} - {{ paiement.date_paiement }} - Carte: {{ paiement.numeroCarte }}
-      <button mat-raised-button color="warn" (click)="deletePaiement(paiement.id_p)">Supprimer</button>
-    </li>
-  </ul>
+
+<div class="filtres-container">
+  <form (ngSubmit)="appliquerFiltres()" class="filtres-form">
+    <input type="number" [(ngModel)]="filtres.montantMin" name="montantMin" placeholder="Montant min">
+    <input type="date" [(ngModel)]="filtres.date" name="date" placeholder="Date">
+    <input type="text" [(ngModel)]="filtres.agence" name="agence" placeholder="Agence">
+    <button mat-raised-button type="submit" color="primary">⤵️</button>
+    <button mat-raised-button type="button" color="warn" (click)="reinitialiserFiltres()">🔄</button>
+  </form>
 </div>
 
-<!-- Paiements sur place -->
-<div *ngIf="paiementsSurPlaceVisible" class="paiements-sur-place-container">
+
+<div *ngIf="paiementsEnLigneVisible" class="paiements-container">
+  <h2>Paiements en ligne</h2>
+  <div class="paiement-card" *ngFor="let paiement of paiementsEnLigneFiltres">
+    <div class="paiement-info">
+      <p><strong>Montant :</strong> {{ paiement.montant }} €</p>
+      <p><strong>Date :</strong> {{ paiement.date_paiement | date: 'dd/MM/yyyy' }}</p>
+      <p><strong>Carte :</strong> **** **** **** {{ paiement.numeroCarte | slice: -4 }}</p>
+    </div>
+    <button mat-raised-button color="warn" (click)="deletePaiement(paiement.id_p)">
+      Supprimer
+    </button>
+  </div>
+</div>
+
+
+<div *ngIf="paiementsSurPlaceVisible" class="paiements-container">
   <h2>Paiements sur place</h2>
-  <ul>
-    <li *ngFor="let paiement of paiementsSurPlace">
-      {{ paiement.montant }} - {{ paiement.date_paiement }} - Agence: {{ paiement.agence }} - RDV: {{ paiement.date_rdv }}
-      <button mat-raised-button color="warn" (click)="deletePaiement(paiement.id_p)">Supprimer</button>
-    </li>
-  </ul>
+  <div class="paiement-card" *ngFor="let paiement of paiementsSurPlaceFiltres">
+    <div class="paiement-info">
+      <p><strong>Montant :</strong> {{ paiement.montant }} €</p>
+      <p><strong>Date :</strong> {{ paiement.date_paiement | date: 'dd/MM/yyyy' }}</p>
+      <p><strong>Agence :</strong> {{ paiement.agence }}</p>
+      <p><strong>RDV :</strong> {{ paiement.date_rdv | date: 'dd/MM/yyyy' }}</p>
+    </div>
+    <button mat-raised-button color="warn" (click)="deletePaiement(paiement.id_p)">
+      Supprimer
+    </button>
+  </div>
 </div>

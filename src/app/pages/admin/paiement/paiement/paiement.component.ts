@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PaiementService } from '../../servs/paiement.service';
 import { Paiement, PaiementSurPlace, PaiementEnLigne } from '../../servs/paiement.model';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-paiement',
   templateUrl: './paiement.component.html',
@@ -13,11 +13,19 @@ export class PaiementComponent implements OnInit {
   paiementsEnLigne: PaiementEnLigne[] = [];
   paiementsSurPlace: PaiementSurPlace[] = [];
 
-  // Variables pour contrôler la visibilité des paiements
   paiementsEnLigneVisible: boolean = false;
   paiementsSurPlaceVisible: boolean = false;
 
-  constructor(private paiementService: PaiementService) { }
+  filtres = {
+    montantMin: null as number | null,
+    date: null as string | null,
+    agence: null as string | null
+  };
+
+  paiementsEnLigneFiltres: PaiementEnLigne[] = [];
+  paiementsSurPlaceFiltres: PaiementSurPlace[] = [];
+
+  constructor(private paiementService: PaiementService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getAllPaiements();
@@ -25,47 +33,78 @@ export class PaiementComponent implements OnInit {
     this.getPaiementsSurPlace();
   }
 
-  // Récupérer tous les paiements
+
   getAllPaiements(): void {
     this.paiementService.getPaiements().subscribe(data => {
       this.paiements = data;
     });
   }
 
-  // Récupérer les paiements en ligne
+
   getPaiementsEnLigne(): void {
     this.paiementService.getPaiementsEnLigne().subscribe(data => {
       this.paiementsEnLigne = data;
+      this.paiementsEnLigneFiltres = data;
     });
   }
 
-  // Récupérer les paiements sur place
+
   getPaiementsSurPlace(): void {
     this.paiementService.getPaiementsSurPlace().subscribe(data => {
       this.paiementsSurPlace = data;
+      this.paiementsSurPlaceFiltres = data; // Initialiser les paiements filtrés
     });
   }
 
-  // Supprimer un paiement
-  // Supprimer un paiement
+  appliquerFiltres(): void {
+    this.paiementsEnLigneFiltres = this.paiementsEnLigne.filter(paiement => {
+      return (
+          (!this.filtres.montantMin || paiement.montant >= this.filtres.montantMin) &&
+          (!this.filtres.date || paiement.date_paiement === this.filtres.date)
+      );
+    });
+
+    this.paiementsSurPlaceFiltres = this.paiementsSurPlace.filter(paiement => {
+      return (
+          (!this.filtres.montantMin || paiement.montant >= this.filtres.montantMin) &&
+          (!this.filtres.date || paiement.date_paiement === this.filtres.date) &&
+          (!this.filtres.agence || paiement.agence.includes(this.filtres.agence))
+      );
+    });
+  }
+
+  reinitialiserFiltres(): void {
+    this.filtres = {
+      montantMin: null,
+      date: null,
+      agence: null
+    };
+    this.paiementsEnLigneFiltres = this.paiementsEnLigne;
+    this.paiementsSurPlaceFiltres = this.paiementsSurPlace;
+  }
+
   deletePaiement(id: number): void {
     this.paiementService.deletePaiement(id).subscribe({
       next: () => {
-        alert('Paiement supprimé avec succès');
-        // Rafraîchir les listes sans recharger toute la page
+        this.snackBar.open('Paiement supprimé avec succès', 'Fermer', {
+          duration: 3000,
+          panelClass: ['success-snackbar']
+        });
         this.getAllPaiements();
         this.getPaiementsEnLigne();
         this.getPaiementsSurPlace();
       },
       error: (err) => {
         console.error('Erreur lors de la suppression du paiement:', err);
-        alert('Une erreur s\'est produite lors de la suppression.');
+        this.snackBar.open('Une erreur s\'est produite lors de la suppression', 'Fermer', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
       }
     });
   }
 
 
-  // Méthodes pour afficher/masquer les paiements en ligne et sur place
   togglePaiementsEnLigne(): void {
     this.paiementsEnLigneVisible = !this.paiementsEnLigneVisible;
   }

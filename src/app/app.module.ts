@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { CardFormatDirective } from './pages/user/mespaiements/paiementfront/directives/card-format.directive';
+import { MapComponent } from './pages/user/mespaiements/paiementfront/map api/map/map.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 // icons
 import { TablerIconsModule } from 'angular-tabler-icons';
 import * as TablerIcons from 'angular-tabler-icons/icons';
@@ -29,6 +34,7 @@ import { AppNavUserItemComponent } from './layouts/fullUser/sidebar/nav-item/nav
 import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.component';
 import { PaiementfrontComponent } from './pages/user/mespaiements/paiementfront/paiementfront.component';
 import {CommonModule} from "@angular/common";
+
 @NgModule({
   declarations: [
     PaiementfrontComponent,
@@ -42,6 +48,8 @@ import {CommonModule} from "@angular/common";
     FullUserComponent,
     HeaderUserComponent,
     AppNavUserItemComponent,
+    CardFormatDirective,
+    MapComponent,
     SidebarUserComponent
   ],
   imports: [
@@ -53,9 +61,14 @@ import {CommonModule} from "@angular/common";
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
+    GoogleMapsModule,
+    HammerModule,
+    FontAwesomeModule,
     TablerIconsModule.pick(TablerIcons),
   ],
-  exports: [TablerIconsModule],
+  exports: [TablerIconsModule,  CardFormatDirective,],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {constructor() {
+  library.add(faArrowLeft, faArrowRight); // Ajoutez les icônes ici
+}}

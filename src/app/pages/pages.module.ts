@@ -18,7 +18,7 @@ import { PaiementComponent } from './admin/paiement/paiement/paiement.component'
     AppDashboardComponent,
     UsersComponent,
     LoginComponent,
-    PaiementComponent  // Déclare ici PaiementComponent
+    PaiementComponent
   ],
   imports: [
     CommonModule,

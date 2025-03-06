@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Paiement, PaiementSurPlace, PaiementEnLigne } from './paiement.model';
-
+import emailjs from 'emailjs-com';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,50 +14,79 @@ export class PaiementService {
 
   constructor(private http: HttpClient) { }
 
-  // Récupérer tous les paiements
+
   getPaiements(): Observable<Paiement[]> {
     return this.http.get<Paiement[]>(this.apiUrl);
   }
 
-  // Récupérer les paiements sur place
+
   getPaiementsSurPlace(): Observable<PaiementSurPlace[]> {
     return this.http.get<PaiementSurPlace[]>(`${this.apiUrl}/surplace`);
   }
 
-  // Récupérer les paiements en ligne
+
   getPaiementsEnLigne(): Observable<PaiementEnLigne[]> {
     return this.http.get<PaiementEnLigne[]>(`${this.apiUrl}/enligne`);
   }
 
-  // Ajouter un paiement (en ligne ou sur place)
+
   // src/app/admin/paiement.service.ts
   addPaiement(paiement: Paiement): Observable<Paiement> {
-    if ('numeroCarte' in paiement) {  // Vérifier si le paiement est en ligne
-      return this.ajouterPaiementEnLigne(paiement);
-    } else if ('agence' in paiement) {  // Vérifier si le paiement est sur place
+    if ('agence' in paiement) {  // Vérifier si le paiement est en ligne
       return this.ajouterPaiementSurPlace(paiement);
+    } else if ('numeroCarte' in paiement) {  // Vérifier si le paiement est sur place
+      return this.ajouterPaiementEnLigne(paiement);
     }
     throw new Error('Type de paiement inconnu');
   }
 
 
+  addPaiement1(paiement: Paiement): Observable<Paiement> {
+     // Vérifier si le paiement est en ligne
+      return this.ajouterPaiementSurPlace(paiement);
+
+    throw new Error('no post');
+  }
 
 
-  ajouterPaiementEnLigne(paiement: any): Observable<any> {
+
+  ajouterPaiementEnLigne(paiement: Paiement): Observable<Paiement> {
+    console.log('Ajout paiement en ligne - Données envoyées:', paiement);
     return this.http.post<Paiement>(`${this.apiUrl}/enligne`, paiement);
   }
 
-  ajouterPaiementSurPlace(paiement: any): Observable<any> {
+  ajouterPaiementSurPlace(paiement: Paiement): Observable<Paiement> {
+    console.log('Ajout paiement sur place - Données envoyées:', paiement);
     return this.http.post<Paiement>(`${this.apiUrl}/surplace`, paiement);
   }
 
-  // Mettre à jour un paiement
   updatePaiement(paiement: Paiement): Observable<Paiement> {
     return this.http.put<Paiement>(`${this.apiUrl}/${paiement.id_p}`, paiement);
   }
 
-  // Supprimer un paiement
+
   deletePaiement(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+
+  sendEmailConfirmationEnLigne(emailData: any): void {
+    emailjs.send('pidev_mail_api', 'template_en_ligne', emailData, 'ug5piI6Wl-1fLZVaV')
+        .then((response) => {
+          console.log('E-mail de confirmation pour paiement en ligne envoyé avec succès', response);
+        }, (error) => {
+          console.error('Erreur lors de l\'envoi de l\'email pour paiement en ligne', error);
+        });
+  }
+
+
+  sendEmailConfirmationSurPlace(emailData: any): void {
+    emailjs.send('pidev_mail_api', 'template_sur_place', emailData, 'ug5piI6Wl-1fLZVaV')
+        .then((response) => {
+          console.log('E-mail de confirmation pour paiement sur place envoyé avec succès', response);
+        }, (error) => {
+          console.error('Erreur lors de l\'envoi de l\'email pour paiement sur place', error);
+        });
+  }
+
 }

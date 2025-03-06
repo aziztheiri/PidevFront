@@ -3,7 +3,7 @@
 export interface Paiement {
   id_p: number;
   montant: number;
-  date_paiement: string;  // Utilise une chaîne ISO pour la date
+  date_paiement: string;
 }
 
 export interface PaiementSurPlace extends Paiement {
