@@ -1,0 +1,50 @@
+<h2>Bienvenue dans votre espace client</h2>
+
+<h3>Liste des Sinistres</h3>
+<button routerLink="/sinistre-form" class="btn btn-primary">Ajouter un Sinistre</button>
+
+
+<div *ngIf="isLoading">
+  <p>Chargement en cours...</p>
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+  <button (click)="loadSinistres()" class="btn btn-secondary">Réessayer</button>
+</div>
+
+<table class="table mt-3" *ngIf="!isLoading && !errorMessage && sinistres.length > 0">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Date Déclaration</th>
+      <th>Description</th>
+      <th>Statut</th>
+      <th>Montant Estimé</th>
+      <th>Lieu</th>
+      <th>Type de Sinistre</th>
+      <th>Responsabilité</th>
+      <th>Date Clôture</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sinistre of sinistres">
+      <td>{{ sinistre.id }}</td>
+      <td>{{ sinistre.dateDeclaration | date:'dd/MM/yyyy' }}</td>  <!-- Format de la date -->
+      <td>{{ sinistre.description }}</td>
+      <td>{{ sinistre.statut }}</td>
+      <td>{{ sinistre.montantEstime | currency }}</td>
+      <td>{{ sinistre.lieu }}</td>
+      <td>{{ sinistre.typeSinistre }}</td>
+      <td>{{ sinistre.responsabilite }}</td>
+      <td>{{ sinistre.dateCloture ? (sinistre.dateCloture | date:'dd/MM/yyyy') : 'Non clôturé' }}</td> <!-- Affichage conditionnel -->
+      <td>
+        <button [routerLink]="['/sinistre-detail', sinistre.id]" class="btn btn-primary">Voir</button>
+
+        <button [routerLink]="'/sinistre-form/' + sinistre.id" class="btn btn-warning">Modifier</button>
+        <button (click)="deleteSinistre(sinistre.id)" class="btn btn-danger">Supprimer</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

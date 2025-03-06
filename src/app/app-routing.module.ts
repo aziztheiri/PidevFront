@@ -4,6 +4,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { FullUserComponent } from './layouts/fullUser/full.component';
 import { LoginComponent } from './pages/login/login.component';
+import { SinistreListComponent } from './pages/user/sinistre-list/sinistre-list.component';
 
 const routes: Routes = [
   {

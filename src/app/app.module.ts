@@ -27,6 +27,7 @@ import { FullUserComponent } from './layouts/fullUser/full.component';
 import { HeaderUserComponent } from './layouts/fullUser/header/header.component';
 import { AppNavUserItemComponent } from './layouts/fullUser/sidebar/nav-item/nav-item.component';
 import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.component';
+import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.compone
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    PagesModule,
     ReactiveFormsModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),

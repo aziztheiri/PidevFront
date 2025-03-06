@@ -1,0 +1,17 @@
+<div *ngIf="sinistre; else loading">
+    <h2>Détails du Sinistre</h2>
+    <p>ID: {{ sinistre.id }}</p>
+    <p>Description: {{ sinistre.description }}</p>
+    <p>Statut: {{ sinistre.statut }}</p>
+    <p>Montant estimé: {{ sinistre.montantEstime | currency }}</p>
+    <p>Lieu: {{ sinistre.lieu }}</p>
+    <p>Type de sinistre: {{ sinistre.typeSinistre }}</p>
+    <p>Responsabilité: {{ sinistre.responsabilite }}</p>
+    <p>Date de clôture: {{ sinistre.dateCloture || 'Non clôturé' }}</p>
+    <button [routerLink]="'/sinistres'" class="btn btn-secondary">Retour à la Liste</button>
+
+</div>
+
+<ng-template #loading>
+    <p>Chargement des détails...</p>
+</ng-template>

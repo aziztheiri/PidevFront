@@ -6,6 +6,9 @@ import { UsersComponent } from './admin/users/users.component';
 import { MesdevisComponent } from './user/mesdevis/mesdevis.component';
 import { MessinistresComponent } from './user/messinistres/messinistres.component';
 import { MesreclamationsComponent } from './user/mesreclamations/mesreclamations.component';
+import { SinistreListComponent } from './user/sinistre-list/sinistre-list.component';
+import { SinistreDetailComponent } from './user/sinistre-detail/sinistre-detail.component';
+import { SinistreFormComponent } from './user/sinistre-form/sinistre-form.component';
 
 export const PagesRoutes: Routes = [
  
@@ -34,5 +37,9 @@ export const PagesRoutes: Routes = [
     component: MesreclamationsComponent,
     data: { title: 'Reclamations' },
   },
-
+  { path: 'sinistre-list', component: SinistreListComponent ,data: { title: 'Sinistre-list' }},
+  { path: 'sinistre-detail/:id', component: SinistreDetailComponent },
+  { path: 'sinistre-form', component: SinistreFormComponent },
+{ path: 'sinistre-form/:id', component: SinistreFormComponent },
+  { path: '', redirectTo: '/sinistres', pathMatch: 'full' }
 ];
