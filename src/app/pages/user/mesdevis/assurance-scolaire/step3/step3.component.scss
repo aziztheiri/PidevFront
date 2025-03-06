@@ -25,6 +25,12 @@
       margin-bottom: 20px;
     }
 
+    h3 {
+      color: #004a8d;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
     form {
       display: flex;
       flex-direction: column;
@@ -33,17 +39,29 @@
       mat-form-field {
         width: 100%;
         max-width: 500px;
-      }
 
-      .button-group {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
-
-        .orange-button {
-          background-color: #f38f1f;
-          color: white;
+        .mat-form-field-outline {
+          border-color: #004a8d; // Custom outline color
         }
+
+        .mat-form-field-label {
+          color: #004a8d; // Custom label color
+        }
+
+        .mat-input-element {
+          color: #004a8d; // Custom input text color
+        }
+      }
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+
+      .orange-button {
+        background-color: #f38f1f;
+        color: white;
       }
     }
   }

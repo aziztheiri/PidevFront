@@ -68,100 +68,93 @@
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         background-color: white;
-        display: flex;
-        flex-direction: column;
   
-        img {
-          width: 100%;
-          border-radius: 8px;
+        &.blue-card {
+          border: 2px solid #004a8d;
+        }
+  
+        &.orange-card {
+          border: 2px solid #f38f1f;
         }
   
         h2 {
           color: #004a8d;
-          font-size: 1.5rem;
-          margin: 10px 0;
+          font-size: 1.25rem;
+          margin-bottom: 10px;
         }
   
         hr {
-          border: 1px solid #ccc;
+          border: 1px solid #f38f1f;
           margin: 10px 0;
         }
   
         h3 {
-          font-size: 1.2rem;
-          margin: 10px 0;
-        }
+          font-size: 1.1rem;
+          margin-bottom: 10px;
   
-        .blue-text {
-          color: #004a8d;
-        }
+          &.blue-text {
+            color: #004a8d;
+          }
   
-        .orange-text {
-          color: #f38f1f;
+          &.orange-text {
+            color: #f38f1f;
+          }
         }
   
         .sub-card {
-          margin: 10px 0;
-          padding: 10px;
-          background-color: #f9f9f9;
-          border-radius: 8px;
+          margin-bottom: 20px;
   
           h4 {
-            font-size: 1.1rem;
+            font-size: 1rem;
+            color: #004a8d;
             margin-bottom: 10px;
           }
   
           ul {
             list-style-type: disc;
             padding-left: 20px;
+  
+            li {
+              margin-bottom: 5px;
+            }
           }
         }
   
         .card-footer {
-          margin-top: auto; /* Push footer to the bottom */
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding-top: 20px;
+          margin-top: 20px;
   
           .price {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: bold;
+  
+            &.blue-text {
+              color: #004a8d;
+            }
+  
+            &.orange-text {
+              color: #f38f1f;
+            }
           }
   
-          .blue-button {
-            background-color: #004a8d;
-            color: white;
-          }
-  
-          .orange-button {
+          button {
             background-color: #f38f1f;
             color: white;
           }
         }
       }
-  
-      .orange-card {
-        h2, h3 {
-          color: #f38f1f;
-        }
-      }
     }
-  }
   
-  ::ng-deep .mat-stepper-horizontal {
-    .mat-step-header {
-      .mat-step-icon {
-        background-color: #f38f1f; // Orange color for the step icons
-        color: white;
-      }
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
   
-      .mat-step-label {
-        color: #004a8d; // Blue color for the step labels
-      }
-  
-      .mat-step-icon-selected {
-        background-color: #004a8d; // Blue color for the selected step icon
+      button {
+        flex: 1;
+        margin: 0 10px;
       }
     }
   }

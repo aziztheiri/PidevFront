@@ -11,10 +11,19 @@ export class Step2Component {
   effectiveDate: Date | null = null;
   showCards: boolean = false;
   step1Data: any;
+  children: { lastName: string, firstName: string, birthDate: Date | null }[] = [];
 
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
     this.step1Data = navigation?.extras.state?.['step1Data'];
+    this.onNumberOfChildrenChange(); // Initialize children array
+  }
+
+  onNumberOfChildrenChange() {
+    this.children = [];
+    for (let i = 0; i < this.numberOfChildren; i++) {
+      this.children.push({ lastName: '', firstName: '', birthDate: null });
+    }
   }
 
   previousStep() {
@@ -31,7 +40,8 @@ export class Step2Component {
     const step2Data = {
       numberOfChildren: this.numberOfChildren,
       effectiveDate: this.effectiveDate,
-      selectedPack: selectedPack
+      selectedPack: selectedPack,
+      children: this.children // Pass children data to the next step
     };
 
     this.router.navigate(['/user/mesdevis/assurance-scolaire/step3'], {
@@ -40,7 +50,10 @@ export class Step2Component {
   }
 
   isFormValid(): boolean {
-    return this.numberOfChildren > 0 && this.effectiveDate !== null;
+    const areChildrenValid = this.children.every(child => 
+      child.lastName && child.firstName && child.birthDate
+    );
+    return this.numberOfChildren > 0 && this.effectiveDate !== null && areChildrenValid;
   }
 
   calculatePrice(pack: string): number {

@@ -1,5 +1,6 @@
 export interface Devis {
     id?: number;
+    cin?: string;
     montant: number;
     dateCalcul: Date;
     typeAssurance: string; // Use string for enum in Angular

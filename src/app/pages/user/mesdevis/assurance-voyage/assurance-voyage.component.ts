@@ -69,6 +69,7 @@ export class AssuranceVoyageComponent {
       (response) => {
         console.log('Devis saved:', response);
         alert('Votre devis a été envoyé par email.'); // Show success message
+        this.router.navigate(['/user/consulter-devis']);
       },
       (error) => {
         console.error('Error saving Devis:', error);

@@ -10,14 +10,21 @@ export const navItems: NavItem[] = [
     route: '/user/home',
   },
   {
-    displayName: 'Demander un devis',
-    iconName: 'file-plus',
-    route: '/user/demander-devis',
-  },
-  {
-    displayName: 'Consulter les devis',
-    iconName: 'file-text',
-    route: '/user/consulter-devis',
+    displayName: 'Mes Devis',
+    iconName: 'file',
+    expanded: false,
+    children: [
+      {
+        displayName: 'Demander un devis',
+        iconName: 'file-plus',
+        route: '/user/demander-devis',
+      },
+      {
+        displayName: 'Consulter les devis',
+        iconName: 'file-text',
+        route: '/user/consulter-devis',
+      },
+    ],
   },
   {
     displayName: 'Mes Réclamations',

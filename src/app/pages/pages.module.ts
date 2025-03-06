@@ -6,6 +6,8 @@ import { MaterialModule } from '../material.module'; // Import MaterialModule
 import {MatIconModule} from '@angular/material/icon'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Add ReactiveFormsModule if needed
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 // icons
 import { TablerIconsModule } from 'angular-tabler-icons';
 import * as TablerIcons from 'angular-tabler-icons/icons';
@@ -32,6 +34,11 @@ import { Step3avComponent } from './user/mesdevis/assurance-voyage/step3av/step3
 import { SuccessMessageComponent } from './user/mesdevis/assurance-sante-internationale/success-message/success-message.component';
 import { FormComponent } from './user/mesdevis/assurance-habitation/form/form.component';
 import { DevisComponent } from './admin/devis/devis.component';
+import { DevisDetailsComponent } from './admin/devis-details/devis-details.component';
+import { DetailsDevisComponent } from './user/mesdevis/details-devis/details-devis.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -56,6 +63,8 @@ import { DevisComponent } from './admin/devis/devis.component';
     SuccessMessageComponent,
     FormComponent,
     DevisComponent,
+    DevisDetailsComponent,
+    DetailsDevisComponent,
   ],
   imports: [
     CommonModule,
@@ -66,6 +75,11 @@ import { DevisComponent } from './admin/devis/devis.component';
     NgApexchartsModule,
     RouterModule.forChild(PagesRoutes),
     TablerIconsModule.pick(TablerIcons),
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatButtonModule,
+    MatInputModule,
   ],
   exports: [TablerIconsModule],
 })

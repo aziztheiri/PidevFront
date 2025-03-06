@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DevisService } from '../../../services/devis.service';
 import { Devis } from '../../../models/devis.model';
+import { Router } from '@angular/router';
+import { OpenAIService } from '../../../services/openai.service';
 import {
   ApexChart,
   ApexAxisChartSeries,
@@ -26,12 +28,14 @@ export class DevisComponent implements OnInit {
     'statut',
     'dateDebutContrat',
     'dateFinContrat',
+    'actions', 
   ];
   dataSource: MatTableDataSource<Devis>;
   totalDevis: number = 0;
   assuranceTypes: { name: string; count: number }[] = [];
   selectedType: string = '';
   searchText: string = '';
+  aiSummary: string = '';
 
   // Chart configurations
   assuranceChart: {
@@ -87,7 +91,7 @@ export class DevisComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private devisService: DevisService) {
+  constructor(private devisService: DevisService, private router: Router, private openaiService: OpenAIService) {
     this.dataSource = new MatTableDataSource<Devis>([]);
   }
 
@@ -110,49 +114,100 @@ export class DevisComponent implements OnInit {
     );
   }
 
+  // Generate AI Summary
+  generateAISummary(): void {
+    const devisData = this.dataSource.data;
+    const prompt = `Analyze the following devis data and provide a summary:
+      ${JSON.stringify(devisData, null, 2)}
+      Focus on trends, anomalies, and recommendations.`;
+  
+    console.log('Prompt sent to OpenAI:', prompt); // Log the prompt
+  
+    // Add a delay to avoid rate limits
+    setTimeout(() => {
+      this.openaiService.generateSummary(prompt).subscribe(
+        (response: any) => {
+          console.log('OpenAI API response:', response); // Log the response
+          this.aiSummary = response.choices[0].text.trim();
+        },
+        (error: any) => {
+          console.error('Error generating AI summary:', error); // Log the error
+          console.error('Error details:', error.error); // Log the full error response
+          this.aiSummary = 'Failed to generate summary. Please try again.';
+        }
+      );
+    }, 3000); // Delay of 3 seconds between requests
+  }
+
   applyFilter(): void {
     this.dataSource.filter = this.searchText.trim().toLowerCase();
   }
 
   calculateStatistics(): void {
-    this.totalDevis = this.dataSource.data.length;
+  this.totalDevis = this.dataSource.data.length;
 
-    const typeCounts: { [key: string]: number } = this.dataSource.data.reduce((acc, devis) => {
-      acc[devis.typeAssurance] = (acc[devis.typeAssurance] || 0) + 1;
-      return acc;
-    }, {} as { [key: string]: number });
+  const typeCounts: { [key: string]: number } = this.dataSource.data.reduce((acc, devis) => {
+    acc[devis.typeAssurance] = (acc[devis.typeAssurance] || 0) + 1;
+    return acc;
+  }, {} as { [key: string]: number });
 
-    this.assuranceTypes = Object.keys(typeCounts).map((type) => ({
-      name: type,
-      count: typeCounts[type],
-    }));
+  this.assuranceTypes = Object.keys(typeCounts).map((type) => ({
+    name: type,
+    count: typeCounts[type],
+  }));
 
-    // Update the bar chart data
-    this.assuranceChart.series = [
-      {
-        name: "Types d'Assurance",
-        data: Object.values(typeCounts),
-      },
-    ];
-    this.assuranceChart.labels = Object.keys(typeCounts);
-  }
+  console.log('Assurance Types Data:', this.assuranceTypes); // Log the data
 
-  calculateStatusStatistics(): void {
-    const statusCounts: { [key: string]: number } = this.dataSource.data.reduce((acc, devis) => {
-      acc[devis.statut] = (acc[devis.statut] || 0) + 1;
-      return acc;
-    }, {} as { [key: string]: number });
+  // Update the bar chart data
+  this.assuranceChart.series = [
+    {
+      name: "Types d'Assurance",
+      data: Object.values(typeCounts),
+    },
+  ];
+  this.assuranceChart.labels = Object.keys(typeCounts);
+}
 
-    // Update the pie chart data
-    this.statusChart.series = Object.values(statusCounts) as number[];
-    this.statusChart.labels = Object.keys(statusCounts);
-  }
+calculateStatusStatistics(): void {
+  const statusCounts: { [key: string]: number } = this.dataSource.data.reduce((acc, devis) => {
+    acc[devis.statut] = (acc[devis.statut] || 0) + 1;
+    return acc;
+  }, {} as { [key: string]: number });
+
+  console.log('Status Counts Data:', statusCounts); // Log the data
+
+  // Update the pie chart data
+  this.statusChart.series = Object.values(statusCounts) as number[];
+  this.statusChart.labels = Object.keys(statusCounts);
+}
 
   formatId(id: number): string {
     if (id < 100) {
       return `REF${String(id).padStart(2, '0')}`;
     } else {
       return `REF${id}`;
+    }
+  }
+
+  viewDetails(devis: Devis): void {
+    this.router.navigate(['/admin/devis-details', devis.id]);
+  }
+
+  deleteDevis(devis: Devis): void {
+    if (!devis.id) {
+      console.error('Devis ID is undefined');
+      return;
+    }
+  
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce devis ?')) {
+      this.devisService.deleteDevisAndRelatedAssurance(devis).subscribe(
+        () => {
+          this.loadDevis(); // Reload the table after deletion
+        },
+        (error) => {
+          console.error('Error deleting devis:', error);
+        }
+      );
     }
   }
 }

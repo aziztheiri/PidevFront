@@ -3,10 +3,18 @@
 </div>
 
 <!-- Parent Item with Children -->
-<mat-list-item *ngIf="item.children && item.children.length" (click)="onItemSelected(item)">
+<mat-list-item
+  *ngIf="item.children && item.children.length"
+  (click)="onItemSelected(item)"
+  [ngClass]="{
+    'activeMenu': isParentActive || (item.route ? router.isActive(item.route, true) : false)
+  }"
+  class="menu-list-item"
+>
   <i-tabler class="routeIcon" name="{{ item.iconName }}" matListItemIcon></i-tabler>
-  <span class="hide-menu">{{ item.displayName }}</span> <!-- Ensure this is correct -->
-  <mat-icon *ngIf="item.children" class="menu-arrow">
+  <span class="hide-menu">{{ item.displayName }}</span>
+  <!-- Only show toggle arrow if the item has children -->
+  <mat-icon *ngIf="item.children && item.children.length" class="menu-arrow">
     {{ item.expanded ? 'expand_less' : 'expand_more' }}
   </mat-icon>
 </mat-list-item>
@@ -26,12 +34,12 @@
   *ngIf="!item.children || !item.children.length"
   (click)="onItemSelected(item)"
   [ngClass]="{
-    'mat-toolbar mat-primary activeMenu': item.route
+    'activeMenu': item.route
       ? router.isActive(item.route, true)
       : false
   }"
   class="menu-list-item"
 >
   <i-tabler class="routeIcon" name="{{ item.iconName }}" matListItemIcon></i-tabler>
-  <span class="hide-menu">{{ item.displayName }}</span> <!-- Ensure this is correct -->
+  <span class="hide-menu">{{ item.displayName }}</span>
 </a>

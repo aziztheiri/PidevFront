@@ -59,12 +59,6 @@ export const PagesRoutes: Routes = [
     path: 'mesdevis/assurance-scolaire',
     component: AssuranceScolaireComponent,
     data: { title: 'Assurance Scolaire' },
-    children: [
-      { path: '', redirectTo: 'step1', pathMatch: 'full' },
-      { path: 'step1', component: Step1Component },
-      { path: 'step2', component: Step2Component },
-      { path: 'step3', component: Step3Component },
-    ],
   },
   {
     path: 'mesdevis/assurance-voyage',

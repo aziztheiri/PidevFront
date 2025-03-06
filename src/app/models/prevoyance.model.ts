@@ -1,5 +1,5 @@
 export interface Prevoyance {
-    id: number;
+    id?: number;
     dateEffet: Date;
     dateNaissance: Date;
     duree: number;

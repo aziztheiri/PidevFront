@@ -5,7 +5,7 @@ export interface Capitalisation {
     capitalInitial: number;
     versementRegulier: number;
     frequence: string;
-    primeVariable: boolean;
+    primeVariable: string;
     nom: string;
     prenom: string;
     mail: string;

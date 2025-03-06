@@ -1,130 +1,143 @@
 <div class="page-wrapper">
-    <h1>Sacre Prévoyance</h1>
-    <p>Remplissez le formulaire ci-dessous pour obtenir votre devis.</p>
-  
-    <!-- First Form in a Card -->
-    <mat-card class="form-card">
-      <form (ngSubmit)="onSubmit($event)" #prevoyanceForm="ngForm">
-        <!-- Date d'effet -->
-        <mat-form-field appearance="fill">
-          <mat-label>Date d'effet</mat-label>
-          <input matInput [matDatepicker]="pickerEffet" name="dateEffet" ngModel required>
-          <mat-datepicker-toggle matSuffix [for]="pickerEffet"></mat-datepicker-toggle>
-          <mat-datepicker #pickerEffet></mat-datepicker>
-        </mat-form-field>
-  
-        <!-- Date de naissance -->
-        <mat-form-field appearance="fill">
-          <mat-label>Date de naissance</mat-label>
-          <input matInput [matDatepicker]="pickerNaissance" name="dateNaissance" ngModel required>
-          <mat-datepicker-toggle matSuffix [for]="pickerNaissance"></mat-datepicker-toggle>
-          <mat-datepicker #pickerNaissance></mat-datepicker>
-        </mat-form-field>
-  
-        <!-- Durée -->
-        <mat-form-field appearance="fill">
-          <mat-label>Durée (1 à 100 ans)</mat-label>
-          <input matInput type="number" name="duree" ngModel min="1" max="100" required>
-        </mat-form-field>
-  
-        <!-- Fréquence de règlement -->
-        <mat-form-field appearance="fill">
-          <mat-label>Fréquence de règlement</mat-label>
-          <mat-select name="frequenceReglement" ngModel required>
-            <mat-option value="Annuelle">Annuelle</mat-option>
-            <mat-option value="Semestrielle">Semestrielle</mat-option>
-            <mat-option value="Trimestrielle">Trimestrielle</mat-option>
-            <mat-option value="Mensuelle">Mensuelle</mat-option>
+  <h1>Sacre Prévoyance</h1>
+  <p>Remplissez le formulaire ci-dessous pour obtenir votre devis.</p>
+
+  <!-- First Form in a Card -->
+  <mat-card class="form-card">
+    <form (ngSubmit)="onSubmit($event)" #prevoyanceForm="ngForm">
+      <!-- Date d'effet -->
+      <mat-form-field appearance="fill">
+        <mat-label>Date d'effet</mat-label>
+        <input matInput [matDatepicker]="pickerEffet" name="dateEffet" [(ngModel)]="prevoyanceData.dateEffet" required>
+        <mat-datepicker-toggle matSuffix [for]="pickerEffet"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEffet></mat-datepicker>
+      </mat-form-field>
+
+      <!-- Date de naissance -->
+      <mat-form-field appearance="fill">
+        <mat-label>Date de naissance</mat-label>
+        <input matInput [matDatepicker]="pickerNaissance" name="dateNaissance" [(ngModel)]="prevoyanceData.dateNaissance" required>
+        <mat-datepicker-toggle matSuffix [for]="pickerNaissance"></mat-datepicker-toggle>
+        <mat-datepicker #pickerNaissance></mat-datepicker>
+      </mat-form-field>
+
+      <!-- Durée -->
+      <mat-form-field appearance="fill">
+        <mat-label>Durée (1 à 100 ans)</mat-label>
+        <input matInput type="number" name="duree" [(ngModel)]="prevoyanceData.duree" min="1" max="100" required>
+      </mat-form-field>
+
+      <!-- Fréquence de règlement -->
+      <mat-form-field appearance="fill">
+        <mat-label>Fréquence de règlement</mat-label>
+        <mat-select name="frequenceReglement" [(ngModel)]="prevoyanceData.frequenceReglement" required>
+          <mat-option value="Annuelle">Annuelle</mat-option>
+          <mat-option value="Semestrielle">Semestrielle</mat-option>
+          <mat-option value="Trimestrielle">Trimestrielle</mat-option>
+          <mat-option value="Mensuelle">Mensuelle</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Capital décès -->
+      <mat-form-field appearance="fill">
+        <mat-label>Capital décès (0 à 100 000 €)</mat-label>
+        <input matInput type="number" name="capitalDeces" [(ngModel)]="prevoyanceData.capitalDeces" min="0" max="100000" required>
+      </mat-form-field>
+
+      <!-- Décès accidentel -->
+      <mat-checkbox name="decesAccidentel" [(ngModel)]="decesAccidentel" (change)="onDecesAccidentelChange()">
+        Décès accidentel
+      </mat-checkbox>
+
+      <!-- Décès accidentel scale (only visible if "Décès accidentel" is checked) -->
+      <mat-form-field appearance="fill" *ngIf="decesAccidentel">
+        <mat-label>Décès accidentel (0 à 100 000 €)</mat-label>
+        <input matInput type="number" name="decesAccidentelMontant" [(ngModel)]="decesAccidentelMontant" min="0" max="100000" required>
+      </mat-form-field>
+
+      <!-- Invalidité partielle et permanente suite à un accident (only visible if "Décès accidentel" is checked) -->
+      <mat-checkbox name="invaliditePartielle" [(ngModel)]="invaliditePartielle" *ngIf="decesAccidentel" (change)="onInvaliditePartielleChange()">
+        Invalidité partielle et permanente suite à un accident
+      </mat-checkbox>
+
+      <!-- Invalidité partielle et permanente amount (only visible if "Invalidité partielle" is checked) -->
+      <mat-form-field appearance="fill" *ngIf="invaliditePartielle">
+        <mat-label>Invalidité partielle et permanente (0 à 100 000 €)</mat-label>
+        <input matInput type="number" name="invaliditePPMontant" [(ngModel)]="invaliditePPMontant" min="0" max="100000" required>
+      </mat-form-field>
+
+      <!-- Incapacité temporaire (only visible if "Invalidité partielle" is checked) -->
+      <div *ngIf="invaliditePartielle">
+        <mat-checkbox name="incapaciteTemporaire" [(ngModel)]="incapaciteTemporaire">
+          Incapacité temporaire / jour
+        </mat-checkbox>
+
+        <!-- Franchise (only visible if "Incapacité temporaire" is checked) -->
+        <mat-form-field appearance="fill" *ngIf="incapaciteTemporaire">
+          <mat-label>Franchise</mat-label>
+          <mat-select name="franchise" [(ngModel)]="franchise" required>
+            <mat-option value="15">15 jours</mat-option>
+            <mat-option value="30">30 jours</mat-option>
           </mat-select>
         </mat-form-field>
-  
-        <!-- Capital décès -->
-        <mat-form-field appearance="fill">
-          <mat-label>Capital décès (0 à 100 000 €)</mat-label>
-          <input matInput type="number" name="capitalDeces" ngModel min="0" max="100000" required>
-        </mat-form-field>
-  
-        <!-- Décès accidentel -->
-        <mat-checkbox name="decesAccidentel" [(ngModel)]="decesAccidentel" (change)="onDecesAccidentelChange()">
-          Décès accidentel
-        </mat-checkbox>
-  
-        <!-- Décès accidentel scale (only visible if "Décès accidentel" is checked) -->
-        <mat-form-field appearance="fill" *ngIf="decesAccidentel">
-          <mat-label>Décès accidentel (0 à 100 000 €)</mat-label>
-          <input matInput type="number" name="decesAccidentelMontant" [(ngModel)]="decesAccidentelMontant" [min]="0" [max]="capitalDeces" required>
-        </mat-form-field>
-  
-        <!-- Invalidité partielle et permanente suite à un accident (only visible if "Décès accidentel" is checked) -->
-        <mat-checkbox name="invaliditePartielle" [(ngModel)]="invaliditePartielle" *ngIf="decesAccidentel" (change)="onInvaliditePartielleChange()">
-          Invalidité partielle et permanente suite à un accident
-        </mat-checkbox>
-  
-        <!-- Incapacité temporaire (only visible if "Invalidité partielle" is checked) -->
-        <div *ngIf="invaliditePartielle">
-          <mat-checkbox name="incapaciteTemporaire" [(ngModel)]="incapaciteTemporaire">
-            Incapacité temporaire / jour
-          </mat-checkbox>
-  
-          <!-- Franchise (only visible if "Incapacité temporaire" is checked) -->
-          <mat-form-field appearance="fill" *ngIf="incapaciteTemporaire">
-            <mat-label>Franchise</mat-label>
-            <mat-select name="franchise" ngModel required>
-              <mat-option value="15">15 jours</mat-option>
-              <mat-option value="30">30 jours</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-  
-        <!-- Envoyer Button -->
-        <button mat-raised-button type="submit" [disabled]="prevoyanceForm.invalid" class="orange-button">
-          Envoyer
-        </button>
-      </form>
+      </div>
+
+      <!-- Conditions -->
+      <mat-checkbox name="conditions" [(ngModel)]="conditionsAccepted" required>
+        J’ai lu et approuvé les <a href="/terms-and-conditions" target="_blank">conditions de traitement des données personnelles</a> saisies dans cette page.
+      </mat-checkbox>
+
+      <!-- Envoyer Button -->
+      <button mat-raised-button type="submit" [disabled]="prevoyanceForm.invalid" class="orange-button">
+        Envoyer
+      </button>
+    </form>
+  </mat-card>
+
+  <!-- Display Form Data (Email Form) -->
+  <div *ngIf="formSubmitted" class="form-display">
+    <mat-card class="form-card">
+      <h2>Nous vous prions de bien remplir le formulaire ci-dessous. Votre devis vous sera envoyé par email.</h2>
+
+      <!-- Nom -->
+      <mat-form-field appearance="fill">
+        <mat-label>Nom</mat-label>
+        <input matInput name="nom" [(ngModel)]="prevoyanceData.nom" required>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <!-- Prénom -->
+      <mat-form-field appearance="fill">
+        <mat-label>Prénom</mat-label>
+        <input matInput name="prenom" [(ngModel)]="prevoyanceData.prenom" required>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="mail" [(ngModel)]="prevoyanceData.mail" required>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <!-- Confirmer Email -->
+      <mat-form-field appearance="fill">
+        <mat-label>Confirmer Email</mat-label>
+        <input matInput type="email" name="confirmEmail" [(ngModel)]="confirmEmail" required>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <!-- Téléphone -->
+      <mat-form-field appearance="fill">
+        <mat-label>Téléphone</mat-label>
+        <input matInput type="tel" name="telephone" [(ngModel)]="prevoyanceData.telephone" required>
+        <mat-icon matSuffix>phone</mat-icon>
+      </mat-form-field>
+
+      <!-- Obtenir Devis Button -->
+      <button mat-raised-button class="orange-button" (click)="obtenirDevis()">
+        Obtenir votre devis par mail
+      </button>
     </mat-card>
-  
-    <!-- Display Form Data (Email Form) -->
-    <div *ngIf="formSubmitted" class="form-display">
-      <mat-card class="form-card">
-        <h2>Nous vous prions de bien remplir le formulaire ci-dessous. Votre devis vous sera envoyé par email.</h2>
-  
-        <!-- Nom et Prénom -->
-        <mat-form-field appearance="fill">
-          <mat-label>Nom et Prénom</mat-label>
-          <input matInput name="nomPrenom" ngModel required>
-          <mat-icon matSuffix>person</mat-icon>
-        </mat-form-field>
-  
-        <!-- Email -->
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input matInput type="email" name="email" ngModel required>
-          <mat-icon matSuffix>email</mat-icon>
-        </mat-form-field>
-  
-        <!-- Confirmer Email -->
-        <mat-form-field appearance="fill">
-          <mat-label>Confirmer Email</mat-label>
-          <input matInput type="email" name="confirmEmail" ngModel required>
-          <mat-icon matSuffix>email</mat-icon>
-        </mat-form-field>
-  
-        <!-- Téléphone -->
-        <mat-form-field appearance="fill">
-          <mat-label>Téléphone</mat-label>
-          <input matInput type="tel" name="telephone" ngModel required>
-          <mat-icon matSuffix>phone</mat-icon>
-        </mat-form-field>
-  
-        <!-- Conditions -->
-        <mat-checkbox name="conditions" ngModel required>
-          J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page.
-        </mat-checkbox>
-  
-        <!-- Obtenir Devis Button -->
-        <button mat-raised-button class="orange-button" (click)="obtenirDevis()">
-          Obtenir votre devis par mail
-        </button>
-      </mat-card>
-    </div>
   </div>
+</div>

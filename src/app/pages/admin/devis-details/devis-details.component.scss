@@ -1,0 +1,160 @@
+.page-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  .devis-card,
+  .assurance-card {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin-bottom: 20px;
+
+    mat-card-header {
+      background-color: #004a8d;
+      padding: 16px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+
+      mat-card-title {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+    }
+
+    mat-card-content {
+      padding: 20px;
+
+      .devis-details,
+      .assurance-details {
+        p {
+          color: #333;
+          font-size: 1rem;
+          margin-bottom: 10px;
+
+          strong {
+            color: #004a8d;
+          }
+        }
+
+        ul {
+          list-style-type: none;
+          padding: 0;
+
+          li {
+            background-color: #f5f5f5;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            color: #333;
+          }
+        }
+      }
+
+      .loading-text {
+        color: #666;
+        font-style: italic;
+        text-align: center;
+      }
+    }
+  }
+
+  .assurance-card {
+    mat-card-header {
+      background-color: #f38f1d;
+
+      mat-card-title {
+        color: white;
+      }
+    }
+
+    .assurance-details {
+      p strong {
+        color: #f38f1d;
+      }
+    }
+  }
+
+  .buttons-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    max-width: 800px;
+    width: 100%;
+
+    button {
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 10px 20px;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+
+      button {
+        flex: 1;
+      }
+    }
+
+    /* Quitter Button */
+    button[color="warn"] {
+      background-color: #d9534f; /* Red color for Quitter button */
+      color: white;
+
+      &:hover {
+        background-color: #c9302c; /* Darker red on hover */
+      }
+    }
+
+    /* Accepter Button */
+    button[color="primary"] {
+      background-color: #004a8d; /* Blue color for Accepter button */
+      color: white;
+
+      &:hover {
+        background-color: #003366; /* Darker blue on hover */
+      }
+    }
+
+    /* Refuser Button */
+    button[color="warn"]:not(:first-child) {
+      background-color: #f38f1d; /* Orange color for Refuser button */
+      color: white;
+
+      &:hover {
+        background-color: #e67e22; /* Darker orange on hover */
+      }
+    }
+
+    /* PDF Button */
+    button[mat-icon-button] {
+      background-color: #004a8d; /* Blue color for PDF button */
+      color: white;
+      border-radius: 4px;
+      padding: 8px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #003366; /* Darker blue on hover */
+      }
+
+      mat-icon {
+        font-size: 24px; /* Adjust icon size */
+      }
+    }
+  }
+}

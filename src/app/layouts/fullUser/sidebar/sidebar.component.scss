@@ -1,27 +1,37 @@
+.sidebar-list {
+  color: #f38f1d;
+}
 
-  .sidebar-list {
-    color: #f38f1d;
-  }
-  
-  .sidebar-list .mat-list-item {
-    color: #f38f1d;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .sidebar-list .mat-list-item:hover,
-  .sidebar-list .mat-list-item.activeMenu {
-    background-color: #f38f1d;
-    color: #004a8d;
-  }
-  .activeMenu {
-    background-color: #004a8d !important; // Blue background
-    font-weight: bold;
-  }
-  .child-menu {
-    padding-left: 20px; // Indent child items
-  }
-  
-  .menu-arrow {
-    margin-left: auto; // Align arrow to the right
-  }
-  
+.sidebar-list .mat-list-item {
+  color: #f38f1d;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar-list .mat-list-item:hover,
+.sidebar-list .mat-list-item.activeMenu {
+  background-color: #f38f1d;
+  color: #004a8d;
+}
+
+.activeMenu {
+  background-color: #004a8d !important; // Blue background
+  font-weight: bold;
+}
+
+.child-menu {
+  padding-left: 20px; // Indent child items
+}
+
+.menu-arrow {
+  margin-left: auto; // Align arrow to the right
+}
+
+.routeIcon {
+  color: #000; // Ensure icons are black
+  margin-right: 8px; // Align icons properly
+}
+
+.menu-list-item {
+  display: flex;
+  align-items: center; // Ensure items are vertically aligned
+}

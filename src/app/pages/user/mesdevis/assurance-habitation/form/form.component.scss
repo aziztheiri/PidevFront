@@ -1,39 +1,66 @@
 .form-container {
-    margin-top: 20px; // Space above the form
-    padding: 20px; // Padding inside the form container
-    border-radius: 8px; // Rounded corners
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow
-    background-color: white; // White background
-  }
-  
+  margin-top: 20px; // Space above the form
+  padding: 20px; // Padding inside the form container
+  border-radius: 8px; // Rounded corners
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow
+  background-color: white; // White background
+
   h2 {
     color: #004a8d; // Title color
     font-size: 1.5rem; // Title size
     margin-bottom: 10px; // Space below title
   }
-  
+
   table {
     width: 100%; // Full width for the table
     border-collapse: collapse; // Collapse borders
     margin-bottom: 20px; // Space below the table
-  
+
     th, td {
       padding: 10px; // Padding inside table cells
       border: 1px solid #ccc; // Border color for table cells
       text-align: left; // Align text to the left
     }
-  
+
     th {
       background-color: #f1f1f1; // Light background for header
       color: #004a8d; // Header text color
+      font-weight: bold; // Bold header text
+    }
+
+    // Custom styling for the "Prime Totale" row
+    .total-row {
+      background-color: #f0f8ff; // Light blue background for the total row
+      font-weight: bold; // Make the text bold
+      color: #004a8d; // Change text color to match your theme
+
+      td {
+        border-top: 2px solid #004a8d; // Add a top border to separate the total row
+      }
     }
   }
-  
+
   .mat-form-field {
     width: 100%; // Full width for form fields
     margin-bottom: 15px; // Space below each form field
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0; // Remove extra padding
+    }
+
+    .mat-form-field-outline {
+      border-color: #ccc; // Border color for form fields
+    }
+
+    .mat-form-field-label {
+      color: #004a8d; // Label color
+    }
+
+    .mat-input-element {
+      color: #333; // Input text color
+    }
   }
-  
+
   button {
     padding: 10px 20px; // Padding for buttons
     background-color: #f38f1d; // Button color
@@ -41,17 +68,19 @@
     border: none; // No border
     border-radius: 5px; // Rounded corners
     cursor: pointer; // Change cursor to pointer
-  
+    font-weight: bold; // Bold button text
+    transition: background-color 0.3s ease; // Smooth hover transition
+
     &:hover {
       background-color: #e67e22; // Darker shade on hover
     }
+
+    &:disabled {
+      background-color: #ccc; // Gray background for disabled buttons
+      cursor: not-allowed; // Change cursor to indicate disabled state
+    }
   }
-  
-  button:disabled {
-    background-color: #ccc; // Gray background for disabled buttons
-    cursor: not-allowed; // Change cursor to indicate disabled state
-  }
-  
+
   .success-message {
     margin-top: 20px; // Space above success message
     padding: 15px; // Padding inside success message
@@ -59,9 +88,14 @@
     border: 1px solid #c3e6cb; // Border color
     color: #155724; // Text color
     border-radius: 5px; // Rounded corners
+
+    button {
+      margin-top: 10px; // Space above button in success message
+      background-color: #28a745; // Success button color
+
+      &:hover {
+        background-color: #218838; // Darker shade on hover
+      }
+    }
   }
-  
-  .success-message button {
-    margin-top: 10px; // Space above button in success message
-    background-color: #28a745; // Success button color
-  }
+}

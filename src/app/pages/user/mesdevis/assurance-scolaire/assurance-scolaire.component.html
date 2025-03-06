@@ -1,1 +1,251 @@
- <router-outlet></router-outlet>
+<div class="page-wrapper">
+    <h1>Assurance Scolaire</h1>
+  
+    <!-- Step 1: Parent/Tuteur Information -->
+    <div *ngIf="currentStep === 1" class="form-card">
+      <h2>Parent / Tuteur</h2>
+      <p>Saisir vos informations</p>
+  
+      <div class="icon-buttons">
+        <button mat-icon-button (click)="selectType('female')">
+          <mat-icon>female</mat-icon>
+        </button>
+        <button mat-icon-button (click)="selectType('male')">
+          <mat-icon>male</mat-icon>
+        </button>
+        <button mat-icon-button (click)="selectType('etablissement')">
+          <mat-icon>business</mat-icon>
+        </button>
+      </div>
+  
+      <form *ngIf="selectedType === 'female' || selectedType === 'male'">
+        <mat-form-field>
+          <mat-label>Type de pièce d'identité</mat-label>
+          <mat-select [(ngModel)]="idType" name="idType">
+            <mat-option value="carte">Carte d'identité</mat-option>
+            <mat-option value="passeport">Passeport</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>N° pièce d'identité</mat-label>
+          <input matInput [(ngModel)]="idNumber" name="idNumber">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Nom</mat-label>
+          <input matInput [(ngModel)]="lastName" name="lastName">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Prénom</mat-label>
+          <input matInput [(ngModel)]="firstName" name="firstName">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Numéro téléphone</mat-label>
+          <input matInput [(ngModel)]="phoneNumber" name="phoneNumber">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="email" name="email">
+        </mat-form-field>
+  
+        <mat-checkbox [(ngModel)]="termsAccepted" name="termsAccepted">
+          J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page
+        </mat-checkbox>
+  
+        <button mat-raised-button class="orange-button" (click)="nextStep()" [disabled]="!termsAccepted">Suivant</button>
+      </form>
+  
+      <form *ngIf="selectedType === 'etablissement'">
+        <mat-form-field>
+          <mat-label>Matricule fiscal</mat-label>
+          <input matInput [(ngModel)]="fiscalId" name="fiscalId">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Raison sociale</mat-label>
+          <input matInput [(ngModel)]="companyName" name="companyName">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Numéro téléphone</mat-label>
+          <input matInput [(ngModel)]="phoneNumber" name="phoneNumber">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="email" name="email">
+        </mat-form-field>
+  
+        <mat-checkbox [(ngModel)]="termsAccepted" name="termsAccepted">
+          J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page
+        </mat-checkbox>
+  
+        <button mat-raised-button class="orange-button" (click)="nextStep()" [disabled]="!termsAccepted">Suivant</button>
+      </form>
+    </div>
+  
+    <!-- Step 2: Simulation -->
+    <div *ngIf="currentStep === 2" class="form-card">
+      <h2>Simulation</h2>
+  
+      <form>
+        <mat-form-field>
+          <mat-label>Nombre d'enfant(s)</mat-label>
+          <input matInput type="number" [(ngModel)]="numberOfChildren" name="numberOfChildren" min="1" required (change)="onNumberOfChildrenChange()">
+        </mat-form-field>
+  
+        <!-- Dynamic Fields for Children -->
+        <div *ngFor="let child of children; let i = index">
+          <h3>Enfant {{ i + 1 }}</h3>
+          <mat-form-field>
+            <mat-label>Nom</mat-label>
+            <input matInput [(ngModel)]="child.lastName" [name]="'lastName' + i" required>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Prénom</mat-label>
+            <input matInput [(ngModel)]="child.firstName" [name]="'firstName' + i" required>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label>Date de Naissance</mat-label>
+            <input matInput [matDatepicker]="childDatePicker" [(ngModel)]="child.birthDate" [name]="'birthDate' + i" required>
+            <mat-datepicker-toggle matSuffix [for]="childDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #childDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+  
+        <mat-form-field>
+          <mat-label>Date d'Effet</mat-label>
+          <input matInput [matDatepicker]="effectiveDatePicker" [(ngModel)]="effectiveDate" name="effectiveDate" required>
+          <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #effectiveDatePicker></mat-datepicker>
+        </mat-form-field>
+  
+        <div class="button-group">
+          <button mat-raised-button class="orange-button" (click)="previousStep()">Précédent</button>
+          <button mat-raised-button class="orange-button" (click)="simulate()" [disabled]="!isStep2Valid()">Simuler</button>
+        </div>
+      </form>
+  
+      <!-- Cards displayed after clicking Simuler -->
+      <div class="cards-container" *ngIf="showCards">
+        <!-- FORMULE ECOLIA (Blue Card) -->
+        <div class="card blue-card">
+          <img src="assets/images/ecolia.jpg" alt="Ecolia">
+          <h2>FORMULE ECOLIA</h2>
+          <hr>
+          <h3 class="blue-text">GARANTIES</h3>
+          <p>Cette couverture est accordée aux écoliers, collégiens et lycéens aussi bien au sein de l'établissement scolaire que sur le chemin de l'aller et retour et au cours des excursions.</p>
+  
+          <div class="sub-card">
+            <h4>A- GARANTIES INDIVIDUELLE ACCIDENTS CORPORELS</h4>
+            <ul>
+              <li>Capital en cas de décès accidentel</li>
+              <li>Capital en cas d'infirmité accidentelle permanente totale ou partielle</li>
+              <li>Remboursement des frais de traitement suite à un accident</li>
+              <li>Remboursement des frais d'optique suite à un accident</li>
+            </ul>
+          </div>
+  
+          <div class="sub-card">
+            <h4>B- GARANTIES ASSISTANCE</h4>
+            <ul>
+              <li>Soins d'urgence en cas d'Accident</li>
+              <li>Transport sanitaire ou Rapatriement</li>
+              <li>Déplacement et séjour d'un membre de la famille</li>
+              <li>Assistance psychologique en cas d'Accident ou décès d'un parent</li>
+              <li>Kinésithérapeute en cas de traumatisme</li>
+            </ul>
+          </div>
+  
+          <div class="card-footer">
+            <div class="price blue-text">
+              {{ calculateMontant('ecolia') }} TND
+            </div>
+            <button mat-raised-button class="blue-button" (click)="nextStep('ecolia')">J'ACHETE MAINTENANT</button>
+          </div>
+        </div>
+  
+        <!-- FORMULE ECOLIA PLUS (Orange Card) -->
+        <div class="card orange-card">
+          <img src="assets/images/ecolia+.jpg" alt="Ecolia Plus">
+          <h2>FORMULE ECOLIA PLUS</h2>
+          <hr>
+          <h3 class="orange-text">GARANTIES</h3>
+          <p>Cette couverture est accordée aux écoliers, collégiens et lycéens aussi bien au sein de l'établissement scolaire que sur le chemin de l'aller et retour et au cours des excursions.</p>
+  
+          <div class="sub-card">
+            <h4>A- GARANTIES INDIVIDUELLE ACCIDENTS CORPORELS</h4>
+            <ul>
+              <li>Capital en cas de décès accidentel</li>
+              <li>Capital en cas d'infirmité accidentelle permanente totale ou partielle</li>
+              <li>Remboursement des frais de traitement suite à un accident</li>
+              <li>Remboursement des frais d'optique suite à un accident</li>
+            </ul>
+          </div>
+  
+          <div class="sub-card">
+            <h4>B- GARANTIES ASSISTANCE</h4>
+            <ul>
+              <li>Soins d'urgence en cas d'Accident</li>
+              <li>Transport sanitaire ou Rapatriement</li>
+              <li>Déplacement et séjour d'un membre de la famille</li>
+              <li>Assistance psychologique en cas d'Accident ou décès d'un parent</li>
+              <li>Kinésithérapeute en cas de traumatisme</li>
+            </ul>
+          </div>
+  
+          <div class="card-footer">
+            <div class="price orange-text">
+              {{ calculateMontant('ecolia-plus') }} TND
+            </div>
+            <button mat-raised-button class="orange-button" (click)="nextStep('ecolia-plus')">J'ACHETE MAINTENANT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Step 3: Finalisation -->
+    <div *ngIf="currentStep === 3" class="form-card">
+      <h2>Finalisation</h2>
+  
+      <form>
+        <!-- Adresse du Parent -->
+        <mat-form-field appearance="outline">
+          <mat-label>Adresse du Parent</mat-label>
+          <input matInput [(ngModel)]="adresseParent" id="adresseParent" name="adresseParent" required>
+        </mat-form-field>
+  
+        <!-- Ville -->
+        <mat-form-field appearance="outline">
+          <mat-label>Ville</mat-label>
+          <input matInput [(ngModel)]="ville" id="ville" name="ville" required>
+        </mat-form-field>
+  
+        <!-- Code Postal -->
+        <mat-form-field appearance="outline">
+          <mat-label>Code Postal</mat-label>
+          <input matInput [(ngModel)]="codePostale" id="codePostale" name="codePostale" required>
+        </mat-form-field>
+  
+        <!-- Date d'Effet -->
+        <mat-form-field appearance="outline">
+          <mat-label>Date d'Effet</mat-label>
+          <input matInput [matDatepicker]="effectiveDatePicker" [(ngModel)]="dateEffet" id="dateEffet" name="dateEffet" required>
+          <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #effectiveDatePicker></mat-datepicker>
+        </mat-form-field>
+  
+        <!-- Buttons -->
+        <div class="button-group">
+          <button mat-raised-button class="orange-button" (click)="previousStep()">Retour</button>
+          <button mat-raised-button class="orange-button" (click)="validate()" [disabled]="!isStep3Valid()">Valider</button>
+        </div>
+      </form>
+    </div>
+  </div>

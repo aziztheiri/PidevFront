@@ -1,71 +1,39 @@
 <div class="page-wrapper">
-  <h1>Validation</h1>
-  <p>Veuillez vérifier les informations saisies et remplir les détails pour chaque enfant.</p>
+  <h1>Finalisation</h1>
 
-  <!-- Card for Step 1 Information -->
   <div class="form-card">
-    <h2>Informations du Parent / Tuteur</h2>
-    <div *ngIf="step1Data">
-      <p><strong>Type:</strong> {{ step1Data.selectedType === 'etablissement' ? 'Établissement' : 'Individuel' }}</p>
-      <p *ngIf="step1Data.selectedType !== 'etablissement'"><strong>Type de pièce:</strong> {{ step1Data.idType }}</p>
-      <p *ngIf="step1Data.selectedType !== 'etablissement'"><strong>N° pièce:</strong> {{ step1Data.idNumber }}</p>
-      <p><strong>Nom:</strong> {{ step1Data.lastName }}</p>
-      <p><strong>Prénom:</strong> {{ step1Data.firstName }}</p>
-      <p><strong>Téléphone:</strong> {{ step1Data.phoneNumber }}</p>
-      <p><strong>Email:</strong> {{ step1Data.email }}</p>
-      <p *ngIf="step1Data.selectedType === 'etablissement'"><strong>Matricule fiscal:</strong> {{ step1Data.fiscalId }}</p>
-      <p *ngIf="step1Data.selectedType === 'etablissement'"><strong>Raison sociale:</strong> {{ step1Data.companyName }}</p>
-    </div>
-  </div>
+    <form>
+      <!-- Adresse du Parent -->
+      <mat-form-field appearance="outline">
+        <mat-label>Adresse du Parent</mat-label>
+        <input matInput [(ngModel)]="adresseParent" id="adresseParent" name="adresseParent" required>
+      </mat-form-field>
 
-  <!-- Card for Children Information -->
-  <div class="form-card">
-    <h2>Informations des Enfants</h2>
-    <form *ngFor="let child of children; let i = index">
-      <h3>Enfant {{ i + 1 }}</h3>
-      <mat-form-field>
-        <mat-label>Nom</mat-label>
-        <input matInput [(ngModel)]="child.nom" [name]="'nom' + i" required>
+      <!-- Ville -->
+      <mat-form-field appearance="outline">
+        <mat-label>Ville</mat-label>
+        <input matInput [(ngModel)]="ville" id="ville" name="ville" required>
       </mat-form-field>
-      <mat-form-field>
-        <mat-label>Prénom</mat-label>
-        <input matInput [(ngModel)]="child.prenom" [name]="'prenom' + i" required>
+
+      <!-- Code Postal -->
+      <mat-form-field appearance="outline">
+        <mat-label>Code Postal</mat-label>
+        <input matInput [(ngModel)]="codePostale" id="codePostale" name="codePostale" required>
       </mat-form-field>
-      <mat-form-field>
-        <mat-label>Date de Naissance</mat-label>
-        <input matInput [matDatepicker]="getDatePickerRef(i)" [(ngModel)]="child.dateNaissance" [name]="'dateNaissance' + i" required>
-        <mat-datepicker-toggle matSuffix [for]="getDatePickerRef(i)"></mat-datepicker-toggle>
-        <mat-datepicker #picker0></mat-datepicker>
-        <mat-datepicker #picker1></mat-datepicker>
-        <mat-datepicker #picker2></mat-datepicker>
-        <!-- Add more date pickers as needed -->
+
+      <!-- Date d'Effet -->
+      <mat-form-field appearance="outline">
+        <mat-label>Date d'Effet</mat-label>
+        <input matInput [matDatepicker]="effectiveDatePicker" [(ngModel)]="dateEffet" id="dateEffet" name="dateEffet" required>
+        <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #effectiveDatePicker></mat-datepicker>
       </mat-form-field>
+
+      <!-- Buttons -->
+      <div class="button-group">
+        <button mat-raised-button class="orange-button" (click)="previousStep()">Retour</button>
+        <button mat-raised-button class="orange-button" (click)="validate()" [disabled]="!isFormValid()">Valider</button>
+      </div>
     </form>
-
-    <!-- Additional Fields -->
-    <mat-form-field>
-      <mat-label>Adresse du Parent</mat-label>
-      <input matInput [(ngModel)]="adresseParent" name="adresseParent" required>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Ville</mat-label>
-      <input matInput [(ngModel)]="ville" name="ville" required>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Code Postal</mat-label>
-      <input matInput [(ngModel)]="codePostale" name="codePostale" required>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Date d'Effet</mat-label>
-      <input matInput [matDatepicker]="effectiveDatePicker" [(ngModel)]="dateEffet" name="dateEffet" required>
-      <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #effectiveDatePicker></mat-datepicker>
-    </mat-form-field>
-
-    <!-- Buttons -->
-    <div class="button-group">
-      <button mat-raised-button class="orange-button" (click)="previousStep()">Retour</button>
-      <button mat-raised-button class="orange-button" (click)="validate()" [disabled]="!isFormValid()">Valider</button>
-    </div>
   </div>
 </div>

@@ -11,6 +11,7 @@ import { NavService } from '../../../../services/nav.service';
 export class AppNavUserItemComponent implements OnChanges {
   @Input() item: NavItem | any;
   @Input() depth: any;
+  isParentActive = false; // Add this property to track parent active state
 
   constructor(public navService: NavService, public router: Router) {
     if (this.depth === undefined) {
@@ -21,7 +22,13 @@ export class AppNavUserItemComponent implements OnChanges {
   ngOnChanges() {
     this.navService.currentUrl.subscribe((url: string) => {
       if (this.item.route && url) {
-        // Handle active state logic if needed
+        // Handle active state logic for items with routes
+        this.isParentActive = this.router.isActive(this.item.route, true);
+      } else if (this.item.children && this.item.children.length) {
+        // Handle active state logic for parent items
+        this.isParentActive = this.item.children.some((child: NavItem) =>
+          this.router.isActive(child.route || '', true)
+        );
       }
     });
   }

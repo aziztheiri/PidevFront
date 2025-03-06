@@ -1,0 +1,151 @@
+<div class="page-wrapper">
+    <!-- Card for Détails du Devis -->
+    <mat-card class="devis-card">
+      <mat-card-header>
+        <mat-card-title class="devis-title">Détails du Devis</mat-card-title>
+      </mat-card-header>
+      <mat-card-content *ngIf="devis; else loading">
+        <div class="devis-details">
+          <p><strong>Référence:</strong> {{ formatId(devis.id) }}</p>
+          <p><strong>Type d'Assurance:</strong> {{ devis.typeAssurance }}</p>
+          <p><strong>Montant:</strong> {{ devis.montant | currency }}</p>
+          <p><strong>Date de Calcul:</strong> {{ devis.dateCalcul | date }}</p>
+          <p><strong>Statut:</strong> {{ devis.statut }}</p>
+          <p><strong>Date Début Contrat:</strong> {{ devis.dateDebutContrat | date }}</p>
+          <p><strong>Date Fin Contrat:</strong> {{ devis.dateFinContrat | date }}</p>
+        </div>
+      </mat-card-content>
+      <ng-template #loading>
+        <mat-card-content>
+          <p class="loading-text">Chargement des détails du devis...</p>
+        </mat-card-content>
+      </ng-template>
+    </mat-card>
+  
+    <!-- Card for Détails de l'Assurance -->
+    <mat-card class="assurance-card" *ngIf="assuranceDetails">
+      <mat-card-header>
+        <mat-card-title class="assurance-title">Détails du Client</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <!-- ECOLE -->
+        <div *ngIf="devis?.typeAssurance === 'ECOLE'" class="assurance-details">
+          <p><strong>Nom:</strong> {{ assuranceDetails.nom }}</p>
+          <p><strong>Prénom:</strong> {{ assuranceDetails.prenom }}</p>
+          <p><strong>Email:</strong> {{ assuranceDetails.email }}</p>
+          <p><strong>Téléphone:</strong> {{ assuranceDetails.numTelephone }}</p>
+          <p><strong>Raison Sociale:</strong> {{ assuranceDetails.raisonSociale }}</p>
+          <p><strong>Adresse:</strong> {{ assuranceDetails.adresseEtablissement }}</p>
+          <p><strong>Ville:</strong> {{ assuranceDetails.villeEtablissement }}</p>
+          <p><strong>Code Postal:</strong> {{ assuranceDetails.codePostaleEtablissement }}</p>
+          <p><strong>Enfants:</strong></p>
+          <ul>
+            <li *ngFor="let enfant of assuranceDetails.nomsEnfants; let i = index">
+              {{ enfant }} {{ assuranceDetails.prenomsEnfants[i] }} ({{ assuranceDetails.datesNaissanceEnfants[i] | date }})
+            </li>
+          </ul>
+        </div>
+  
+        <!-- VOYAGE -->
+        <div *ngIf="devis?.typeAssurance === 'VOYAGE'" class="assurance-details">
+          <p><strong>Durée du Contrat:</strong> {{ assuranceDetails.dureeContrat }}</p>
+          <p><strong>Date de Départ:</strong> {{ assuranceDetails.dateDepart | date }}</p>
+          <p><strong>Date de Retour:</strong> {{ assuranceDetails.dateRetour | date }}</p>
+          <p><strong>Pays:</strong> {{ assuranceDetails.pays }}</p>
+          <p><strong>Nationalité:</strong> {{ assuranceDetails.nationalite }}</p>
+          <p><strong>Tranche d'Âge:</strong> {{ assuranceDetails.trancheAge }}</p>
+        </div>
+  
+        <!-- HABITATION -->
+        <div *ngIf="devis?.typeAssurance === 'HABITATION'" class="assurance-details">
+          <p><strong>Pack:</strong> {{ assuranceDetails.pack }}</p>
+          <p><strong>Type de Personne:</strong> {{ assuranceDetails.typePersonne }}</p>
+          <p><strong>Nom:</strong> {{ assuranceDetails.nom }}</p>
+          <p><strong>Prénom:</strong> {{ assuranceDetails.prenom }}</p>
+          <p><strong>Date de Naissance:</strong> {{ assuranceDetails.dateNaissance | date }}</p>
+          <p><strong>Adresse:</strong> {{ assuranceDetails.adresse }}</p>
+          <p><strong>Ville:</strong> {{ assuranceDetails.ville }}</p>
+          <p><strong>Code Postal:</strong> {{ assuranceDetails.codePostale }}</p>
+          <p><strong>Téléphone:</strong> {{ assuranceDetails.numTelephone }}</p>
+          <p><strong>Email:</strong> {{ assuranceDetails.email }}</p>
+          <p><strong>Adresse du Logement:</strong> {{ assuranceDetails.adresseLogement }}</p>
+          <p><strong>Ville du Logement:</strong> {{ assuranceDetails.villeLogement }}</p>
+          <p><strong>Code Postal du Logement:</strong> {{ assuranceDetails.codePostaleLogement }}</p>
+          <p><strong>Photovoltaïque:</strong> {{ assuranceDetails.photovoltaique ? 'Oui' : 'Non' }}</p>
+        </div>
+  
+        <!-- ACCIDENTS -->
+        <div *ngIf="devis?.typeAssurance === 'ACCIDENTS'" class="assurance-details">
+          <p><strong>Profession:</strong> {{ assuranceDetails.profession }}</p>
+          <p><strong>Capital Décès:</strong> {{ assuranceDetails.capitalDeces | currency }}</p>
+          <p><strong>Capital IPP:</strong> {{ assuranceDetails.capitalIPP | currency }}</p>
+          <p><strong>Montant Rente par Jour:</strong> {{ assuranceDetails.montantRenteParJourDT | currency }}</p>
+          <p><strong>Durée de Franchise:</strong> {{ assuranceDetails.dureeFranchise }}</p>
+          <p><strong>Capital Traitement:</strong> {{ assuranceDetails.capitalTraitement | currency }}</p>
+          <p><strong>Nom:</strong> {{ assuranceDetails.nom }}</p>
+          <p><strong>Prénom:</strong> {{ assuranceDetails.prenom }}</p>
+          <p><strong>Email:</strong> {{ assuranceDetails.mail }}</p>
+          <p><strong>Téléphone:</strong> {{ assuranceDetails.telephone }}</p>
+        </div>
+  
+        <!-- CAPITALISATION -->
+        <div *ngIf="devis?.typeAssurance === 'CAPITALISATION'" class="assurance-details">
+          <p><strong>Date d'Effet:</strong> {{ assuranceDetails.dateEffet | date }}</p>
+          <p><strong>Durée:</strong> {{ assuranceDetails.duree }} ans</p>
+          <p><strong>Capital Initial:</strong> {{ assuranceDetails.capitalInitial | currency }}</p>
+          <p><strong>Versement Régulier:</strong> {{ assuranceDetails.versementRegulier | currency }}</p>
+          <p><strong>Fréquence:</strong> {{ assuranceDetails.frequence }}</p>
+          <p><strong>Prime Variable:</strong> {{ assuranceDetails.primeVariable ? 'Oui' : 'Non' }}</p>
+          <p><strong>Nom:</strong> {{ assuranceDetails.nom }}</p>
+          <p><strong>Prénom:</strong> {{ assuranceDetails.prenom }}</p>
+          <p><strong>Email:</strong> {{ assuranceDetails.mail }}</p>
+          <p><strong>Téléphone:</strong> {{ assuranceDetails.telephone }}</p>
+        </div>
+  
+        <!-- PREVOYANCE -->
+        <div *ngIf="devis?.typeAssurance === 'PREVOYANCE'" class="assurance-details">
+          <p><strong>Date d'Effet:</strong> {{ assuranceDetails.dateEffet | date }}</p>
+          <p><strong>Date de Naissance:</strong> {{ assuranceDetails.dateNaissance | date }}</p>
+          <p><strong>Durée:</strong> {{ assuranceDetails.duree }} ans</p>
+          <p><strong>Fréquence de Règlement:</strong> {{ assuranceDetails.frequenceReglement }}</p>
+          <p><strong>Capital Décès:</strong> {{ assuranceDetails.capitalDeces | currency }}</p>
+          <p><strong>Décès Accidentel:</strong> {{ assuranceDetails.decesAccidentel | currency }}</p>
+          <p><strong>Invalidité Permanente Partielle:</strong> {{ assuranceDetails.invaliditePP | currency }}</p>
+          <p><strong>Incapacité Temporaire:</strong> {{ assuranceDetails.incapaciteTemp ? 'Oui' : 'Non' }}</p>
+          <p><strong>Franchise:</strong> {{ assuranceDetails.franchise }}</p>
+          <p><strong>Nom:</strong> {{ assuranceDetails.nom }}</p>
+          <p><strong>Prénom:</strong> {{ assuranceDetails.prenom }}</p>
+          <p><strong>Email:</strong> {{ assuranceDetails.mail }}</p>
+          <p><strong>Téléphone:</strong> {{ assuranceDetails.telephone }}</p>
+        </div>
+  
+        <!-- SANTE_INTERNATIONALE -->
+        <div *ngIf="devis?.typeAssurance === 'SANTE_INTERNATIONALE'" class="assurance-details">
+          <p><strong>Nom:</strong> {{ assuranceDetails.nom }}</p>
+          <p><strong>Prénom:</strong> {{ assuranceDetails.prenom }}</p>
+          <p><strong>Email:</strong> {{ assuranceDetails.mail }}</p>
+          <p><strong>Société:</strong> {{ assuranceDetails.societe }}</p>
+          <p><strong>Fonction:</strong> {{ assuranceDetails.fonction }}</p>
+          <p><strong>Téléphone:</strong> {{ assuranceDetails.telephone }}</p>
+          <p><strong>Date de Naissance:</strong> {{ assuranceDetails.dateNaissance | date }}</p>
+          <p><strong>Message:</strong> {{ assuranceDetails.message }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- Buttons Section -->
+    <div class="buttons-section">
+      <!-- Quitter Button -->
+      <button mat-raised-button color="warn" (click)="quitter()">Quitter</button>
+       <!-- PDF Button -->
+  <button mat-icon-button color="primary" (click)="saveAsPdf()" matTooltip="Télécharger en PDF">
+    <mat-icon>picture_as_pdf</mat-icon>
+  </button>
+  
+      <!-- Accepter/Refuser Buttons (only if statut is EN_COURS) -->
+      <div *ngIf="devis?.statut === 'EN_COURS'" class="action-buttons">
+        <button mat-raised-button color="primary" (click)="accepterDevis()">Accepter</button>
+        <button mat-raised-button color="warn" (click)="refuserDevis()">Refuser</button>
+      </div>
+    </div>
+  </div>

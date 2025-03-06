@@ -5,8 +5,29 @@
     <form>
       <mat-form-field>
         <mat-label>Nombre d'enfant(s)</mat-label>
-        <input matInput type="number" [(ngModel)]="numberOfChildren" name="numberOfChildren" min="1" required>
+        <input matInput type="number" [(ngModel)]="numberOfChildren" name="numberOfChildren" min="1" required (change)="onNumberOfChildrenChange()">
       </mat-form-field>
+
+      <!-- Dynamic Fields for Children -->
+      <div *ngFor="let child of children; let i = index">
+        <h3>Enfant {{ i + 1 }}</h3>
+        <mat-form-field>
+          <mat-label>Nom</mat-label>
+          <input matInput [(ngModel)]="child.lastName" [name]="'lastName' + i" required>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Prénom</mat-label>
+          <input matInput [(ngModel)]="child.firstName" [name]="'firstName' + i" required>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Date de Naissance</mat-label>
+          <input matInput [matDatepicker]="childDatePicker" [(ngModel)]="child.birthDate" [name]="'birthDate' + i" required>
+          <mat-datepicker-toggle matSuffix [for]="childDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #childDatePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
 
       <mat-form-field>
         <mat-label>Date d'Effet</mat-label>
