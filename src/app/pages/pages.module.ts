@@ -60,6 +60,7 @@ import { MatCardModule } from '@angular/material/card';
     SignupComponent,
     OtpVerificationComponent,
     LogoutComponent,
+    UpdateUserComponent,
     UserProfileComponent,
     HomeComponent,
     SafeHtmlPipe,

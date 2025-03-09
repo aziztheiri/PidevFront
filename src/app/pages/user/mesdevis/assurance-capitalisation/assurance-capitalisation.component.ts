@@ -88,7 +88,6 @@ export class AssuranceCapitalisationComponent {
   // Save Devis data
   saveDevis(capitalisationId: number): void {
     const devis: Devis = {
-      cin: '11111111',
       montant: 0, // Set a default value or calculate based on your logic
       dateCalcul: new Date(), // Current date
       typeAssurance: 'CAPITALISATION', // Hardcoded value matching the Spring enum

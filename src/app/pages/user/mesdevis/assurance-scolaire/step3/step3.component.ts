@@ -100,7 +100,6 @@ export class Step3Component implements OnInit {
   // Save Devis data
   saveDevis(ecoleId: number): void {
     const devis: Devis = {
-      cin: '11111111', // Set a default value or retrieve from the form
       montant: this.calculateMontant(), // Calculate based on the selected pack
       dateCalcul: new Date(), // Current date
       typeAssurance: 'SCOLAIRE', // Hardcoded value matching the Spring enum

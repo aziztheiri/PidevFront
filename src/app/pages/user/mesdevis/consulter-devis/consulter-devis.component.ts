@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DevisService } from '../../../../services/devis.service';
 import { Devis } from '../../../../models/devis.model';
 import * as XLSX from 'xlsx'; // Import the xlsx library
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-consulter-devis',
@@ -31,11 +32,13 @@ export class ConsulterDevisComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private devisService: DevisService) {}
+  constructor(private devisService: DevisService,private authService:AuthService) {}
 
   ngOnInit(): void {
-    const cin = '11111111'; // Replace with the desired CIN or fetch it dynamically
-    this.fetchDevisByCin(cin);
+    const currentUser = this.authService.currentUserSubject.getValue();
+    if(currentUser != null){
+      this.fetchDevisByCin(currentUser.cin);
+    }
   }
 
   fetchDevisByCin(cin: string): void {

@@ -185,7 +185,7 @@ export class AssuranceAccidentsComponent implements OnInit {
   // Save Devis data
   saveDevis(accidentsId: number): void {
     const devis: Devis = {
-      cin: '11111111',
+     
       montant: 0, // Set a default value or calculate based on your logic
       dateCalcul: new Date(), // Current date
       typeAssurance: 'ACCIDENTS', // Hardcoded value matching the Spring enum

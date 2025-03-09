@@ -6,12 +6,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-<<<<<<< HEAD
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
-=======
->>>>>>> 4a62b3d0f2e93a753229587e9180075cd09cc5a4
 
 
 @Component({
