@@ -14,5 +14,11 @@ export const navItems: NavItem[] = [
     iconName: 'user',
     route: '/admin/users', // Updated route
   },
+  {
+    displayName: 'Devis',
+    iconName: 'file-text',
+    route: '/admin/devis', // Updated route
+  },
+
  
 ];

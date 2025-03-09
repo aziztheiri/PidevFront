@@ -1,0 +1,75 @@
+.page-wrapper {
+  padding: 20px;
+
+  h1 {
+    color: #004a8d;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #f38f1d;
+    margin-bottom: 20px;
+  }
+
+  .form-card {
+    padding: 20px; // Add padding inside the card
+    border-radius: 8px; // Rounded corners
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Add a subtle shadow
+    background-color: white; // Ensure the card has a white background
+    margin-bottom: 20px; // Add space below the card
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      mat-form-field {
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .orange-button {
+        background-color: #f38f1d;
+        color: white;
+        margin-top: 20px;
+        align-self: center; // Center the button horizontally
+        padding: 10px 30px; // Add padding to make the button bigger
+        font-size: 1rem; // Adjust font size if needed
+      }
+    }
+  }
+
+  .form-display {
+    margin-top: 20px;
+
+    h2 {
+      color: #004a8d;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .form-card {
+      // Ensure the second form card matches the first form card
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        mat-form-field {
+          width: 100%;
+          max-width: 500px;
+        }
+
+        .orange-button {
+          background-color: #f38f1d;
+          color: white;
+          margin-top: 20px;
+          align-self: center; // Center the button horizontally
+          padding: 10px 30px; // Add padding to make the button bigger
+          font-size: 1rem; // Adjust font size if needed
+        }
+      }
+    }
+  }
+}

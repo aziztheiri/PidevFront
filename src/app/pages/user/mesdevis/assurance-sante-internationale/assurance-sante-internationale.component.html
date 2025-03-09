@@ -1,0 +1,73 @@
+<div class="page-wrapper">
+  <div class="form-card">
+    <h2>Demande de devis santé internationale</h2>
+    <p>Contactez-nous pour tous vos besoins en assurance.</p>
+
+    <form (ngSubmit)="onSubmit($event)">
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Nom" id="nom" name="nom" ngModel required>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Prénom" id="prenom" name="prenom" ngModel required>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput type="email" placeholder="Email" id="email" name="email" ngModel required>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput type="email" placeholder="Confirmation de mail" id="confirmEmail" name="confirmEmail" ngModel required>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Société" id="societe" name="societe" ngModel>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput placeholder="Fonction" id="fonction" name="fonction" ngModel>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput type="tel" placeholder="Numéro Téléphone" id="telephone" name="telephone" ngModel required>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Date Naissance" id="dateNaissance" name="dateNaissance" ngModel required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field>
+          <textarea matInput placeholder="Votre message" id="message" name="message" ngModel required></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-checkbox id="conditions" name="conditions" ngModel required>
+          J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page.
+        </mat-checkbox>
+      </div>
+
+      <button mat-raised-button class="orange-button" type="submit">Envoyer</button>
+    </form>
+  </div>
+  <router-outlet></router-outlet>
+</div>

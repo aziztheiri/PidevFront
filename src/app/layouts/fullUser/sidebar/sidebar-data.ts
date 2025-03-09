@@ -11,12 +11,24 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Mes Devis',
-    iconName: 'file-text', // 📄 Represents documents/quotes
-    route: '/user/devis',
+    iconName: 'file',
+    expanded: false,
+    children: [
+      {
+        displayName: 'Demander un devis',
+        iconName: 'file-plus',
+        route: '/user/demander-devis',
+      },
+      {
+        displayName: 'Consulter les devis',
+        iconName: 'file-text',
+        route: '/user/consulter-devis',
+      },
+    ],
   },
   {
     displayName: 'Mes Réclamations',
-    iconName: 'message-circle', // 💬 Represents user feedback or complaints
+    iconName: 'message-circle',
     route: '/user/reclamations',
   },
   {
@@ -26,3 +38,4 @@ export const navItems: NavItem[] = [
   },
   
 ];
+

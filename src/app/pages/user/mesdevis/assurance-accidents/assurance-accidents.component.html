@@ -1,0 +1,139 @@
+<div class="page-wrapper">
+  <h1>Assurance Accidents</h1>
+  <p>Remplissez le formulaire ci-dessous pour obtenir votre devis.</p>
+
+  <!-- First Form in a Card -->
+  <mat-card class="form-card">
+    <form (ngSubmit)="onSubmit($event)" #accidentsForm="ngForm">
+      <!-- Profession -->
+      <mat-form-field appearance="fill">
+        <mat-label>Profession</mat-label>
+        <mat-select name="profession" [(ngModel)]="accidentsData.profession" required>
+          <mat-option *ngFor="let profession of professions" [value]="profession">
+            {{ profession }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Capital décès -->
+      <mat-form-field appearance="fill">
+        <mat-label>Capital décès (entre 0 et 100000)</mat-label>
+        <input matInput type="number" name="capitalDeces" [(ngModel)]="accidentsData.capitalDeces" min="0" max="100000" required>
+      </mat-form-field>
+
+      <!-- Capital IPP -->
+      <mat-form-field appearance="fill">
+        <mat-label>Capital IPP (entre 0 et 100000)</mat-label>
+        <input matInput type="number" name="capitalIPP" [(ngModel)]="accidentsData.capitalIPP" min="0" max="100000" required>
+      </mat-form-field>
+
+      <!-- Card for Montant Rente and Durée de Franchise -->
+      <mat-card class="inner-card">
+        <h3>Détails de la Rente</h3>
+
+        <!-- Montant Rente Par jour -->
+        <mat-form-field appearance="fill">
+          <mat-label>Montant Rente Par jour en dinars (entre 0 et 1000)</mat-label>
+          <input matInput type="number" name="montantRente" [(ngModel)]="accidentsData.montantRenteParJourDT" min="0" max="1000" required>
+        </mat-form-field>
+
+        <!-- Durée de Franchise Garantie Rente -->
+        <mat-form-field appearance="fill">
+          <mat-label>Durée de Franchise Garantie Rente</mat-label>
+          <mat-select name="franchiseGarantie" [(ngModel)]="accidentsData.dureeFranchise" required>
+            <mat-option value="Aucune">Aucune (Pas de Garantie)</mat-option>
+            <mat-option value="15 jours">Franchise de 15 jours</mat-option>
+            <mat-option value="30 jours">Franchise de 30 jours</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card>
+
+      <!-- Capital Frais de traitement -->
+      <mat-form-field appearance="fill">
+        <mat-label>Capital Frais de traitement</mat-label>
+        <mat-select name="fraisTraitement" [(ngModel)]="accidentsData.capitalTraitement" required>
+          <mat-option value="Pas de Garantie">Pas de Garantie</mat-option>
+          <mat-option value="50">50</mat-option>
+          <mat-option value="100">100</mat-option>
+          <mat-option value="150">150</mat-option>
+          <mat-option value="200">200</mat-option>
+          <mat-option value="250">250</mat-option>
+          <mat-option value="300">300</mat-option>
+          <mat-option value="350">350</mat-option>
+          <mat-option value="400">400</mat-option>
+          <mat-option value="450">450</mat-option>
+          <mat-option value="5000">500</mat-option>
+          <mat-option value="550">550</mat-option>
+          <mat-option value="600">600</mat-option>
+          <mat-option value="650">650</mat-option>
+          <mat-option value="700">700</mat-option>
+          <mat-option value="750">750</mat-option>
+          <mat-option value="800">800</mat-option>
+          <mat-option value="850">850</mat-option>
+          <mat-option value="900">900</mat-option>
+          <mat-option value="950">950</mat-option>
+          <mat-option value="1000">1000</mat-option>
+          <!-- Add other values here -->
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Envoyer Button -->
+      <button mat-raised-button type="submit" [disabled]="accidentsForm.invalid" class="orange-button">
+        Envoyer
+      </button>
+    </form>
+  </mat-card>
+
+  <!-- Display Mail Form -->
+  <div *ngIf="formSubmitted" class="form-display">
+    <h2>Nous vous prions de bien remplir le formulaire ci-dessous. Votre devis vous sera envoyé par email.</h2>
+
+    <!-- Second Form in a Card -->
+    <mat-card class="form-card">
+      <form #emailForm="ngForm">
+        <!-- Nom -->
+        <mat-form-field appearance="fill">
+          <mat-label>Nom</mat-label>
+          <input matInput type="text" name="nom" [(ngModel)]="accidentsData.nom" required>
+        </mat-form-field>
+
+        <!-- Prenom -->
+        <mat-form-field appearance="fill">
+          <mat-label>Prenom</mat-label>
+          <input matInput type="text" name="prenom" [(ngModel)]="accidentsData.prenom" required>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" name="email" [(ngModel)]="accidentsData.mail" required>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <!-- Confirmer Email -->
+        <mat-form-field appearance="fill">
+          <mat-label>Confirmer Email</mat-label>
+          <input matInput type="email" name="confirmEmail" [(ngModel)]="accidentsData.confirmEmail" required>
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <!-- Téléphone -->
+        <mat-form-field appearance="fill">
+          <mat-label>Téléphone</mat-label>
+          <input matInput type="tel" name="telephone" [(ngModel)]="accidentsData.telephone" required>
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+
+        <!-- Conditions -->
+        <mat-checkbox name="conditions" [(ngModel)]="accidentsData.conditions" required>
+          J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page.
+        </mat-checkbox>
+
+        <!-- Obtenir Devis Button -->
+        <button mat-raised-button class="orange-button" (click)="obtenirDevis()" [disabled]="emailForm.invalid">
+          Obtenir votre devis par mail
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

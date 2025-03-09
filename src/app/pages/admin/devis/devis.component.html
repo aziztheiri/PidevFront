@@ -1,0 +1,144 @@
+<div class="page-wrapper">
+  <h1>Consulter les Devis</h1>
+  <p class="subtitle">Consultez et suivez vos devis</p>
+   <!-- AI Summary Section -->
+   <mat-card class="ai-summary-card" *ngIf="aiSummary">
+    <mat-card-header>
+      <mat-card-title>Résumé Généré par l'IA</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ aiSummary }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tab Group -->
+  <mat-tab-group>
+    <!-- Table Tab -->
+    <mat-tab label="Tableau">
+      <!-- Search Bar for Table -->
+      <mat-form-field appearance="outline" class="search-bar">
+        <mat-label>Rechercher</mat-label>
+        <input matInput [(ngModel)]="searchText" placeholder="Entrez un mot-clé" (input)="applyFilter()" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <!-- Generate Summary Button -->
+      <button mat-raised-button color="primary" (click)="generateAISummary()" class="ai-button">
+        <mat-icon>auto_awesome</mat-icon>
+        Générer un Résumé
+      </button>
+
+      <!-- Table with Sorting and Pagination -->
+      <mat-card class="table-card">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Référence</th>
+            <td mat-cell *matCellDef="let element">{{ formatId(element.id) }}</td>
+          </ng-container>
+
+          <!-- Type Column -->
+          <ng-container matColumnDef="typeAssurance">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+            <td mat-cell *matCellDef="let element">{{ element.typeAssurance }}</td>
+          </ng-container>
+
+          <!-- Montant Column -->
+          <ng-container matColumnDef="montant">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Montant</th>
+            <td mat-cell *matCellDef="let element">{{ element.montant | currency }}</td>
+          </ng-container>
+
+          <!-- Date Calcul Column -->
+          <ng-container matColumnDef="dateCalcul">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Calcul</th>
+            <td mat-cell *matCellDef="let element">{{ element.dateCalcul | date }}</td>
+          </ng-container>
+
+          <!-- Statut Column -->
+          <ng-container matColumnDef="statut">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
+            <td mat-cell *matCellDef="let element">{{ element.statut }}</td>
+          </ng-container>
+
+          <!-- Date Début Contrat Column -->
+          <ng-container matColumnDef="dateDebutContrat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Début Contrat</th>
+            <td mat-cell *matCellDef="let element">{{ element.dateDebutContrat | date }}</td>
+          </ng-container>
+
+          <!-- Date Fin Contrat Column -->
+          <ng-container matColumnDef="dateFinContrat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Fin Contrat</th>
+            <td mat-cell *matCellDef="let element">{{ element.dateFinContrat | date }}</td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button color="primary" class="action-button" (click)="viewDetails(element)">
+                Détails
+              </button>
+              <button mat-button color="warn" class="action-button" (click)="deleteDevis(element)">
+                Supprimer
+              </button>
+            </td>
+          </ng-container>
+
+          <!-- Header and Row Definitions -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+
+        <!-- Paginator -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </mat-card>
+    </mat-tab>
+
+    <!-- Statistics by Type Tab -->
+    <mat-tab label="Statistiques par Type">
+      <mat-card class="stats-card">
+        <mat-card-title>Statistiques par Type d'Assurance</mat-card-title>
+        <mat-card-content>
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mat-headline-5">Total Devis: {{ totalDevis }}</h4>
+            <mat-form-field appearance="outline" class="theme-select">
+              <mat-select [(value)]="selectedType" placeholder="Select Type">
+                <mat-option *ngFor="let type of assuranceTypes" [value]="type.name">
+                  {{ type.name }}: {{ type.count }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <apx-chart
+            [series]="assuranceChart.series"
+            [chart]="assuranceChart.chart"
+            [legend]="assuranceChart.legend"
+            [labels]="assuranceChart.labels"
+            [colors]="assuranceChart.colors"
+            [dataLabels]="assuranceChart.dataLabels"
+            [tooltip]="assuranceChart.tooltip"
+          ></apx-chart>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+
+    <!-- Statistics by Status Tab -->
+    <mat-tab label="Statistiques par Statut">
+      <mat-card class="stats-card">
+        <mat-card-title>Statistiques par Statut de Devis</mat-card-title>
+        <mat-card-content>
+          <apx-chart
+            [series]="statusChart.series"
+            [chart]="statusChart.chart"
+            [labels]="statusChart.labels"
+            [colors]="statusChart.colors"
+            [dataLabels]="statusChart.dataLabels"
+            [tooltip]="statusChart.tooltip"
+          ></apx-chart>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</div>

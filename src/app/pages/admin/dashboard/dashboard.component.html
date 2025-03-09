@@ -1,56 +1,56 @@
 <div class="dashboard-container">
-    <h2>User Statistics</h2>
-    
-    <div class="stats-grid">
-      <!-- Total Users Card -->
-      <mat-card class="stat-card blue">
-        <mat-card-content>
-          <div class="stat-value">{{ totalUsers }}</div>
-          <div class="stat-title">Total Users</div>
-        </mat-card-content>
-      </mat-card>
+  <h2>User Statistics</h2>
   
-      <!-- Verified Users Card -->
-      <mat-card class="stat-card orange">
-        <mat-card-content>
-          <div class="stat-value">{{ verifiedUsers }}</div>
-          <div class="stat-title">Verified Users</div>
-        </mat-card-content>
-      </mat-card>
-  
-      <!-- Non-Verified Users Card -->
-      <mat-card class="stat-card white">
-        <mat-card-content>
-          <div class="stat-value">{{ nonVerifiedUsers }}</div>
-          <div class="stat-title">Non-Verified Users</div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  
- 
+  <div class="stats-grid">
+    <!-- Total Users Card -->
+    <mat-card class="stat-card blue">
+      <mat-card-content>
+        <div class="stat-value">{{ totalUsers }}</div>
+        <div class="stat-title">Total Users</div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Verified Users Card -->
+    <mat-card class="stat-card orange">
+      <mat-card-content>
+        <div class="stat-value">{{ verifiedUsers }}</div>
+        <div class="stat-title">Verified Users</div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Non-Verified Users Card -->
+    <mat-card class="stat-card white">
+      <mat-card-content>
+        <div class="stat-value">{{ nonVerifiedUsers }}</div>
+        <div class="stat-title">Non-Verified Users</div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+
+      <div class="chart-container">
+          <h3>User Growth Overview</h3>
+          <apx-chart 
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [xaxis]="chartOptions.xaxis"
+            [yaxis]="chartOptions.yaxis"
+            [title]="chartOptions.title"
+            [stroke]="chartOptions.stroke"
+            [dataLabels]="chartOptions.dataLabels">
+          </apx-chart>
+        </div>
         <div class="chart-container">
-            <h3>User Growth Overview</h3>
-            <apx-chart 
-              [series]="chartOptions.series"
-              [chart]="chartOptions.chart"
-              [xaxis]="chartOptions.xaxis"
-              [yaxis]="chartOptions.yaxis"
-              [title]="chartOptions.title"
-              [stroke]="chartOptions.stroke"
-              [dataLabels]="chartOptions.dataLabels">
-            </apx-chart>
-          </div>
-          <div class="chart-container">
-            <h3>User Distribution by Location</h3>
-            <apx-chart 
-              [series]="locationChartOptions.series"
-              [chart]="locationChartOptions.chart"
-              [title]="locationChartOptions.title"
-              [xaxis]="locationChartOptions.xaxis"
-              [yaxis]="locationChartOptions.yaxis"
-              [dataLabels]="locationChartOptions.dataLabels"
-              [legend]="locationChartOptions.legend"
-              [colors]="locationChartOptions.colors">
-            </apx-chart>
-          </div>
-      </div>
+          <h3>User Distribution by Location</h3>
+          <apx-chart 
+            [series]="locationChartOptions.series"
+            [chart]="locationChartOptions.chart"
+            [title]="locationChartOptions.title"
+            [xaxis]="locationChartOptions.xaxis"
+            [yaxis]="locationChartOptions.yaxis"
+            [dataLabels]="locationChartOptions.dataLabels"
+            [legend]="locationChartOptions.legend"
+            [colors]="locationChartOptions.colors">
+          </apx-chart>
+        </div>
+    </div>

@@ -5,7 +5,6 @@
       <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
     </button>
   </div>
-
   <!-- Center Section: Welcome Text -->
   <div class="toolbar-section center-section" style="flex: 1; text-align: center; margin-top: 10px;">
     <span class="welcome-text"
@@ -13,7 +12,6 @@
       Bienvenue{{ userName ? ', ' + userName : '' }} dans votre espace client
     </span>
   </div>
-
   <!-- Right Section: Profile Dropdown -->
   <div class="toolbar-section right-section" style="display: flex; align-items: center;">
     <button mat-icon-button [matMenuTriggerFor]="profilemenu" aria-label="Notifications">
@@ -24,6 +22,7 @@
     </button>
     <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
       <button mat-menu-item (click)="goToProfile()">
+      <button mat-menu-item>
         <mat-icon class="d-flex align-items-center">
           <i-tabler name="user" class="icon-18 d-flex"></i-tabler>
         </mat-icon>
@@ -40,7 +39,5 @@
         <button mat-stroked-button color="primary" class="w-100" (click)="logout()">
           Logout
         </button>
-      </div>
-    </mat-menu>
+     
   </div>
-</mat-toolbar>

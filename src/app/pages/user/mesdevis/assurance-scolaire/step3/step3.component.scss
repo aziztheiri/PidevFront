@@ -1,0 +1,68 @@
+.page-wrapper {
+  padding: 20px;
+
+  h1 {
+    color: #004a8d;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #f38f1f;
+    margin-bottom: 20px;
+  }
+
+  .form-card {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin-bottom: 20px;
+
+    h2 {
+      color: #004a8d;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #004a8d;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      mat-form-field {
+        width: 100%;
+        max-width: 500px;
+
+        .mat-form-field-outline {
+          border-color: #004a8d; // Custom outline color
+        }
+
+        .mat-form-field-label {
+          color: #004a8d; // Custom label color
+        }
+
+        .mat-input-element {
+          color: #004a8d; // Custom input text color
+        }
+      }
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+
+      .orange-button {
+        background-color: #f38f1f;
+        color: white;
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+<div class="page-wrapper">
+  <div class="container">
+    <h2>Choisissez votre Pack d'Assurance Habitation</h2>
+    <p>Contactez-nous pour tous vos besoins en assurance.</p>
+
+    <div class="pack-container">
+      <!-- Pack FELL -->
+      <mat-card class="pack-card" >
+        <div class="card-image">
+          <img src="assets/images/FELL.jpg" alt="Pack FELL">
+        </div>
+        <mat-card-title>Pack FELL</mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <p>Un pack qui protège votre maison et votre famille à moins de <strong>7 dt/mois</strong> seulement </p>
+          <mat-divider></mat-divider>
+          <p>À <strong>6 dt/mois</strong> pour une habitation verte.</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="selectPack('pack FELL')">Je découvre</button>
+        </mat-card-actions>
+      </mat-card>
+      
+
+      
+
+      <!-- Pack YASMINE -->
+      <mat-card class="pack-card" >
+        <div class="card-image">
+          <img src="assets/images/YASMINE.jpg" alt="Pack YASMINE">
+        </div> 
+        <mat-card-title>Pack YASMINE</mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <p>Un pack qui protège votre maison et votre famille à moins de <strong>10 dt/mois</strong> seulement </p>
+          <mat-divider></mat-divider>
+          <p>À moins de <strong>9 dt/mois</strong> pour une habitation verte.</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="selectPack('pack YASMINE')">Je découvre</button>
+        </mat-card-actions>
+      </mat-card>
+      <!-- Pack AMBAR -->
+      <mat-card class="pack-card" >
+        <div class="card-image">
+          <img src="assets/images/AMBAR.jpg" alt="Pack AMBAR">
+        </div>
+        <mat-card-title>Pack AMBAR</mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <p>Un pack qui protège votre maison et votre famille à moins de <strong>13 dt/mois</strong> seulement</p>
+          <mat-divider></mat-divider>
+          <p>À moins de <strong>12 dt/mois</strong> pour une habitation verte.</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="selectPack('pack AMBAR')">Je découvre</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

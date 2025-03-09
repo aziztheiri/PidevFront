@@ -1,0 +1,48 @@
+<div class="page-wrapper">
+    <h1>Coordonnées du souscripteur</h1>
+    <div class="orange-line"></div>
+  
+    <div class="form-card">
+      <form>
+        <mat-form-field>
+          <mat-label>CIN</mat-label>
+          <input matInput [(ngModel)]="cin" name="cin" required>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Nom</mat-label>
+          <input matInput [(ngModel)]="lastName" name="lastName" required>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Prénom</mat-label>
+          <input matInput [(ngModel)]="firstName" name="firstName" required>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>N° Téléphone</mat-label>
+          <input matInput [(ngModel)]="phoneNumber" name="phoneNumber" required>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Adresse Email</mat-label>
+          <input matInput [(ngModel)]="email" name="email" type="email" required>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-label>Confirmation Adresse Email</mat-label>
+          <input matInput [(ngModel)]="confirmEmail" name="confirmEmail" type="email" required>
+        </mat-form-field>
+  
+        <mat-checkbox [(ngModel)]="termsAccepted" name="termsAccepted" required>
+          J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page
+        </mat-checkbox>
+  
+        <div class="button-group">
+          <button mat-raised-button class="orange-button" (click)="goBack()">Précédent</button>
+          <button mat-raised-button class="orange-button" (click)="proceedToPayment()" [disabled]="!termsAccepted">Passer Paiement</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

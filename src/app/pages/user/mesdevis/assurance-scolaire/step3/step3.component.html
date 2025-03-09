@@ -1,0 +1,39 @@
+<div class="page-wrapper">
+  <h1>Finalisation</h1>
+
+  <div class="form-card">
+    <form>
+      <!-- Adresse du Parent -->
+      <mat-form-field appearance="outline">
+        <mat-label>Adresse du Parent</mat-label>
+        <input matInput [(ngModel)]="adresseParent" id="adresseParent" name="adresseParent" required>
+      </mat-form-field>
+
+      <!-- Ville -->
+      <mat-form-field appearance="outline">
+        <mat-label>Ville</mat-label>
+        <input matInput [(ngModel)]="ville" id="ville" name="ville" required>
+      </mat-form-field>
+
+      <!-- Code Postal -->
+      <mat-form-field appearance="outline">
+        <mat-label>Code Postal</mat-label>
+        <input matInput [(ngModel)]="codePostale" id="codePostale" name="codePostale" required>
+      </mat-form-field>
+
+      <!-- Date d'Effet -->
+      <mat-form-field appearance="outline">
+        <mat-label>Date d'Effet</mat-label>
+        <input matInput [matDatepicker]="effectiveDatePicker" [(ngModel)]="dateEffet" id="dateEffet" name="dateEffet" required>
+        <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #effectiveDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- Buttons -->
+      <div class="button-group">
+        <button mat-raised-button class="orange-button" (click)="previousStep()">Retour</button>
+        <button mat-raised-button class="orange-button" (click)="validate()" [disabled]="!isFormValid()">Valider</button>
+      </div>
+    </form>
+  </div>
+</div>

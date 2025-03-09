@@ -21,3 +21,29 @@
     font-weight: bold;
   }
   
+
+
+
+
+.activeMenu {
+  background-color: #004a8d !important; // Blue background
+  font-weight: bold;
+}
+
+.child-menu {
+  padding-left: 20px; // Indent child items
+}
+
+.menu-arrow {
+  margin-left: auto; // Align arrow to the right
+}
+
+.routeIcon {
+  color: #000; // Ensure icons are black
+  margin-right: 8px; // Align icons properly
+}
+
+.menu-list-item {
+  display: flex;
+  align-items: center; // Ensure items are vertically aligned
+}

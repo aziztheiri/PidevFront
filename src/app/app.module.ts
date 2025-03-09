@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+=======
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+>>>>>>> 4a62b3d0f2e93a753229587e9180075cd09cc5a4
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,8 +36,7 @@ import { HeaderUserComponent } from './layouts/fullUser/header/header.component'
 import { AppNavUserItemComponent } from './layouts/fullUser/sidebar/nav-item/nav-item.component';
 import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.component';
 // app.module.ts
-
-
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +63,8 @@ import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.compone
     TablerIconsModule.pick(TablerIcons),
   ],
 
-  exports: [TablerIconsModule],
+  exports: [TablerIconsModule,MatNativeDateModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+

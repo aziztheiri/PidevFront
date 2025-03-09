@@ -1,0 +1,153 @@
+.page-wrapper {
+  padding: 20px;
+
+  h1 {
+    color: #004a8d !important;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    color: #f38f1d;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  /* AI Summary Card */
+  .ai-summary-card {
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    mat-card-header {
+      background-color: #004a8d;
+      padding: 16px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+
+      mat-card-title {
+        color: white;
+        font-size: 1.2rem;
+      }
+    }
+
+    mat-card-content {
+      padding: 20px;
+      color: #333;
+      font-size: 1rem;
+    }
+  }
+
+  /* Generate Summary Button */
+  .ai-button {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #004a8d;
+    color: white;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #003366;
+    }
+
+    mat-icon {
+      font-size: 24px;
+    }
+  }
+
+  .search-bar {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .filter-select {
+    width: 200px;
+    margin-bottom: 20px;
+  }
+
+  .table-card {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #004a8d;
+        color: white;
+      }
+
+      tr:hover {
+        background-color: #f5f5f5;
+      }
+
+      .action-button {
+        margin-right: 8px;
+        border-radius: 4px;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+
+        &[color="primary"] {
+          background-color: #004a8d;
+          color: white;
+        }
+
+        &[color="warn"] {
+          background-color: #dc3545;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .stats-card {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+
+    mat-card-title {
+      font-size: 1.5rem;
+      color: #004a8d;
+    }
+
+    .d-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    h4 {
+      margin: 0;
+      color: #004a8d;
+    }
+
+    .theme-select {
+      min-width: 150px;
+    }
+
+    .apexcharts-canvas {
+      margin: 0 auto;
+    }
+  }
+}

@@ -1,0 +1,94 @@
+<div class="page-wrapper">
+  <h1>Consulter les Devis</h1>
+  <p class="subtitle">Consultez et suivez vos devis</p>
+
+  <!-- Assurance Type Icons -->
+  <div class="assurance-icons">
+    <button
+      mat-button
+      *ngFor="let type of assuranceTypes"
+      [class.selected]="selectedType === type.value"
+      (click)="toggleFilter(type.value)"
+    >
+      <mat-icon>{{ type.icon }}</mat-icon>
+      {{ type.label }}
+    </button>
+  </div>
+
+  <!-- Card Wrapper -->
+  <mat-card class="table-card">
+    <!-- Table -->
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <!-- CIN Column -->
+      <ng-container matColumnDef="cin">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>CIN</th>
+        <td mat-cell *matCellDef="let element">{{ element.cin }}</td>
+      </ng-container>
+
+      <!-- Type Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+        <td mat-cell *matCellDef="let element">{{ element.typeAssurance }}</td>
+      </ng-container>
+
+      <!-- Référence Column -->
+      <ng-container matColumnDef="reference">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Référence</th>
+        <td mat-cell *matCellDef="let element">DEV{{ element.id }}</td>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fait le</th>
+        <td mat-cell *matCellDef="let element">{{ formatDate(element.dateCalcul) }}</td>
+      </ng-container>
+
+      <!-- Total TTC Column -->
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Total TTC</th>
+        <td mat-cell *matCellDef="let element">€{{ element.montant.toFixed(2) }}</td>
+      </ng-container>
+
+      <!-- Statut Column -->
+      <ng-container matColumnDef="statut">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Statut</th>
+        <td mat-cell *matCellDef="let element">{{ element.statut }}</td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            *ngIf="element.statut === 'EN_COURS'"
+            mat-button
+            color="warn"
+            (click)="deleteDevis(element)"
+          >
+            Supprimer
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Header and Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <!-- No Data Message -->
+    <div *ngIf="dataSource.data.length === 0" class="no-data-message">
+      Aucun devis à afficher!
+    </div>
+
+    <!-- Paginator -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    <!-- Excel Export Button -->
+    <div class="excel-button-container">
+      <button mat-button color="primary" (click)="exportToExcel()">
+        <mat-icon>description</mat-icon> <!-- Excel icon -->
+        Télécharger en Excel
+      </button>
+    </div>
+  </mat-card>
+</div>

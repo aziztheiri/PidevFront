@@ -1,0 +1,87 @@
+<div class="page-wrapper">
+  <h1>Parent / Tuteur</h1>
+  <p>Saisir vos informations</p>
+
+  <div class="form-card">
+    <div class="icon-buttons">
+      <button mat-icon-button (click)="selectType('female')">
+        <mat-icon>female</mat-icon>
+      </button>
+      <button mat-icon-button (click)="selectType('male')">
+        <mat-icon>male</mat-icon>
+      </button>
+      <button mat-icon-button (click)="selectType('etablissement')">
+        <mat-icon>business</mat-icon>
+      </button>
+    </div>
+
+    <form *ngIf="selectedType === 'female' || selectedType === 'male'">
+      <mat-form-field>
+        <mat-label>Type de pièce d'identité</mat-label>
+        <mat-select [(ngModel)]="idType" name="idType">
+          <mat-option value="carte">Carte d'identité</mat-option>
+          <mat-option value="passeport">Passeport</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>N° pièce d'identité</mat-label>
+        <input matInput [(ngModel)]="idNumber" name="idNumber">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Nom</mat-label>
+        <input matInput [(ngModel)]="lastName" name="lastName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Prénom</mat-label>
+        <input matInput [(ngModel)]="firstName" name="firstName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Numéro téléphone</mat-label>
+        <input matInput [(ngModel)]="phoneNumber" name="phoneNumber">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="email" name="email">
+      </mat-form-field>
+
+      <mat-checkbox [(ngModel)]="termsAccepted" name="termsAccepted">
+        J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page
+      </mat-checkbox>
+
+      <button mat-raised-button class="orange-button" (click)="nextStep()" [disabled]="!termsAccepted">Suivant</button>
+    </form>
+
+    <form *ngIf="selectedType === 'etablissement'">
+      <mat-form-field>
+        <mat-label>Matricule fiscal</mat-label>
+        <input matInput [(ngModel)]="fiscalId" name="fiscalId">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Raison sociale</mat-label>
+        <input matInput [(ngModel)]="companyName" name="companyName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Numéro téléphone</mat-label>
+        <input matInput [(ngModel)]="phoneNumber" name="phoneNumber">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="email" name="email">
+      </mat-form-field>
+
+      <mat-checkbox [(ngModel)]="termsAccepted" name="termsAccepted">
+        J’ai lu et approuvé les conditions de traitement des données personnelles saisies dans cette page
+      </mat-checkbox>
+
+      <button mat-raised-button class="orange-button" (click)="nextStep()" [disabled]="!termsAccepted">Suivant</button>
+    </form>
+  </div>
+</div>

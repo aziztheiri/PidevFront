@@ -1,0 +1,133 @@
+<div class="page-wrapper">
+  <h1>Simulation</h1>
+
+  <div class="form-card">
+    <form>
+      <mat-form-field>
+        <mat-label>Nombre d'enfant(s)</mat-label>
+        <input matInput type="number" [(ngModel)]="numberOfChildren" name="numberOfChildren" min="1" required (change)="onNumberOfChildrenChange()">
+      </mat-form-field>
+
+      <!-- Dynamic Fields for Children -->
+      <div *ngFor="let child of children; let i = index">
+        <h3>Enfant {{ i + 1 }}</h3>
+        <mat-form-field>
+          <mat-label>Nom</mat-label>
+          <input matInput [(ngModel)]="child.lastName" [name]="'lastName' + i" required>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Prénom</mat-label>
+          <input matInput [(ngModel)]="child.firstName" [name]="'firstName' + i" required>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Date de Naissance</mat-label>
+          <input matInput [matDatepicker]="childDatePicker" [(ngModel)]="child.birthDate" [name]="'birthDate' + i" required>
+          <mat-datepicker-toggle matSuffix [for]="childDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #childDatePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Date d'Effet</mat-label>
+        <input matInput [matDatepicker]="effectiveDatePicker" [(ngModel)]="effectiveDate" name="effectiveDate" required>
+        <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #effectiveDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-raised-button class="orange-button" (click)="previousStep()">Précédent</button>
+        <button mat-raised-button class="orange-button" (click)="simulate()" [disabled]="!isFormValid()">Simuler</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Cards displayed after clicking Simuler -->
+  <div class="cards-container" *ngIf="showCards">
+    <!-- FORMULE ECOLIA (Blue Card) -->
+    <div class="card blue-card">
+      <img src="assets/images/ecolia.jpg" alt="Ecolia">
+      <h2>FORMULE ECOLIA</h2>
+      <hr>
+      <h3 class="blue-text">GARANTIES</h3>
+      <p>Cette couverture est accordée aux écoliers, collégiens et lycéens aussi bien au sein de l'établissement scolaire que sur le chemin de l'aller et retour et au cours des excursions.</p>
+
+      <div class="sub-card">
+        <h4>A- GARANTIES INDIVIDUELLE ACCIDENTS CORPORELS</h4>
+        <ul>
+          <li>Capital en cas de décès accidentel</li>
+          <li>Capital en cas d'infirmité accidentelle permanente totale ou partielle</li>
+          <li>Remboursement des frais de traitement suite à un accident</li>
+          <li>Remboursement des frais d'optique suite à un accident</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4>B- GARANTIES ASSISTANCE</h4>
+        <ul>
+          <li>Soins d'urgence en cas d'Accident</li>
+          <li>Transport sanitaire ou Rapatriement</li>
+          <li>Déplacement et séjour d'un membre de la famille</li>
+          <li>Assistance psychologique en cas d'Accident ou décès d'un parent</li>
+          <li>Kinésithérapeute en cas de traumatisme</li>
+        </ul>
+      </div>
+
+      <div class="card-footer">
+        <div class="price blue-text">
+          {{ calculatePrice('ecolia') }} TND
+        </div>
+        <button mat-raised-button class="blue-button" (click)="nextStep('ecolia')">J'ACHETE MAINTENANT</button>
+      </div>
+    </div>
+
+    <!-- FORMULE ECOLIA PLUS (Orange Card) -->
+    <div class="card orange-card">
+      <img src="assets/images/ecolia+.jpg" alt="Ecolia Plus">
+      <h2>FORMULE ECOLIA PLUS</h2>
+      <hr>
+      <h3 class="orange-text">GARANTIES</h3>
+      <p>Cette couverture est accordée aux écoliers, collégiens et lycéens aussi bien au sein de l'établissement scolaire que sur le chemin de l'aller et retour et au cours des excursions.</p>
+
+      <div class="sub-card">
+        <h4>A- GARANTIES INDIVIDUELLE ACCIDENTS CORPORELS</h4>
+        <ul>
+          <li>Capital en cas de décès accidentel</li>
+          <li>Capital en cas d'infirmité accidentelle permanente totale ou partielle</li>
+          <li>Remboursement des frais de traitement suite à un accident</li>
+          <li>Remboursement des frais d'optique suite à un accident</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4>B- GARANTIES ASSISTANCE</h4>
+        <ul>
+          <li>Soins d'urgence en cas d'Accident</li>
+          <li>Transport sanitaire ou Rapatriement</li>
+          <li>Déplacement et séjour d'un membre de la famille</li>
+          <li>Assistance psychologique en cas d'Accident ou décès d'un parent</li>
+          <li>Kinésithérapeute en cas de traumatisme</li>
+        </ul>
+      </div>
+
+      <div class="sub-card">
+        <h4>C- GARANTIES ASSISTANCE</h4>
+        <ul>
+          <li>Soins d'urgence en cas d'Accident</li>
+          <li>Transport sanitaire ou Rapatriement</li>
+          <li>Déplacement et séjour d'un membre de la famille</li>
+          <li>Assistance psychologique en cas d'Accident ou décès d'un parent</li>
+          <li>Kinésithérapeute en cas de traumatisme</li>
+        </ul>
+      </div>
+
+      <div class="card-footer">
+        <div class="price orange-text">
+          {{ calculatePrice('ecolia-plus') }} TND
+        </div>
+        <button mat-raised-button class="orange-button" (click)="nextStep('ecolia-plus')">J'ACHETE MAINTENANT</button>
+      </div>
+    </div>
+  </div>
+</div>

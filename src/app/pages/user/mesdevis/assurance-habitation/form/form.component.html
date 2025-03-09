@@ -1,0 +1,55 @@
+<div class="form-container">
+  <h2 *ngIf="currentStep === 1">Liste des Spécificités pour {{ selectedPack }}</h2>
+  <div *ngIf="currentStep === 1">
+    <table mat-table [dataSource]="specificities" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Garanties </th>
+        <td mat-cell *matCellDef="let specificity"> {{ specificity.name }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Limite de garantie </th>
+        <td mat-cell *matCellDef="let specificity"> {{ specificity.description }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [ngClass]="{ 'total-row': row.isTotal }"
+      ></tr>
+    </table>
+    <button mat-raised-button (click)="nextStep()">Suivant</button>
+  </div>
+
+
+  <h2 *ngIf="currentStep === 2">Souscripteur</h2>
+  <div *ngIf="currentStep === 2">
+    <form (ngSubmit)="nextStep()">
+      <mat-form-field appearance="fill">
+        <mat-label>Nom</mat-label>
+        <input matInput name="nom" ngModel required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Prénom</mat-label>
+        <input matInput name="prenom" ngModel required>
+      </mat-form-field>
+      <button mat-raised-button type="submit">Suivant</button>
+    </form>
+  </div>
+
+  <h2 *ngIf="currentStep === 3">Logement</h2>
+  <div *ngIf="currentStep === 3">
+    <form (ngSubmit)="submitForm()">
+      <mat-form-field appearance="fill">
+        <mat-label>Adresse</mat-label>
+        <input matInput name="adresse" ngModel required>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Type de Logement</mat-label>
+        <input matInput name="typeLogement" ngModel required>
+      </mat-form-field>
+      <button mat-raised-button type="submit">Envoyer</button>
+    </form>
+  </div>
+</div>
