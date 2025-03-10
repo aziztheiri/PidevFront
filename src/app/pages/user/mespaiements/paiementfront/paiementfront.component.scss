@@ -1,0 +1,226 @@
+// Bouton de bascule
+.toggle-button {
+  margin-bottom: 15px;
+  padding: 12px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #c95018; // Utilisation de la couleur principale
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+// Effet au survol
+.toggle-button:hover {
+  background-color: #a04015;
+  transform: scale(1.1);
+}
+
+// Icône dans le bouton
+.toggle-button fa-icon {
+  font-size: 24px;
+}
+
+// Conteneur du formulaire
+.paiement-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+// Label des champs
+.paiement-form label {
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+// Champs de saisie
+.paiement-form input,
+.paiement-form select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #dcdcdc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+// Effet au focus sur les champs
+.paiement-form input:focus,
+.paiement-form select:focus {
+  border-color: #3498db;
+  box-shadow: 0px 0px 8px rgba(52, 152, 219, 0.5);
+  outline: none;
+}
+
+// Message d'erreur des champs invalides
+.paiement-form .error-message {
+  color: #c95018;
+  font-size: 14px;
+  margin-top: -10px;
+}
+
+.paiement-button {
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif; // Police moderne et impactante
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 5px;
+  background-color: #c95018;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.paiement-button:hover {
+  background-color: #a03f14;
+  transform: scale(1.05);
+}
+
+.paiement-button:active {
+  transform: scale(0.98);
+}
+
+.paiement-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.card-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 14px; /* Réduit la taille de la police */
+  padding: 5px; /* Ajoute un petit padding pour espacer légèrement les éléments */
+}
+
+.card-input-container input {
+  flex-grow: 1;
+  padding-right: 40px; /* Réduit l'espace à droite pour que le logo ne soit pas trop éloigné */
+}
+
+.card-input-container .card-logo {
+  width: 30px; /* Réduit la taille du logo */
+  height: auto;
+  position: absolute;
+  right: 8px; /* Réduit l'espace à droite du logo */
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  width: 60%;  /* Réduire la largeur du popup */
+  max-width: 600px;  /* Limite de largeur */
+  box-sizing: border-box;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;  /* Réduire la taille du bouton */
+  cursor: pointer;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 300px;  /* Fixer la hauteur de la carte */
+  overflow: hidden;  /* Masquer tout débordement */
+}
+
+.map-image {
+  width: 100%;
+  height: 100%;  /* S'adapte à la taille de la carte */
+  object-fit: cover;  /* Maintenir le ratio de l'image */
+}
+
+.marker {
+  position: absolute;
+  cursor: pointer;
+  font-size: 20px;  /* Réduire la taille des marqueurs */
+  transform: translate(-50%, -50%);
+}
+
+.agence-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;  /* Espace entre le champ de texte et le bouton */
+}
+
+.select-agence-btn {
+  background-color: #FFA500;  /* Couleur orange */
+  border: none;
+  border-radius: 30px;  /* Forme ovale */
+  padding: 8px 20px;  /* Ajustement du padding pour rendre le bouton plus petit */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;  /* Couleur de l'icône */
+  font-size: 16px;  /* Taille de l'icône plus petite */
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e68900;  /* Couleur de fond au survol, un orange plus foncé */
+  }
+
+  &:focus {
+    outline: none;  /* Retirer le contour au focus */
+  }
+
+  fa-icon {
+    font-size: 18px;  /* Taille de l'icône réduite */
+  }
+}
+
+input {
+  width: 70%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+input::placeholder {
+  color: #888;
+}
+
+
+
+
+

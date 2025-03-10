@@ -27,11 +27,14 @@ import { Step2avComponent } from './user/mesdevis/assurance-voyage/step2av/step2
 import { Step3avComponent } from './user/mesdevis/assurance-voyage/step3av/step3av.component';
 import { SuccessMessageComponent } from './user/mesdevis/assurance-sante-internationale/success-message/success-message.component';
 import { FormComponent } from './user/mesdevis/assurance-habitation/form/form.component';
+import { PaiementfrontComponent } from "./user/mespaiements/paiementfront/paiementfront.component";
 
- 
 
 
 export const PagesRoutes: Routes = [
+
+
+
   {
     path: 'home',
     component: HomeComponent,
@@ -139,4 +142,9 @@ export const PagesRoutes: Routes = [
       { path: 'success', component: SuccessMessageComponent },
     ],
   },
+  { path: 'paiement',
+    component: PaiementfrontComponent,
+    data: { title: 'Paiement' },
+  },
 ];
+

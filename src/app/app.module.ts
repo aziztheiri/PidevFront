@@ -29,6 +29,11 @@ import { AppNavUserItemComponent } from './layouts/fullUser/sidebar/nav-item/nav
 import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.component';
 // app.module.ts
 import { MatNativeDateModule } from '@angular/material/core';
+import { PaiementfrontComponent } from './pages/user/mespaiements/paiementfront/paiementfront.component';
+import { CardFormatDirective } from './pages/user/mespaiements/paiementfront/directives/card-format.directive';
+import { MapComponent } from './pages/user/mespaiements/paiementfront/map api/map/map.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +46,12 @@ import { MatNativeDateModule } from '@angular/material/core';
     FullUserComponent,
     HeaderUserComponent,
     AppNavUserItemComponent,
-    SidebarUserComponent
+    SidebarUserComponent,
+    PaiementfrontComponent,
+    CardFormatDirective,
+    MapComponent
+   
+
   ],
   imports: [
     BrowserModule,
@@ -59,4 +69,3 @@ import { MatNativeDateModule } from '@angular/material/core';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-

@@ -36,6 +36,12 @@ export const navItems: NavItem[] = [
     iconName: 'alert-triangle', // ⚠️ Represents incidents/claims
     route: '/user/sinistres',
   },
-  
+
+  {
+    displayName: 'Mes Paiements',
+    iconName: 'file-text', //
+    route: '/user/paiement',
+  },
+
 ];
 

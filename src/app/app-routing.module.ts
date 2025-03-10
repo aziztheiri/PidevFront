@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/user/signup/signup.component';
-import { OtpVerificationComponent } from './pages/user/otp-verification/otp-verification.component';
 import { FullComponent } from './layouts/full/full.component';
 import { FullUserComponent } from './layouts/fullUser/full.component';
 import { AuthGuard } from './services/auth.guard'; 
@@ -12,6 +11,7 @@ import { RoleGuard } from './services/role.guard';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { OtpVerificationComponent } from './pages/otp-verification/otp-verification.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },

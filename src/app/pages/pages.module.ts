@@ -49,9 +49,9 @@ import { CleanContentPipe } from './user/home/clean';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SignupComponent } from './user/signup/signup.component';
-import { OtpVerificationComponent } from './user/otp-verification/otp-verification.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatCardModule } from '@angular/material/card';
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 @NgModule({
   declarations: [
     AppDashboardComponent,
