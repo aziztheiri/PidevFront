@@ -5,39 +5,43 @@
       <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
     </button>
   </div>
+
   <!-- Center Section: Welcome Text -->
   <div class="toolbar-section center-section" style="flex: 1; text-align: center; margin-top: 10px;">
-    <span class="welcome-text"
-          style="color: #f38f1d; font-size: 1.2rem; font-weight: 600;">
+    <span class="welcome-text" style="color: #f38f1d; font-size: 1.2rem; font-weight: 600;">
       Bienvenue{{ userName ? ', ' + userName : '' }} dans votre espace client
     </span>
   </div>
+
   <!-- Right Section: Profile Dropdown -->
   <div class="toolbar-section right-section" style="display: flex; align-items: center;">
-    <button mat-icon-button [matMenuTriggerFor]="profilemenu" aria-label="Notifications">
+    <button mat-icon-button [matMenuTriggerFor]="profilemenu" aria-label="User Profile">
       <img [src]="userImageUrl || '/assets/images/profile/default-user.jpg'"
            class="rounded-circle object-cover"
-           width="140"
+           width="40"
            alt="User Profile" />
     </button>
+
     <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
       <button mat-menu-item (click)="goToProfile()">
-      <button mat-menu-item>
         <mat-icon class="d-flex align-items-center">
           <i-tabler name="user" class="icon-18 d-flex"></i-tabler>
         </mat-icon>
         My Profile
       </button>
+
       <button mat-menu-item (click)="gotoUpdate()">
         <mat-icon class="d-flex align-items-center">
           <i-tabler name="settings" class="icon-18 d-flex"></i-tabler>
         </mat-icon>
         Settings
       </button>
+
       <div class="p-x-12 m-t-12">
-        <!-- Logout Button -->
         <button mat-stroked-button color="primary" class="w-100" (click)="logout()">
           Logout
         </button>
-     
+      </div>
+    </mat-menu>
   </div>
+</mat-toolbar>
