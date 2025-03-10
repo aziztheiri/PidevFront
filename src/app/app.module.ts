@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
@@ -47,11 +47,9 @@ import { MapComponent } from './pages/user/mespaiements/paiementfront/map api/ma
     HeaderUserComponent,
     AppNavUserItemComponent,
     SidebarUserComponent,
-    PaiementfrontComponent,
     CardFormatDirective,
     MapComponent
-   
-
+    
   ],
   imports: [
     BrowserModule,

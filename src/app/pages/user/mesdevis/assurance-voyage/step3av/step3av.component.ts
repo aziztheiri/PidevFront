@@ -43,6 +43,7 @@ export class Step3avComponent {
 
       // Save Voyage and Devis
       this.assuranceVoyageComponent.saveVoyageAndDevis(this.step1Data, this.step2Data, step3Data);
+      this.router.navigate(['/user/paiement'], { state: { primeTotale: this.step2Data.primeTotale } });
     }
   }
 

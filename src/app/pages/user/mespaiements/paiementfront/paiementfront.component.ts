@@ -10,6 +10,8 @@ import * as Payment from 'payment';
 import { jsPDF } from 'jspdf';
 
 import {faCreditCard, faHome, faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 
 
@@ -30,6 +32,7 @@ export class PaiementfrontComponent implements OnInit {
     paiementEnLigneForm!: FormGroup;
     paiementSurPlaceForm!: FormGroup;
     mapVisible: boolean = false;
+    primeTotale!:number;
     selectedAgence: string = '';
     agences = {
         "Grand Tunis": [{ name: "Agence 1", x: 150, y: 200 }, { name: "Agence 2", x: 300, y: 400 }],
@@ -42,13 +45,17 @@ export class PaiementfrontComponent implements OnInit {
     markers: any[] = [];
     cardType: string = 'default';
 
-    constructor(private paiementService: PaiementService, private fb: FormBuilder) { }
+    constructor(private paiementService: PaiementService, private fb: FormBuilder,private authService:AuthService,private router:Router) { }
 
     ngOnInit(): void {
+        this.primeTotale = history.state.primeTotale;
+
         this.getAllPaiements();
         this.getPaiementsEnLigne();
         this.getPaiementsSurPlace();
         this.initForms();
+    //   const navigation = this.router.getCurrentNavigation();
+    //    this.primeTotale = navigation?.extras.state?.['primeTotale'];
         const currentDateTime = new Date().toISOString(); // Format : "YYYY-MM-DDTHH:MM:SS.sssZ"
         this.paiementEnLigneForm.patchValue({
             date_paiement: currentDateTime
@@ -66,7 +73,7 @@ export class PaiementfrontComponent implements OnInit {
 
     initForms(): void {
         this.paiementEnLigneForm = this.fb.group({
-            montant: ['', [Validators.required, Validators.min(1)]],
+            montant: [this.primeTotale, [Validators.required, Validators.min(1)]],
             date_paiement: ['', Validators.required],
             numeroCarte: ['', [Validators.required, Validators.pattern(/^\d{4} \d{4} \d{4} \d{4}$/)]],
             expiration: ['', [Validators.required, this.expirationValidator]],
@@ -74,7 +81,7 @@ export class PaiementfrontComponent implements OnInit {
         });
 
         this.paiementSurPlaceForm = this.fb.group({
-            montant: ['', [Validators.required, Validators.min(1)]],
+            montant: [this.primeTotale, [Validators.required, Validators.min(1)]],
             date_paiement: ['', Validators.required],
             agence: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s\-]+$/)]],
             date_rdv: ['', [Validators.required, this.dateRdvValidator]]
@@ -165,6 +172,7 @@ export class PaiementfrontComponent implements OnInit {
 
     addPaiementEnLigne(): void {
         if (this.paiementEnLigneForm.invalid) return;
+        const currentUser = this.authService.currentUserSubject.getValue();
 
         const paiementData = this.paiementEnLigneForm.value;
         const expiration = paiementData.expiration;
@@ -185,8 +193,8 @@ export class PaiementfrontComponent implements OnInit {
             this.paiementEnLigneForm.reset();
 
             const emailData = {
-                to_email: 'ilyes.touil.1@gmail.com',
-                name: 'Nom du client',
+                to_email: currentUser?.email,
+                name: currentUser?.name,
                 montant: paiementData.montant,
                 numeroCarte: paiementData.numeroCarte,
                 date_paiement: new Date().toLocaleString(),
@@ -199,6 +207,7 @@ export class PaiementfrontComponent implements OnInit {
 
     addPaiementSurPlace(): void {
         if (this.paiementSurPlaceForm.invalid) return;
+        const currentUser = this.authService.currentUserSubject.getValue();
 
         const paiementData = this.paiementSurPlaceForm.value;
 
@@ -216,8 +225,8 @@ export class PaiementfrontComponent implements OnInit {
 
 
             const emailData = {
-                to_email: 'ilyes.touil.1@gmail.com', // Email du destinataire
-                name: 'Nom du client',
+                to_email: currentUser?.email,
+                name: currentUser?.name,
                 montant: paiementData.montant,
                 agence: paiementData.agence,
                 date_rdv: paiementData.date_rdv,
@@ -255,7 +264,7 @@ export class PaiementfrontComponent implements OnInit {
 
         if (isEnLigne) {
             text += `Paiement en ligne\n`;
-            text += `Montant: ${paiementData.montant} TND\n`;
+            text += `Montant: ${this.primeTotale} TND\n`;
             text += `Numéro de carte: ${paiementData.numeroCarte}\n`;
             text += `Date d'expiration: ${paiementData.expiration}\n`;
             text += `CVV: ${paiementData.cvv}\n`;
@@ -263,7 +272,7 @@ export class PaiementfrontComponent implements OnInit {
             doc.save('confirmation_paiement.pdf');
         } else {
             text += `Paiement sur place\n`;
-            text += `Montant: ${paiementData.montant} TND\n`;
+            text += `Montant: ${this.primeTotale} TND\n`;
             text += `Agence: ${paiementData.agence}\n`;
             text += `Date de rendez-vous: ${paiementData.date_rdv}\n`;
             doc.text(text, 10, 10);

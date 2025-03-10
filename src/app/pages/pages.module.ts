@@ -52,6 +52,10 @@ import { SignupComponent } from './user/signup/signup.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatCardModule } from '@angular/material/card';
 import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
+import { PaiementComponent } from './admin/paiement/paiement/paiement.component';
+import { PaiementfrontComponent } from './user/mespaiements/paiementfront/paiementfront.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 @NgModule({
   declarations: [
     AppDashboardComponent,
@@ -87,6 +91,8 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
     DevisComponent,
     DevisDetailsComponent,
     DetailsDevisComponent,
+    PaiementComponent,
+    PaiementfrontComponent
   ],
   imports: [
     CommonModule,
@@ -105,6 +111,7 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
     MatNativeDateModule,
     MatButtonModule,
     MatInputModule,
+    FontAwesomeModule
   ],
   exports: [TablerIconsModule],
 })

@@ -2,18 +2,19 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable ,throwError} from 'rxjs';
 import { Paiement, PaiementSurPlace, PaiementEnLigne } from './paiement.model';
 import emailjs from 'emailjs-com';
+import { AuthService } from 'src/app/services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
 export class PaiementService {
 
-  private apiUrl = 'http://localhost:8080/paiements';  // URL de ton API Spring Boot
+  private apiUrl = 'http://localhost:8090/paiements';  // URL de ton API Spring Boot
 
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient, private authService:AuthService) { }
+ 
 
   getPaiements(): Observable<Paiement[]> {
     return this.http.get<Paiement[]>(this.apiUrl);
@@ -21,12 +22,16 @@ export class PaiementService {
 
 
   getPaiementsSurPlace(): Observable<PaiementSurPlace[]> {
-    return this.http.get<PaiementSurPlace[]>(`${this.apiUrl}/surplace`);
+    return this.http.get<PaiementSurPlace[]>(`${this.apiUrl}/surplace`, {
+      headers: this.authService.getAuthHeaders()
+    });
   }
 
 
   getPaiementsEnLigne(): Observable<PaiementEnLigne[]> {
-    return this.http.get<PaiementEnLigne[]>(`${this.apiUrl}/enligne`);
+    return this.http.get<PaiementEnLigne[]>(`${this.apiUrl}/enligne`, {
+      headers: this.authService.getAuthHeaders()
+    });
   }
 
 
@@ -40,33 +45,40 @@ export class PaiementService {
     throw new Error('Type de paiement inconnu');
   }
 
-
-  addPaiement1(paiement: Paiement): Observable<Paiement> {
-     // Vérifier si le paiement est en ligne
-      return this.ajouterPaiementSurPlace(paiement);
-
-    throw new Error('no post');
-  }
-
-
-
   ajouterPaiementEnLigne(paiement: Paiement): Observable<Paiement> {
-    console.log('Ajout paiement en ligne - Données envoyées:', paiement);
-    return this.http.post<Paiement>(`${this.apiUrl}/enligne`, paiement);
-  }
+    const currentUser = this.authService.currentUserSubject.getValue();
+        if (!currentUser || !currentUser.cin) {
+          return throwError(() => new Error('User is not authenticated or CIN is missing'));
+        }
+        const cin = currentUser.cin;
+    return this.http.post<Paiement>(`${this.apiUrl}/enligne/${cin}`, paiement, {
+      headers: this.authService.getAuthHeaders()
+    });
+}
+
 
   ajouterPaiementSurPlace(paiement: Paiement): Observable<Paiement> {
-    console.log('Ajout paiement sur place - Données envoyées:', paiement);
-    return this.http.post<Paiement>(`${this.apiUrl}/surplace`, paiement);
+    const currentUser = this.authService.currentUserSubject.getValue();
+        if (!currentUser || !currentUser.cin) {
+          return throwError(() => new Error('User is not authenticated or CIN is missing'));
+        }
+        const cin = currentUser.cin;
+    return this.http.post<Paiement>(`${this.apiUrl}/surplace/${cin}`, paiement, {
+      headers: this.authService.getAuthHeaders()
+    });
   }
 
   updatePaiement(paiement: Paiement): Observable<Paiement> {
-    return this.http.put<Paiement>(`${this.apiUrl}/${paiement.id_p}`, paiement);
+    return this.http.put<Paiement>(`${this.apiUrl}/${paiement.id_p}`, paiement, {
+      headers: this.authService.getAuthHeaders()
+    });
   }
 
 
   deletePaiement(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, {
+      headers: this.authService.getAuthHeaders()
+    });
   }
 
 

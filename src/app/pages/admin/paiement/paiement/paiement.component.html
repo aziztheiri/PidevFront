@@ -24,7 +24,7 @@
   <h2>Paiements en ligne</h2>
   <div class="paiement-card" *ngFor="let paiement of paiementsEnLigneFiltres">
     <div class="paiement-info">
-      <p><strong>Montant :</strong> {{ paiement.montant }} €</p>
+      <p><strong>Montant :</strong> {{ primeTotale }} €</p>
       <p><strong>Date :</strong> {{ paiement.date_paiement | date: 'dd/MM/yyyy' }}</p>
       <p><strong>Carte :</strong> **** **** **** {{ paiement.numeroCarte | slice: -4 }}</p>
     </div>
@@ -39,7 +39,7 @@
   <h2>Paiements sur place</h2>
   <div class="paiement-card" *ngFor="let paiement of paiementsSurPlaceFiltres">
     <div class="paiement-info">
-      <p><strong>Montant :</strong> {{ paiement.montant }} €</p>
+      <p><strong>Montant :</strong> {{ primeTotale }} €</p>
       <p><strong>Date :</strong> {{ paiement.date_paiement | date: 'dd/MM/yyyy' }}</p>
       <p><strong>Agence :</strong> {{ paiement.agence }}</p>
       <p><strong>RDV :</strong> {{ paiement.date_rdv | date: 'dd/MM/yyyy' }}</p>

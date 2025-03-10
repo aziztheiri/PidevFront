@@ -19,6 +19,11 @@ export const navItems: NavItem[] = [
     iconName: 'file-text',
     route: '/admin/devis', // Updated route
   },
+  {
+    displayName: 'Paiements',
+    iconName: 'file-text',
+    route: '/admin/paiement', // Updated route
+  },
 
  
 ];

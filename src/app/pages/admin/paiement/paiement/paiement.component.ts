@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PaiementService } from '../../servs/paiement.service';
 import { Paiement, PaiementSurPlace, PaiementEnLigne } from '../../servs/paiement.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-paiement',
   templateUrl: './paiement.component.html',
@@ -12,6 +13,7 @@ export class PaiementComponent implements OnInit {
   paiements: Paiement[] = [];
   paiementsEnLigne: PaiementEnLigne[] = [];
   paiementsSurPlace: PaiementSurPlace[] = [];
+  primeTotale!: number;
 
   paiementsEnLigneVisible: boolean = false;
   paiementsSurPlaceVisible: boolean = false;
@@ -25,12 +27,14 @@ export class PaiementComponent implements OnInit {
   paiementsEnLigneFiltres: PaiementEnLigne[] = [];
   paiementsSurPlaceFiltres: PaiementSurPlace[] = [];
 
-  constructor(private paiementService: PaiementService, private snackBar: MatSnackBar) { }
+  constructor(private paiementService: PaiementService, private snackBar: MatSnackBar,private router:Router) { }
 
   ngOnInit(): void {
     this.getAllPaiements();
     this.getPaiementsEnLigne();
     this.getPaiementsSurPlace();
+    const navigation = this.router.getCurrentNavigation();
+   
   }
 
 
