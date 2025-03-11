@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>
+  <!-- Si la réclamation est en attente, on dit "Répondre", sinon "Modifier" -->
+  {{ data.reclamation.statut === 'EN_ATTENTE' ? 'Répondre à la Réclamation' : 'Modifier la Réponse' }}
+</h2>
+
+<div mat-dialog-content>
+  <form [formGroup]="reponseForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Votre Réponse</mat-label>
+      <textarea
+        matInput
+        rows="4"
+        formControlName="reponseText"
+        required
+      ></textarea>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Annuler</button>
+  <button mat-raised-button color="primary" (click)="saveReponse()">
+    Enregistrer
+  </button>
+</div>

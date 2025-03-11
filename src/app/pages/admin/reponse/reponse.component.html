@@ -1,0 +1,59 @@
+<div class="admin-container">
+  <mat-card class="header-card mat-elevation-z4">
+    <mat-card-title>Gestion des Réclamations</mat-card-title>
+    <mat-card-subtitle>
+      Gérez, répondez et suivez les réclamations de vos utilisateurs.
+    </mat-card-subtitle>
+  </mat-card>
+
+  <div class="cards-container">
+    <mat-card *ngFor="let r of reclamations" class="reclamation-card">
+      <mat-card-header>
+        <mat-card-title>{{ r.sujet }}</mat-card-title>
+        <mat-card-subtitle>Réclamation #{{ r.id }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p><strong>Description :</strong></p>
+        <div class="card-description">
+          <!-- Si plus de 40 mots, on tronque et affiche "Lire la suite" -->
+          <ng-container *ngIf="countWords(r.description) > 10; else noTruncate">
+            {{ getFirstWords(r.description, 10) }}...
+            <a class="read-more-link" (click)="openDescriptionModal(r.description)">
+              Lire la suite
+            </a>
+          </ng-container>
+
+          <ng-template #noTruncate>
+            {{ r.description }}
+          </ng-template>
+        </div>
+        <p><strong>Type :</strong> {{ r.type }}</p>
+        <p>
+          <strong>Statut :</strong>
+          <span
+            [ngClass]="{
+              'orange-text': r.statut === 'EN_ATTENTE',
+              'green-text': r.statut === 'TRAITÉE'
+            }"
+          >
+            {{ r.statut }}
+          </span>
+        </p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary"
+                *ngIf="r.statut === 'EN_ATTENTE'"
+                (click)="openResponseDialog(r)">
+          Répondre
+        </button>
+        <button mat-raised-button color="accent"
+                *ngIf="r.statut === 'TRAITÉE'"
+                (click)="openResponseDialog(r)">
+          Voir Réponse
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

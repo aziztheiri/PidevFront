@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Réponse à votre Réclamation</h2>
+<div mat-dialog-content>
+  <p *ngIf="reponse">{{ reponse.statut }}</p>
+  <p *ngIf="!reponse">Aucune réponse disponible.</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Fermer</button>
+</div>

@@ -1,0 +1,14 @@
+/* Fond rouge clair dans le contenu */
+.red-content {
+    background-color: #f8d7da; /* Rouge clair */
+    color: #721c24;           /* Rouge plus foncé pour le texte */
+    padding: 16px;
+    border-radius: 4px;
+  }
+  
+  /* Actions alignées à droite */
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  

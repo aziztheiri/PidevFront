@@ -1,0 +1,109 @@
+<div class="container">
+
+  <div class="top-container">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Recherche</mat-label>
+      <input matInput type="text" placeholder="Tapez un mot-clé" (keyup)="onSearch($event)">
+    </mat-form-field>
+    <button mat-raised-button color="accent" class="btn-pdf" (click)="downloadPdf()">
+      <mat-icon>picture_as_pdf</mat-icon>
+      Exporter PDF
+    </button>
+    <button mat-raised-button color="primary" class="btn-add" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+      Nouvelle Réclamation
+    </button>
+  </div>
+
+
+  <div class="table-container">
+    <table mat-table [dataSource]="pagedReclamations" class="custom-table">
+
+      <ng-container matColumnDef="sujet">
+        <th mat-header-cell *matHeaderCellDef>Sujet</th>
+        <td mat-cell *matCellDef="let r">{{ r.sujet }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let r">
+
+          <ng-container *ngIf="countWords(r.description) <= 6; else truncatedDesc">
+            {{ r.description }}
+          </ng-container>
+          
+          <ng-template #truncatedDesc>
+            {{ getFirstWords(r.description, 6) }}...
+            <a (click)="openDescriptionModal(r.description)" class="read-more-link">
+              Lire la suite
+            </a>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <!-- Type -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let r">{{ r.type }}</td>
+      </ng-container>
+
+      <!-- Statut (badge coloré) -->
+      <ng-container matColumnDef="statut">
+        <th mat-header-cell *matHeaderCellDef>Statut</th>
+        <td mat-cell *matCellDef="let r">
+          <span class="status-badge"
+                [ngClass]="{
+                  'orange-badge': r.statut === 'EN_ATTENTE',
+                  'green-badge': r.statut === 'TRAITÉE'
+                }">
+            {{ r.statut }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let r">
+          <!-- Bouton modifier pour les réclamations en attente -->
+          <button *ngIf="r.statut === 'EN_ATTENTE'"
+                  mat-icon-button color="accent"
+                  (click)="openDialog(r)"
+                  matTooltip="Modifier">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <!-- Bouton voir la réponse pour les réclamations traitées -->
+          <button *ngIf="r.statut === 'TRAITÉE'"
+                  mat-icon-button color="accent"
+                  (click)="openResponseModal(r)"
+                  matTooltip="Voir la réponse">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <!-- Bouton suppression (toujours visible) -->
+          <button mat-icon-button color="warn"
+                  (click)="openDeleteDialog(r)"
+                  matTooltip="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- En-tête -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header"></tr>
+      <!-- Lignes -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+
+    </table>
+
+    <!-- PAGINATEUR -->
+    <mat-paginator
+      [length]="filteredReclamations.length"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+
+</div>
