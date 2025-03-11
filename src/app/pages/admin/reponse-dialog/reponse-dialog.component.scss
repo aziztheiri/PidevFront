@@ -1,0 +1,30 @@
+.full-width {
+  width: 100%;
+}
+
+:host ::ng-deep .mat-dialog-container {
+  /* Largeur fixe à 600px, mais max 90% de l'écran pour éviter d'être trop grand sur mobile */
+  width: 600px;
+  max-width: 90vw;
+  border-radius: 10px;  /* Coins arrondis */
+  background-color: #fff;
+  padding: 24px;
+  /* Optionnel : ombre plus visible */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.mat-dialog-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.mat-dialog-content {
+  margin-bottom: 1rem;
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

@@ -146,5 +146,9 @@ export const PagesRoutes: Routes = [
     component: PaiementfrontComponent,
     data: { title: 'Paiement' },
   },
+  {
+    path: 'reclamations',
+    component: MesreclamationsComponent,
+    data: { title: 'Reclamations' },
+  },
 ];
-

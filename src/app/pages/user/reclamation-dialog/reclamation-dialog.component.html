@@ -1,0 +1,66 @@
+<h2 mat-dialog-title class="dialog-title">
+  {{ data && data.id ? 'Modifier Réclamation' : 'Nouvelle Réclamation' }}
+</h2>
+
+<div mat-dialog-content class="dialog-content">
+  <form [formGroup]="reclamationForm" class="dialog-form">
+
+    <!-- SUJET -->
+    <mat-form-field appearance="outline" class="dialog-field">
+      <mat-label>Sujet</mat-label>
+      <input matInput formControlName="sujet" required>
+      <mat-error *ngIf="reclamationForm.get('sujet')?.invalid && reclamationForm.get('sujet')?.touched">
+        <!-- Erreur "required" -->
+        <span *ngIf="reclamationForm.get('sujet')?.errors?.['required']">
+          Le sujet est obligatoire.
+        </span>
+        <!-- Erreur minLength -->
+        <span *ngIf="reclamationForm.get('sujet')?.errors?.['minlength']">
+          Le sujet doit comporter au moins 3 caractères.
+        </span>
+        <!-- Erreur maxLength -->
+        <span *ngIf="reclamationForm.get('sujet')?.errors?.['maxlength']">
+          Le sujet ne doit pas dépasser 12 caractères.
+        </span>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- DESCRIPTION -->
+    <mat-form-field appearance="outline" class="dialog-field">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="3" formControlName="description" required></textarea>
+      <mat-error *ngIf="reclamationForm.get('description')?.invalid && reclamationForm.get('description')?.touched">
+        <!-- Erreur "required" -->
+        <span *ngIf="reclamationForm.get('description')?.errors?.['required']">
+          La description est obligatoire.
+        </span>
+        <!-- Erreur minLength -->
+        <span *ngIf="reclamationForm.get('description')?.errors?.['minlength']">
+          La description doit comporter au moins 30 caractères.
+        </span>
+        <!-- Erreur maxLength -->
+        <span *ngIf="reclamationForm.get('description')?.errors?.['maxlength']">
+          La description ne doit pas dépasser 500 caractères.
+        </span>
+      </mat-error>
+    </mat-form-field>
+    
+
+    <!-- TYPE -->
+    <mat-form-field appearance="outline" class="dialog-field">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type" required>
+        <mat-option value="SINISTRE">SINISTRE</mat-option>
+        <mat-option value="ADMINISTRATIF">ADMINISTRATIF</mat-option>
+        <mat-option value="TECHNIQUE">TECHNIQUE</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="closeDialog()">Annuler</button>
+  <button mat-raised-button color="primary" (click)="saveReclamation()">
+    {{ data && data.id ? 'Mettre à jour' : 'Ajouter' }}
+  </button>
+</div>

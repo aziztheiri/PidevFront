@@ -28,7 +28,7 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Mes Réclamations',
-    iconName: 'message-circle',
+    iconName: 'message-circle', // 💬 Represents user feedback or complaints
     route: '/user/reclamations',
   },
   {
@@ -44,4 +44,5 @@ export const navItems: NavItem[] = [
   },
 
 ];
+
 

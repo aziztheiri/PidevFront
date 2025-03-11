@@ -1,0 +1,103 @@
+.snackbar-success {
+  background-color: #4caf50 !important; /* vert Material */
+  color: #fff !important;
+}
+
+/* Snack-bar erreur : fond rouge, texte blanc */
+.snackbar-error {
+  background-color: #f44336 !important; /* rouge Material */
+  color: #fff !important;
+}
+
+.top-container {
+  display: flex;
+  justify-content: space-between; /* sépare les deux éléments */
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Bouton d'ajout (couleur verte ou bleue, au choix) */
+.btn-add {
+  background-color: #0562e5 !important; /* Vert Material */
+  color: #fff !important;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+/* Champ de recherche */
+.search-field {
+  width: 250px; /* Ajuste la largeur selon tes préférences */
+}
+
+/* Table plus large, centrée */
+.table-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.custom-table {
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* En-tête du tableau : fond bleu, texte blanc */
+.table-header {
+  background-color: #f38f1d;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Lignes alternées et survol */
+.table-row {
+  transition: background-color 0.2s;
+
+  &:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  &:hover {
+    background-color: #e3f2fd;
+  }
+}
+
+mat-paginator {
+  width: 95%;
+  margin: 20px auto 0;
+}
+
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.9rem;
+}
+.orange-badge {
+  background-color: #ff9800;
+}
+.green-badge {
+  background-color: #4caf50;
+}
+
+/* Lien "Lire la suite" */
+.read-more-link {
+  color: #1976d2;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px; /* espace horizontal entre les boutons */
+}
+.btn-add {
+  background-color: #0562e5 !important;
+  color: #fff !important;
+}
+.btn-pdf {
+  background-color: #f44336 !important; /* Rouge Material */
+  color: #fff !important;
+}

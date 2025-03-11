@@ -1,0 +1,17 @@
+:host ::ng-deep .mat-dialog-container {
+    border-radius: 8px;
+    max-width: 90vw;
+  }
+  
+  .mat-dialog-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  mat-dialog-content p {
+    font-size: 1rem;
+    line-height: 1.4;
+    white-space: pre-wrap; /* pour conserver les retours à la ligne */
+  }
+  

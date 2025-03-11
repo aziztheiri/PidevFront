@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-@Component({
-  selector: 'app-mesreclamations',
-  templateUrl: './mesreclamations.component.html',
-  styleUrls: ['./mesreclamations.component.scss']
-})
-export class MesreclamationsComponent {
+import { MesreclamationsComponent } from './mesreclamations.component';
 
-}
+describe('MesreclamationsComponent', () => {
+  let component: MesreclamationsComponent;
+  let fixture: ComponentFixture<MesreclamationsComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [MesreclamationsComponent]
+    });
+    fixture = TestBed.createComponent(MesreclamationsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

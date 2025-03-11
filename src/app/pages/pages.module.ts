@@ -55,6 +55,16 @@ import { OtpVerificationComponent } from './otp-verification/otp-verification.co
 import { PaiementComponent } from './admin/paiement/paiement/paiement.component';
 import { PaiementfrontComponent } from './user/mespaiements/paiementfront/paiementfront.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReponseDialogComponent } from './admin/reponse-dialog/reponse-dialog.component';
+import { DescriptionModalComponent } from './user/description-modal/description-modal.component';
+import { ReponseModalComponentComponent } from './user/reponse-modal-component/reponse-modal-component.component';
+import { ConfirmDialogComponent } from './user/confirm-dialog/confirm-dialog.component';
+import { MesreclamationsComponent } from './user/mesreclamations/mesreclamations.component';
+import { ReclamationDialogComponent } from './user/reclamation-dialog/reclamation-dialog.component';
+import { ReponseComponent } from './admin/reponse/reponse.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -92,7 +102,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     DevisDetailsComponent,
     DetailsDevisComponent,
     PaiementComponent,
-    PaiementfrontComponent
+    PaiementfrontComponent,
+    ReponseDialogComponent,
+    DescriptionModalComponent,
+    ReponseModalComponentComponent,
+    ConfirmDialogComponent,
+    MesreclamationsComponent,
+    ReclamationDialogComponent,
+    ReponseComponent
   ],
   imports: [
     CommonModule,
@@ -111,7 +128,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatNativeDateModule,
     MatButtonModule,
     MatInputModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   exports: [TablerIconsModule],
 })

@@ -24,6 +24,10 @@ export const navItems: NavItem[] = [
     iconName: 'file-text',
     route: '/admin/paiement', // Updated route
   },
-
+{
+    displayName: 'Reponses',
+    iconName: 'message-circle',
+    route: '/admin/reponse', 
+  },
  
 ];

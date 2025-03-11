@@ -1,0 +1,33 @@
+/* Titre de la dialog : un peu plus grand et gras */
+.dialog-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  /* Conteneur global de la dialog, on impose une largeur mini pour être plus large */
+  .dialog-content {
+    min-width: 600px; /* Ajuste selon tes besoins : 500px, 600px, 700px... */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espace vertical entre les champs */
+  }
+  
+  /* Le formulaire en colonne */
+  .dialog-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Chaque champ prend toute la largeur */
+  .dialog-field {
+    width: 100%;
+  }
+  
+  /* Boutons en bas, alignés à droite */
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  
