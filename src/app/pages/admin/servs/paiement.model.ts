@@ -4,6 +4,7 @@ export interface Paiement {
   id_p: number;
   montant: number;
   date_paiement: string;
+  cin?:string
 }
 
 export interface PaiementSurPlace extends Paiement {

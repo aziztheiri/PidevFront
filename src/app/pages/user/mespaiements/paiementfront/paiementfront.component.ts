@@ -200,7 +200,7 @@ export class PaiementfrontComponent implements OnInit {
                 date_paiement: new Date().toLocaleString(),
             };
             this.paiementService.sendEmailConfirmationEnLigne(emailData);
-
+            this.router.navigate(['/user/payments']);
             this.generatePDF(paiementData, true);
         });
     }

@@ -1,0 +1,70 @@
+<div class="payments-container">
+    <h1>My Payments</h1>
+    
+    <div *ngIf="isLoading" class="loading">
+      Loading payments...
+    </div>
+    
+    <div *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
+    
+    <div *ngIf="!isLoading && !errorMessage">
+      <!-- Payments En Ligne -->
+      <section>
+        <h2>Payments En Ligne</h2>
+        <table class="payments-table">
+          <thead>
+            <tr>
+           
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Card Number</th>
+              <th>Expiration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let paiement of paiementsEnLigne">
+     
+              <td>{{ paiement.date_paiement | date:'medium' }}</td>
+              <td>{{ paiement.montant | currency }}</td>
+              <td>{{ paiement.numeroCarte }}</td>
+              <td>{{ paiement.expiration }}</td>
+            </tr>
+            <tr *ngIf="paiementsEnLigne.length === 0">
+              <td colspan="5" class="no-data">No online payments found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      
+      <!-- Payments Sur Place -->
+      <section>
+        <h2>Payments Sur Place</h2>
+        <table class="payments-table">
+          <thead>
+            <tr>
+           
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Agency</th>
+              <th>RDV Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let paiement of paiementsSurPlace">
+
+              <td>{{ paiement.date_paiement | date:'medium' }}</td>
+              <td>{{ paiement.montant | currency }}</td>
+              <td>{{ paiement.agence }}</td>
+              <td>{{ paiement.date_rdv | date:'mediumDate' }}</td>
+            </tr>
+            <tr *ngIf="paiementsSurPlace.length === 0">
+              <td colspan="5" class="no-data">No in-person payments found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+  

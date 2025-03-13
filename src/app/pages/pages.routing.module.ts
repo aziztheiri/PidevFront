@@ -28,6 +28,7 @@ import { Step3avComponent } from './user/mesdevis/assurance-voyage/step3av/step3
 import { SuccessMessageComponent } from './user/mesdevis/assurance-sante-internationale/success-message/success-message.component';
 import { FormComponent } from './user/mesdevis/assurance-habitation/form/form.component';
 import { PaiementfrontComponent } from "./user/mespaiements/paiementfront/paiementfront.component";
+import { PaymentsComponent } from './user/payments/payments.component';
 
 
 
@@ -150,5 +151,10 @@ export const PagesRoutes: Routes = [
     path: 'reclamations',
     component: MesreclamationsComponent,
     data: { title: 'Reclamations' },
+  },
+  {
+    path: 'payments',
+    component: PaymentsComponent,
+    data: { title: 'Payements' },
   },
 ];

@@ -17,7 +17,9 @@ export class PaiementService {
  
 
   getPaiements(): Observable<Paiement[]> {
-    return this.http.get<Paiement[]>(this.apiUrl);
+    return this.http.get<Paiement[]>(this.apiUrl,{
+      headers: this.authService.getAuthHeaders()
+    });
   }
 
 

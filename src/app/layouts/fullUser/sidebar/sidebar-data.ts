@@ -40,7 +40,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Mes Paiements',
     iconName: 'file-text', //
-    route: '/user/paiement',
+    route: '/user/payments',
   },
 
 ];
