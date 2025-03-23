@@ -165,7 +165,18 @@ button:hover {
   button:hover {
     background-color: #e37e0b; /* Slightly darker orange on hover */
   }
-  
+  .captcha-container {
+    margin-top: auto; /* Pushes content to bottom */
+    padding: 20px 0;
+    text-align: center;
+    
+    .g-recaptcha {
+      display: inline-block;
+      margin: 0 auto;
+      transform: scale(0.9); /* Optional: Adjust scale if needed */
+      transform-origin: center;
+    }
+  }
   /* Error message styling */
   .error-message {
     margin-top: 15px;

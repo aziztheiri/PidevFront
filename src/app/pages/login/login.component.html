@@ -1,11 +1,10 @@
-
 <div class="login-container">
   <div class="logo">
     <img src="assets/images/magh.png" alt="Company Logo">
   </div>
-  <form (submit)="login()">
+  <form (ngSubmit)="login()">
     <div class="form-group">
-      <label for="username">Username:</label>
+      <label for="username">Username :</label>
       <input
         type="text"
         id="username"
@@ -15,7 +14,7 @@
       />
     </div>
     <div class="form-group">
-      <label for="password">Password:</label>
+      <label for="password">Password :</label>
       <input
         type="password"
         id="password"
@@ -24,8 +23,19 @@
         required
       />
     </div>
+    <div class="form-group">
+      <!-- Widget reCAPTCHA intégré avec callback global -->
+   
+    </div>
     <button type="submit">Login</button>
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div class="captcha-container">
+      <div class="g-recaptcha"
+           data-sitekey="6Lcrf_0qAAAAAFkxgS2zyQ0xB83KyPfcFe-ZNMVi"
+           data-callback="recaptchaCallback">
+      </div>
+      <div *ngIf="recaptchaError" class="error-message">{{ recaptchaError }}</div>
+    </div>
   </form>
   <p class="signup-link">
     <a routerLink="/forgot-password">Forgot your password?</a>
@@ -34,4 +44,3 @@
     Don't have an account? <a routerLink="/signup">Sign Up</a>
   </p>
 </div>
-

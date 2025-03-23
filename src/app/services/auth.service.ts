@@ -27,24 +27,26 @@ export class AuthService {
     });
   }
 
-    login(username: string, password: string): Observable<any> {
-      return this.http.post<any>('http://localhost:8090/users/login', null, {
-        params: { username, password }
-      }).pipe(
-        tap(response => {
-          // If the response contains tokens, store them
-          if (response && response.access_token && response.refresh_token) {
-            localStorage.setItem('accessToken', response.access_token);
-            localStorage.setItem('refreshToken', response.refresh_token);
-          }
-        }),
-        catchError(error => {
-          // Handle error (e.g., account deactivation or invalid credentials)
-          console.error('Login error:', error);
-          return throwError(() => error);
-        })
-      );
-    }
+  login(username: string, password: string, recaptchaToken: string): Observable<any> {
+    return this.http.post<any>('http://localhost:8090/users/login', null, {
+      params: { 
+        username, 
+        password,
+        'g-recaptcha-response': recaptchaToken // Ajout du token reCAPTCHA
+      }
+    }).pipe(
+      tap(response => {
+        if (response?.access_token && response?.refresh_token) {
+          localStorage.setItem('accessToken', response.access_token);
+          localStorage.setItem('refreshToken', response.refresh_token);
+        }
+      }),
+      catchError(error => {
+        console.error('Login error:', error);
+        return throwError(() => error);
+      })
+    );
+  }
   decodeToken(token: string): any {
     return jwt_decode.jwtDecode(token);
   }
