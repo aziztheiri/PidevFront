@@ -1,0 +1,62 @@
+<div class="post-container">
+    <h2>Forum Posts</h2>
+  
+    <!-- Add Post Button -->
+    <div class="add-post-button">
+      <button (click)="openAddPostModal()">Add Post</button>
+    </div>
+  
+    <!-- Modal Overlay for Add Post -->
+    <div class="modal-overlay" *ngIf="showAddModal">
+      <div class="modal-content">
+        <h2>Add New Post</h2>
+        <form [formGroup]="addPostForm">
+          <div class="form-field">
+            <label>Title</label>
+            <input type="text" formControlName="title" placeholder="Enter title">
+            <div *ngIf="addPostForm.get('title')?.invalid && addPostForm.get('title')?.touched" class="error">
+              Title is required.
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Content</label>
+            <textarea formControlName="content" placeholder="Enter content"></textarea>
+            <div *ngIf="addPostForm.get('content')?.invalid && addPostForm.get('content')?.touched" class="error">
+              Content is required.
+            </div>
+          </div>
+        </form>
+        <div *ngIf="addError" class="error-message">{{ addError }}</div>
+        <div class="modal-actions">
+          <button (click)="closeAddPostModal()" [disabled]="adding">Cancel</button>
+          <button (click)="onAddPost()" [disabled]="adding || addPostForm.invalid">
+            {{ adding ? 'Adding...' : 'Add Post' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Loading/Error Messages -->
+    <div *ngIf="loading" class="loading-message">Loading posts...</div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+  
+    <!-- Posts Card Grid -->
+    <div class="card-grid" *ngIf="posts && posts.length > 0">
+      <div class="card" *ngFor="let post of posts">
+        <div class="card-header">
+          <h3>{{ post.title }}</h3>
+        </div>
+        <div class="card-body">
+          <p>{{ post.content }}</p>
+        </div>
+        <div class="card-footer">
+          <small>Created at: {{ post.created_at | date:'medium' }}</small>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="posts && posts.length === 0 && !loading" class="no-posts">
+      No posts available.
+    </div>
+  </div>
+  

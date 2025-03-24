@@ -29,6 +29,8 @@ import { SuccessMessageComponent } from './user/mesdevis/assurance-sante-interna
 import { FormComponent } from './user/mesdevis/assurance-habitation/form/form.component';
 import { PaiementfrontComponent } from "./user/mespaiements/paiementfront/paiementfront.component";
 import { PaymentsComponent } from './user/payments/payments.component';
+import { PostListComponent } from './user/post-list/post-list.component';
+import { MyPostsComponent } from './user/my-posts/my-posts.component';
 
 
 
@@ -156,5 +158,15 @@ export const PagesRoutes: Routes = [
     path: 'payments',
     component: PaymentsComponent,
     data: { title: 'Payements' },
+  },
+  {
+    path: 'posts',
+    component: PostListComponent,
+    data: { title: 'Posts' },
+  },
+  {
+    path: 'myposts',
+    component: MyPostsComponent,
+    data: { title: 'MyPosts' },
   },
 ];

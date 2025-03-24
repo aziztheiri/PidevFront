@@ -1,0 +1,63 @@
+<div class="my-posts-container">
+    <h2>My Posts</h2>
+  
+    <div *ngIf="loading" class="loading-message">Loading posts...</div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+  
+    <div *ngIf="!loading && myPosts.length === 0" class="no-posts">
+      No posts found for your account.
+    </div>
+  
+    <div class="post-list" *ngIf="myPosts && myPosts.length > 0">
+      <div class="post-card" *ngFor="let post of myPosts">
+        <div class="card-header">
+          <h3>{{ post.title }}</h3>
+          <!-- Three dots dropdown trigger -->
+          <div class="dropdown" (click)="toggleDropdown(post.id!)">
+            <span class="dots">⋮</span>
+            <div class="dropdown-content" *ngIf="selectedDropdownPostId === post.id">
+              <button (click)="openUpdateModal(post)">Update</button>
+              <button (click)="onDeletePost(post.id!)">Delete</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>{{ post.content }}</p>
+        </div>
+        <div class="card-footer">
+          <small>Created at: {{ post.created_at | date:'medium' }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Update Modal -->
+  <div class="modal-overlay" *ngIf="showUpdateModal">
+    <div class="modal-content">
+      <h2>Update Post</h2>
+      <form [formGroup]="updatePostForm">
+        <div class="form-field">
+          <label>Title</label>
+          <input type="text" formControlName="title" placeholder="Enter title">
+          <div *ngIf="updatePostForm.get('title')?.invalid && updatePostForm.get('title')?.touched" class="error">
+            Title is required.
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Content</label>
+          <textarea formControlName="content" placeholder="Enter content"></textarea>
+          <div *ngIf="updatePostForm.get('content')?.invalid && updatePostForm.get('content')?.touched" class="error">
+            Content is required.
+          </div>
+        </div>
+      </form>
+      <div *ngIf="updateError" class="error-message">{{ updateError }}</div>
+      <div class="modal-actions">
+        <button (click)="closeUpdateModal()" [disabled]="updating">Cancel</button>
+        <button (click)="onUpdatePost()" [disabled]="updating || updatePostForm.invalid">
+          {{ updating ? 'Updating...' : 'Update Post' }}
+        </button>
+      </div>
+    </div>
+  </div>
+  

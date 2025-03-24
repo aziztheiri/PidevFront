@@ -66,6 +66,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaymentsComponent } from './user/payments/payments.component';
+import { PostListComponent } from './user/post-list/post-list.component';
+import { MyPostsComponent } from './user/my-posts/my-posts.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +113,9 @@ import { PaymentsComponent } from './user/payments/payments.component';
     MesreclamationsComponent,
     ReclamationDialogComponent,
     ReponseComponent,
-    PaymentsComponent
+    PaymentsComponent,
+    PostListComponent,
+    MyPostsComponent
   ],
   imports: [
     CommonModule,
