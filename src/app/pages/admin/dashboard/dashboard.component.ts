@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexStroke, ApexXAxis, ApexYAxis, ApexTitleSubtitle, ApexLegend } from 'ng-apexcharts';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,9 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./dashboard.component.scss']
 })
 export class AppDashboardComponent implements OnInit {
+  
   users: User[] = [];
+
   totalUsers = 0;
   verifiedUsers = 0;
   nonVerifiedUsers = 0;
@@ -75,8 +78,24 @@ export class AppDashboardComponent implements OnInit {
     }
   };
 
-  constructor(private userService: UserService) {}
-
+  constructor(private userService: UserService,private snackBar: MatSnackBar) {}
+  generateReport(): void {
+    this.userService.generateReport().subscribe({
+      next: (response: any) => {
+        this.snackBar.open('✅ Report generated successfully!', 'Close', {
+          duration: 3000,
+          panelClass: ['snack-success']
+        });
+      },
+      error: (error) => {
+        console.error('Report generation failed:', error);
+        this.snackBar.open('❌ Failed to generate report.', 'Close', {
+          duration: 3000,
+          panelClass: ['snack-error']
+        });
+      }
+    });
+  }
   ngOnInit(): void {
     this.loadUsers();
     this.fetchUserLocationData();

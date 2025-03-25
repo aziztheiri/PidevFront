@@ -14,7 +14,9 @@ export class UserService {
   requestPasswordReset(email: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/forgot-password`, { email }, { responseType: 'text' });
   }
-
+  generateReport(){
+    return this.http.get(`${this.baseUrl}/run-report`,{ headers: this.getAuthHeaders() ,responseType: 'text' },);
+  }
   resetPassword(token: string, newPassword: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/reset-password`, { token, newPassword }, { responseType: 'text' });
   }
