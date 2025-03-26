@@ -1,0 +1,46 @@
+<div class="container">
+    <h1 class="title">User Clusters</h1>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    <div *ngFor="let clusterEntry of (clusters | keyvalue)">
+      <div class="cluster-card">
+        <ng-container [ngSwitch]="clusterEntry.key">
+          <ng-container *ngSwitchCase="'0'">
+            <h2>Young Clients with High Lifetime Value</h2>
+            <p>
+              <em>
+                Hypothesis: Young professionals with high potential value but unstable situation (unemployment + basic education). 
+                Need for a retention strategy.
+              </em>
+            </p>
+          </ng-container>
+          <ng-container *ngSwitchCase="'1'">
+            <h2>Established High-Income Clients</h2>
+            <p>
+              <em>
+                Hypothesis: Stable clients with good purchasing power. Ideal target for cross-selling (additional policies).
+              </em>
+            </p>
+          </ng-container>
+          <ng-container *ngSwitchCase="'2'">
+            <h2>Intermediate Multi-Policy Clients</h2>
+            <p>
+              <em>
+                Hypothesis: Loyal clients but price-sensitive. Potential for retention via personalized offers.
+              </em>
+            </p>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <h2>Cluster {{ clusterEntry.key }}</h2>
+          </ng-container>
+        </ng-container>
+        <div *ngFor="let user of clusterEntry.value" class="user-card">
+          <p><strong>Name:</strong> {{ user.features?.Name }}</p>
+          <p><strong>CIN:</strong> {{ user.features?.CIN }}</p>
+          <p><strong>Customer Lifetime Value:</strong> {{ user.features?.['Customer Lifetime Value'] }}</p>
+          <p><strong>Monthly Premium Auto:</strong> {{ user.features?.['Monthly Premium Auto'] }}</p>
+          <!-- Additional fields as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+  

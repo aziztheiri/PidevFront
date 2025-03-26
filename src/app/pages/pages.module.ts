@@ -68,6 +68,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PaymentsComponent } from './user/payments/payments.component';
 import { PostListComponent } from './user/post-list/post-list.component';
 import { MyPostsComponent } from './user/my-posts/my-posts.component';
+import { UserClusterComponent } from './admin/user-cluster/user-cluster.component';
 
 @NgModule({
   declarations: [
@@ -115,7 +116,8 @@ import { MyPostsComponent } from './user/my-posts/my-posts.component';
     ReponseComponent,
     PaymentsComponent,
     PostListComponent,
-    MyPostsComponent
+    MyPostsComponent,
+    UserClusterComponent
   ],
   imports: [
     CommonModule,

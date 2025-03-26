@@ -14,6 +14,9 @@ export class UserService {
   requestPasswordReset(email: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/forgot-password`, { email }, { responseType: 'text' });
   }
+  predictUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/cluster`,{ headers: this.getAuthHeaders()});
+  }
   generateReport(){
     return this.http.get(`${this.baseUrl}/run-report`,{ headers: this.getAuthHeaders() ,responseType: 'text' },);
   }

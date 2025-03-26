@@ -1,0 +1,43 @@
+.container {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .title {
+    text-align: center;
+    color: #004a8d;
+    margin-bottom: 20px;
+  }
+  
+  .cluster-card {
+    border: 2px solid #004a8d;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f0f4f8;
+  }
+  
+  .cluster-card h2 {
+    background-color: #004a8d;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .user-card {
+    border: 1px solid #f38f1d;
+    border-radius: 3px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  .user-card p {
+    margin: 5px 0;
+  }
+  
+  .error {
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  

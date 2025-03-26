@@ -21,13 +21,18 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Paiements',
-    iconName: 'file-text',
-    route: '/admin/paiement', // Updated route
+    iconName: 'credit-card',
+    route: '/admin/paiement',
   },
 {
     displayName: 'Reponses',
     iconName: 'message-circle',
     route: '/admin/reponse', 
   },
+  {
+    displayName: 'Clusters',
+    iconName: 'circle-dot',
+    route: '/admin/cluster',
+  }
  
 ];
