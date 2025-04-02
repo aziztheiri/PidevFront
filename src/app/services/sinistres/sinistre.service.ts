@@ -1,13 +1,16 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { tap } from 'rxjs/operators';
 import { Sinistre } from "src/app/models/sinistre";
+import { NotificationService } from "../notification.service";
+
 
 @Injectable({ providedIn: 'root' })
 export class SinistreService {
   private apiUrl = 'http://localhost:8089/pidev/api/sinistres';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private notificationService: NotificationService) {}
 
   getSinistres(): Observable<Sinistre[]> {
     return this.http.get<Sinistre[]>(this.apiUrl);
@@ -22,7 +25,10 @@ export class SinistreService {
   }
 
   updateSinistre(id: number, sinistre: Sinistre): Observable<Sinistre> {
-    return this.http.put<Sinistre>(`${this.apiUrl}/updatesinistre/${id}`, sinistre);
+    return this.http.put<Sinistre>(`${this.apiUrl}/updatesinistre/${id}`, sinistre).pipe(
+      tap(() => this.notificationService.showSuccess('Sinistre ajouté avec succès !'))
+    );
+
   }
 
   deleteSinistre(id: number): Observable<void> {

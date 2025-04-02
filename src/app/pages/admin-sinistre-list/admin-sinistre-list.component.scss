@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: #004a8d;
+    margin: 20px;
+  }
+  
+  h3 {
+    color: #004a8d;
+  }
+  
+  /* Styles pour les boutons */
+  .btn-primary {
+    background-color: #004a8d;
+    border-color: #004a8d;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #003366;
+    border-color: #003366;
+  }
+  
+  .btn-danger {
+    background-color: red;
+    border-color: darkred;
+    color: white;
+  }
+  
+  .btn-danger:hover {
+    background-color: darkred;
+    border-color: darkred;
+  }
+  
+  /* Table styling */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table th {
+    background-color: #004a8d;
+    color: white;
+    padding: 10px;
+  }
+  
+  .table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #e9ecef;
+  }
+  

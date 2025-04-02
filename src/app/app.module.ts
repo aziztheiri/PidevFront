@@ -28,7 +28,9 @@ import { HeaderUserComponent } from './layouts/fullUser/header/header.component'
 import { AppNavUserItemComponent } from './layouts/fullUser/sidebar/nav-item/nav-item.component';
 import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.component';
 import { PagesModule } from './pages/pages.module';
-
+import { AdminSinistreListComponent } from './pages/admin-sinistre-list/admin-sinistre-list.component';
+import { AdminRoutingModule } from './pages/admin/admin-routing.module';
+import { NgChartjsModule } from 'ng-chartjs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,8 @@ import { PagesModule } from './pages/pages.module';
     FullUserComponent,
     HeaderUserComponent,
     AppNavUserItemComponent,
-    SidebarUserComponent
+    SidebarUserComponent,
+     AdminSinistreListComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,8 @@ import { PagesModule } from './pages/pages.module';
     ReactiveFormsModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
+     AdminRoutingModule,
+     NgChartjsModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

@@ -1,26 +1,47 @@
-<h2>Bienvenue dans votre espace client</h2>
-
 <h3>Liste des Sinistres</h3>
-<button routerLink="/sinistre-form" class="btn btn-primary">Ajouter un Sinistre</button>
 
+<!-- Boutons d'action -->
+<div class="mb-3">
+  <button routerLink="/user/sinistre-form" class="btn btn-primary btn-lg">
+    <i class="fas fa-plus"></i> Ajouter un Sinistre
+  </button>
+  <button (click)="generatePDF()" class="btn btn-success btn-lg">
+    <i class="fas fa-file-download"></i> Télécharger PDF
+  </button>
+</div>
 
+<!-- Recherche et Filtrage -->
+<div class="row mb-3">
+  <div class="col-md-6">
+    <input type="text" [(ngModel)]="searchText" placeholder="Rechercher par description ou lieu..." class="form-control form-control-lg" />
+  </div>
+  <div class="col-md-6">
+    <select [(ngModel)]="selectedStatut" class="form-control form-control-lg">
+      <option value="">Tous les statuts</option>
+      <option *ngFor="let statut of statutsDisponibles" [value]="statut">{{ statut }}</option>
+    </select>
+  </div>
+</div>
+
+<!-- Affichage des erreurs et chargement -->
 <div *ngIf="isLoading">
   <p>Chargement en cours...</p>
 </div>
 
 <div *ngIf="errorMessage" class="alert alert-danger">
   {{ errorMessage }}
-  <button (click)="loadSinistres()" class="btn btn-secondary">Réessayer</button>
+  <button (click)="loadSinistres()" class="btn btn-secondary btn-lg">Réessayer</button>
 </div>
 
-<table class="table mt-3" *ngIf="!isLoading && !errorMessage && sinistres.length > 0">
+<!-- Tableau des sinistres -->
+<table class="table table-hover mt-3" *ngIf="!isLoading && !errorMessage && filteredSinistres.length > 0">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Date Déclaration</th>
+      <th (click)="sortSinistres('id')">ID <i [class]="sortColumn === 'id' ? (sortDirection === 'asc' ? 'fas fa-arrow-up' : 'fas fa-arrow-down') : ''"></i></th>
+      <th (click)="sortSinistres('dateDeclaration')">Date Déclaration <i [class]="sortColumn === 'dateDeclaration' ? (sortDirection === 'asc' ? 'fas fa-arrow-up' : 'fas fa-arrow-down') : ''"></i></th>
       <th>Description</th>
-      <th>Statut</th>
-      <th>Montant Estimé</th>
+      <th (click)="sortSinistres('statut')">Statut</th>
+      <th (click)="sortSinistres('montantEstime')">Montant Estimé</th>
       <th>Lieu</th>
       <th>Type de Sinistre</th>
       <th>Responsabilité</th>
@@ -29,22 +50,29 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let sinistre of sinistres">
+    <tr *ngFor="let sinistre of filteredSinistres">
       <td>{{ sinistre.id }}</td>
-      <td>{{ sinistre.dateDeclaration | date:'dd/MM/yyyy' }}</td>  <!-- Format de la date -->
+      <td>{{ sinistre.dateDeclaration | date:'dd/MM/yyyy' }}</td>
       <td>{{ sinistre.description }}</td>
       <td>{{ sinistre.statut }}</td>
       <td>{{ sinistre.montantEstime | currency }}</td>
       <td>{{ sinistre.lieu }}</td>
       <td>{{ sinistre.typeSinistre }}</td>
       <td>{{ sinistre.responsabilite }}</td>
-      <td>{{ sinistre.dateCloture ? (sinistre.dateCloture | date:'dd/MM/yyyy') : 'Non clôturé' }}</td> <!-- Affichage conditionnel -->
+      <td>{{ sinistre.dateCloture ? (sinistre.dateCloture | date:'dd/MM/yyyy') : 'Non clôturé' }}</td>
       <td>
-        <button [routerLink]="['/sinistre-detail', sinistre.id]" class="btn btn-primary">Voir</button>
-
-        <button [routerLink]="'/sinistre-form/' + sinistre.id" class="btn btn-warning">Modifier</button>
-        <button (click)="deleteSinistre(sinistre.id)" class="btn btn-danger">Supprimer</button>
+        <button [routerLink]="['/user/sinistre-detail', sinistre.id]" class="btn btn-info btn-lg">
+          <i class="fas fa-eye"></i> Voir
+        </button>
+        <button [routerLink]="'/user/sinistre-form/' + sinistre.id" class="btn btn-warning btn-lg">
+          <i class="fas fa-edit"></i> Modifier
+        </button>
+        <button (click)="deleteSinistre(sinistre.id)" class="btn btn-danger btn-lg">
+          <i class="fas fa-trash"></i> Supprimer
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
+
+<p *ngIf="filteredSinistres.length === 0" class="text-muted">Aucun sinistre trouvé.</p>

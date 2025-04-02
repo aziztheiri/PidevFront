@@ -41,5 +41,5 @@ export const PagesRoutes: Routes = [
   { path: 'sinistre-detail/:id', component: SinistreDetailComponent },
   { path: 'sinistre-form', component: SinistreFormComponent },
 { path: 'sinistre-form/:id', component: SinistreFormComponent },
-  { path: '', redirectTo: '/sinistres', pathMatch: 'full' }
+
 ];

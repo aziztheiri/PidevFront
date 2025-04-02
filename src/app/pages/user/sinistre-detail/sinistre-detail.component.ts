@@ -5,7 +5,7 @@ import { SinistreService } from 'src/app/services/sinistres/sinistre.service';
 @Component({
   selector: 'app-sinistre-detail',
   templateUrl: './sinistre-detail.component.html',
- // styleUrls: ['./sinistre-detail.component.css']
+ styleUrls: ['./sinistre-detail.component.scss']
 })
 export class SinistreDetailComponent implements OnInit {
   sinistre: any;

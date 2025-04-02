@@ -8,4 +8,5 @@ export interface Sinistre {
   typeSinistre: string;
   responsabilite: string;
   dateCloture: Date | null;  // Change from string to Date | null
+  telephone: string;
 }
