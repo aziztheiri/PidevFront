@@ -31,6 +31,9 @@ import { PaiementfrontComponent } from "./user/mespaiements/paiementfront/paieme
 import { PaymentsComponent } from './user/payments/payments.component';
 import { PostListComponent } from './user/post-list/post-list.component';
 import { MyPostsComponent } from './user/my-posts/my-posts.component';
+import { SinistreListComponent } from './user/sinistre-list/sinistre-list.component';
+import { SinistreFormComponent } from './user/sinistre-form/sinistre-form.component';
+import { SinistreDetailComponent } from './user/sinistre-detail/sinistre-detail.component';
 
 
 
@@ -169,4 +172,10 @@ export const PagesRoutes: Routes = [
     component: MyPostsComponent,
     data: { title: 'MyPosts' },
   },
+  { path: 'sinistre-list', component: SinistreListComponent ,data: { title: 'Sinistre-list' }},
+  { path: 'sinistre-form', component: SinistreFormComponent },
+  { path: 'sinistre-form/:id', component: SinistreFormComponent },
+  { path: 'sinistre-detail/:id', component: SinistreDetailComponent }
+
+
 ];

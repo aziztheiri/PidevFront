@@ -69,6 +69,12 @@ import { PaymentsComponent } from './user/payments/payments.component';
 import { PostListComponent } from './user/post-list/post-list.component';
 import { MyPostsComponent } from './user/my-posts/my-posts.component';
 import { UserClusterComponent } from './admin/user-cluster/user-cluster.component';
+import { AdminSinistreListComponent } from './admin-sinistre-list/admin-sinistre-list.component';
+import { ToastrModule } from 'ngx-toastr';
+import { NotificationService } from '../services/notification.service';
+import { SinistreListComponent } from './user/sinistre-list/sinistre-list.component';
+import { SinistreFormComponent } from './user/sinistre-form/sinistre-form.component';
+import { SinistreDetailComponent } from './user/sinistre-detail/sinistre-detail.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +123,10 @@ import { UserClusterComponent } from './admin/user-cluster/user-cluster.componen
     PaymentsComponent,
     PostListComponent,
     MyPostsComponent,
-    UserClusterComponent
+    UserClusterComponent,
+    SinistreListComponent,
+    SinistreFormComponent,
+    SinistreDetailComponent
   ],
   imports: [
     CommonModule,
@@ -141,8 +150,14 @@ import { UserClusterComponent } from './admin/user-cluster/user-cluster.componen
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
   ],
   exports: [TablerIconsModule],
+  providers: [NotificationService]
 })
 export class PagesModule {}

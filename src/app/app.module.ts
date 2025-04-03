@@ -32,7 +32,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { PaiementfrontComponent } from './pages/user/mespaiements/paiementfront/paiementfront.component';
 import { CardFormatDirective } from './pages/user/mespaiements/paiementfront/directives/card-format.directive';
 import { MapComponent } from './pages/user/mespaiements/paiementfront/map api/map/map.component';
+import { AdminSinistreListComponent } from './pages/admin-sinistre-list/admin-sinistre-list.component';
 
+import { NgChartjsModule } from 'ng-chartjs';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { MapComponent } from './pages/user/mespaiements/paiementfront/map api/ma
     AppNavUserItemComponent,
     SidebarUserComponent,
     CardFormatDirective,
-    MapComponent
+    MapComponent,
+    AdminSinistreListComponent
     
   ],
   imports: [
@@ -60,7 +63,8 @@ import { MapComponent } from './pages/user/mespaiements/paiementfront/map api/ma
     KeycloakAngularModule,
     ReactiveFormsModule,
     MaterialModule,
-    TablerIconsModule.pick(TablerIcons),
+    NgChartjsModule,
+    TablerIconsModule.pick(TablerIcons)
   ],
 
   exports: [TablerIconsModule,MatNativeDateModule],

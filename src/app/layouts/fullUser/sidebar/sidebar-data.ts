@@ -34,7 +34,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Mes Sinistres',
     iconName: 'alert-triangle', // ⚠️ Represents incidents/claims
-    route: '/user/sinistres',
+    route: '/user/sinistre-list',
   },
 
   {
@@ -52,6 +52,7 @@ export const navItems: NavItem[] = [
     iconName: 'file-text', //
     route: '/user/myposts',
   },
+  
 
 ];
 

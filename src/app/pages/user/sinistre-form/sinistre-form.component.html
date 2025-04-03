@@ -1,0 +1,108 @@
+<h3>{{ isEditing ? 'Modifier un Sinistre' : 'Ajouter un Sinistre' }}</h3>
+
+<div *ngIf="isLoading">Chargement en cours...</div>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<form (ngSubmit)="saveSinistre()">
+  <div class="form-group">
+    <label for="dateDeclaration">Date Déclaration</label>
+    <input
+      type="date"
+      id="dateDeclaration"
+      [(ngModel)]="sinistre.dateDeclaration"
+      name="dateDeclaration"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input
+      type="text"
+      id="description"
+      [(ngModel)]="sinistre.description"
+      name="description"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="statut">Statut</label>
+    <input
+      type="text"
+      id="statut"
+      [(ngModel)]="sinistre.statut"
+      name="statut"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="montantEstime">Montant Estimé</label>
+    <input
+      type="number"
+      id="montantEstime"
+      [(ngModel)]="sinistre.montantEstime"
+      name="montantEstime"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="lieu">Lieu</label>
+    <input
+      type="text"
+      id="lieu"
+      [(ngModel)]="sinistre.lieu"
+      name="lieu"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="typeSinistre">Type de Sinistre</label>
+    <input
+      type="text"
+      id="typeSinistre"
+      [(ngModel)]="sinistre.typeSinistre"
+      name="typeSinistre"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="responsabilite">Responsabilité</label>
+    <input
+      type="text"
+      id="responsabilite"
+      [(ngModel)]="sinistre.responsabilite"
+      name="responsabilite"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="dateCloture">Date Clôture</label>
+    <input
+      type="date"
+      id="dateCloture"
+      [(ngModel)]="sinistre.dateCloture"
+      name="dateCloture"
+      class="form-control"
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary">
+    {{ isEditing ? 'Mettre à Jour' : 'Ajouter' }}
+  </button>
+  <button type="button" class="btn btn-secondary" (click)="goBack()">Annuler</button>
+</form>

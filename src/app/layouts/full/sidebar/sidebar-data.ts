@@ -33,6 +33,11 @@ export const navItems: NavItem[] = [
     displayName: 'Clusters',
     iconName: 'circle-dot',
     route: '/admin/cluster',
+  },
+  {
+    displayName: 'Sinistres',
+    iconName: 'circle-dot',
+    route: '/admin/admin-sinistre-list',
   }
  
 ];
