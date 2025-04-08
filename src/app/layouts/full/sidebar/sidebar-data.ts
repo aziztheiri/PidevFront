@@ -36,7 +36,7 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Sinistres',
-    iconName: 'circle-dot',
+    iconName: 'alert-triangle',
     route: '/admin/admin-sinistre-list',
   }
  

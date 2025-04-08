@@ -100,4 +100,44 @@ body {
     background-color: #f5c6cb;
     color: #721c24;
   }
-  
+  /* ———————— Améliorations générales pour tous les boutons ———————— */
+.btn {
+  border-radius: 0.5rem;               /* bords arrondis */
+  padding: 0.6rem 1.2rem;              /* un peu plus d’espace */
+  transition: transform 0.2s ease,     /* effet “lift” au hover */
+              box-shadow 0.2s ease;
+}
+
+.btn i {
+  margin-right: 0.5rem;                /* espacement icône / texte */
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ———————— Focus accessible pour tous les boutons ———————— */
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 74, 141, 0.3);
+}
+
+/* ———————— Améliorations pour les champs de recherche et select ———————— */
+.form-control-lg {
+  border-radius: 0.5rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control-lg:focus {
+  border-color: #003366;               /* harmonisé avec le hover btn-primary */
+  box-shadow: 0 0 0 3px rgba(0, 74, 141, 0.2);
+  outline: none;
+}
+
+/* ———————— Optionnel : placeholder plus discret ———————— */
+.form-control-lg::placeholder {
+  color: #6c757d;
+  opacity: 1; /* pour être sûr que ça s’affiche bien */
+}

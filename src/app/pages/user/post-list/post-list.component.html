@@ -5,7 +5,11 @@
     <div class="add-post-button">
       <button (click)="openAddPostModal()">Add Post</button>
     </div>
-  
+    <div class="add-post-button">
+      <button routerLink="/user/myposts" class="btn btn-primary">
+        My Posts
+      </button>
+    </div>
     <!-- Modal Overlay for Add Post -->
     <div class="modal-overlay" *ngIf="showAddModal">
       <div class="modal-content">

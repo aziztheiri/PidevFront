@@ -39,18 +39,13 @@ export const navItems: NavItem[] = [
 
   {
     displayName: 'Mes Paiements',
-    iconName: 'file-text', //
+    iconName: 'credit-card', //
     route: '/user/payments',
   },
   {
     displayName: 'Postes',
     iconName: 'file-text', //
     route: '/user/posts',
-  },
-  {
-    displayName: 'Mes Postes',
-    iconName: 'file-text', //
-    route: '/user/myposts',
   },
   
 
