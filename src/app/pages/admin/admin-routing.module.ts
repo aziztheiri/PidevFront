@@ -8,6 +8,9 @@ import { PaiementComponent } from './paiement/paiement/paiement.component';  // 
 import { ReponseComponent } from './reponse/reponse.component';
 import { UserClusterComponent } from './user-cluster/user-cluster.component';
 import { AdminSinistreListComponent } from '../admin-sinistre-list/admin-sinistre-list.component';
+import { AgencesComponent } from './agences/agences.component';
+import { PerformancesComponent } from './performances/performances.component';
+import { StatisticsDashboardComponent } from './statistics-dashboard/statistics-dashboard.component';
 
 const adminRoutes: Routes = [
   { path: 'dashboard', component: AppDashboardComponent },
@@ -18,6 +21,18 @@ const adminRoutes: Routes = [
   { path: 'cluster', component: UserClusterComponent },
   { path: 'admin-sinistre-list', component: AdminSinistreListComponent },
   { path: 'reponse', component: ReponseComponent },
+  {
+    path: 'agences',
+    component: AgencesComponent
+  },
+  {
+    path: 'performances',
+    component: PerformancesComponent
+  },
+  {
+    path: 'stats',
+    component: StatisticsDashboardComponent
+  },
 
 ];
 

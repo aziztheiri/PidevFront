@@ -38,6 +38,15 @@ export const navItems: NavItem[] = [
     displayName: 'Sinistres',
     iconName: 'alert-triangle',
     route: '/admin/admin-sinistre-list',
-  }
+  } , {
+    displayName: 'Agences',
+    iconName: 'building',
+    route: '/admin/agences',
+  },
+  {
+    displayName: 'Performances',
+    iconName: 'chart-bar',
+    route: '/admin/performances',
+  },
  
 ];

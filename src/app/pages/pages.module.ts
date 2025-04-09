@@ -75,6 +75,12 @@ import { NotificationService } from '../services/notification.service';
 import { SinistreListComponent } from './user/sinistre-list/sinistre-list.component';
 import { SinistreFormComponent } from './user/sinistre-form/sinistre-form.component';
 import { SinistreDetailComponent } from './user/sinistre-detail/sinistre-detail.component';
+import { AgencesComponent } from './admin/agences/agences.component';
+import { AgencesDetailsComponent } from './admin/agences/agences-details/agences-details.component';
+import { PerformancesComponent } from './admin/performances/performances.component';
+import { AgencesFormDialogComponent } from './admin/agences/agences-form-dialog/agences-form-dialog.component';
+import { PerformanceFormDialogComponent } from './admin/performances/performance-form-dialog/performance-form-dialog.component';
+import { StatisticsDashboardComponent } from './admin/statistics-dashboard/statistics-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +132,13 @@ import { SinistreDetailComponent } from './user/sinistre-detail/sinistre-detail.
     UserClusterComponent,
     SinistreListComponent,
     SinistreFormComponent,
-    SinistreDetailComponent
+    SinistreDetailComponent,
+    AgencesComponent,
+    AgencesDetailsComponent,
+    PerformancesComponent,
+    AgencesFormDialogComponent,
+    PerformanceFormDialogComponent,
+    StatisticsDashboardComponent
   ],
   imports: [
     CommonModule,
