@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Paiement, PaiementSurPlace, PaiementEnLigne } from './paiement.model';
 import emailjs from 'emailjs-com';
+import { Agency } from './agency.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +18,12 @@ export class PaiementService {
 
   getPaiements(): Observable<Paiement[]> {
     return this.http.get<Paiement[]>(this.apiUrl);
+  }
+
+  getCreneauxDisponibles(agence: string, date: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/surplace/creneaux-disponibles`, {
+      params: { agence, date }
+    });
   }
 
 
@@ -34,7 +41,7 @@ export class PaiementService {
   addPaiement(paiement: Paiement): Observable<Paiement> {
     if ('agence' in paiement) {  // Vérifier si le paiement est en ligne
       return this.ajouterPaiementSurPlace(paiement);
-    } else if ('numeroCarte' in paiement) {  // Vérifier si le paiement est sur place
+    } else  {  // Vérifier si le paiement est sur place
       return this.ajouterPaiementEnLigne(paiement);
     }
     throw new Error('Type de paiement inconnu');
@@ -48,6 +55,10 @@ export class PaiementService {
     throw new Error('no post');
   }
 
+
+  getAgencies(): Observable<Agency[]> {
+    return this.http.get<Agency[]>('http://localhost:8080/api/agencies');
+  }
 
 
   ajouterPaiementEnLigne(paiement: Paiement): Observable<Paiement> {
@@ -87,6 +98,10 @@ export class PaiementService {
         }, (error) => {
           console.error('Erreur lors de l\'envoi de l\'email pour paiement sur place', error);
         });
+  }
+
+  getClientToken(): Observable<string> {
+    return this.http.get<string>(`http://localhost:8080/paiements/enligne/token`);
   }
 
 }

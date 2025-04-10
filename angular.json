@@ -68,6 +68,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+               "proxyConfig": "proxy.conf.json"
+              },
           "configurations": {
             "production": {
               "browserTarget": "testApp:build:production"
@@ -94,9 +97,14 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+             "src/favicon.ico",
+            "src/assets",
+           {
+           "glob": "**/*",
+           "input": "node_modules/leaflet/dist/images",
+           "output": "assets/leaflet/"
+           } 
+          ],
             "styles": [
               "src/styles.scss"
             ],

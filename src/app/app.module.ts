@@ -9,8 +9,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { CardFormatDirective } from './pages/user/mespaiements/paiementfront/directives/card-format.directive';
-import { MapComponent } from './pages/user/mespaiements/paiementfront/map api/map/map.component';
-import { GoogleMapsModule } from '@angular/google-maps';
 // icons
 import { TablerIconsModule } from 'angular-tabler-icons';
 import * as TablerIcons from 'angular-tabler-icons/icons';
@@ -35,8 +33,10 @@ import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.compone
 import { PaiementfrontComponent } from './pages/user/mespaiements/paiementfront/paiementfront.component';
 import {CommonModule} from "@angular/common";
 
+
 @NgModule({
   declarations: [
+    
     PaiementfrontComponent,
     AppComponent,
     FullComponent,
@@ -49,10 +49,11 @@ import {CommonModule} from "@angular/common";
     HeaderUserComponent,
     AppNavUserItemComponent,
     CardFormatDirective,
-    MapComponent,
-    SidebarUserComponent
+    SidebarUserComponent,
+
   ],
   imports: [
+  
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -61,10 +62,10 @@ import {CommonModule} from "@angular/common";
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
-    GoogleMapsModule,
     HammerModule,
     FontAwesomeModule,
     TablerIconsModule.pick(TablerIcons),
+
   ],
   exports: [TablerIconsModule,  CardFormatDirective,],
   bootstrap: [AppComponent],
