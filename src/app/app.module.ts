@@ -31,7 +31,9 @@ import { HeaderUserComponent } from './layouts/fullUser/header/header.component'
 import { AppNavUserItemComponent } from './layouts/fullUser/sidebar/nav-item/nav-item.component';
 import { SidebarUserComponent } from './layouts/fullUser/sidebar/sidebar.component';
 import { PaiementfrontComponent } from './pages/user/mespaiements/paiementfront/paiementfront.component';
+import { WalletRechargeComponent } from './pages/user/mespaiements/paiementfront/wallet-recharge/wallet-recharge.component';
 import {CommonModule} from "@angular/common";
+
 
 
 @NgModule({
@@ -50,10 +52,10 @@ import {CommonModule} from "@angular/common";
     AppNavUserItemComponent,
     CardFormatDirective,
     SidebarUserComponent,
+    WalletRechargeComponent
 
   ],
   imports: [
-  
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -67,7 +69,7 @@ import {CommonModule} from "@angular/common";
     TablerIconsModule.pick(TablerIcons),
 
   ],
-  exports: [TablerIconsModule,  CardFormatDirective,],
+  exports: [TablerIconsModule,  CardFormatDirective],
   bootstrap: [AppComponent],
 })
 export class AppModule {constructor() {

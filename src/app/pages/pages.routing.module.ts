@@ -7,6 +7,7 @@ import { MesdevisComponent } from './user/mesdevis/mesdevis.component';
 import { MessinistresComponent } from './user/messinistres/messinistres.component';
 import { MesreclamationsComponent } from './user/mesreclamations/mesreclamations.component';
 import { PaiementfrontComponent } from "./user/mespaiements/paiementfront/paiementfront.component";
+import { WalletRechargeComponent } from '../pages/user/mespaiements/paiementfront/wallet-recharge/wallet-recharge.component';
 
 
 export const PagesRoutes: Routes = [
@@ -40,6 +41,11 @@ export const PagesRoutes: Routes = [
   { path: 'paiement',
     component: PaiementfrontComponent,
     data: { title: 'Paiement' },
+  },
+
+  { path: 'paiement/wallet',
+    component: WalletRechargeComponent ,
+    data: { title: 'Rehcharge wallet' },
   },
 
 ];

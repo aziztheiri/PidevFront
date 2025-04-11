@@ -33,6 +33,7 @@
     "ng-apexcharts": "1.7.6",
     "ngx-stripe": "^19.0.0",
     "payment": "^2.4.7",
+    "paypal-checkout": "^4.0.344",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
