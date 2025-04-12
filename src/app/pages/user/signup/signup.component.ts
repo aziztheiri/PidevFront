@@ -112,7 +112,8 @@ export class SignupComponent {
       userRole:1,     // Default role value
       creationDate: new Date()    ,
       age: this.signupForm.value.age,
-      gender: this.signupForm.value.gender
+      gender: this.signupForm.value.gender,
+      points:0
       // You can add location to your User model if needed.
     };
 

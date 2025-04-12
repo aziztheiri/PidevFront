@@ -34,6 +34,7 @@ import { MyPostsComponent } from './user/my-posts/my-posts.component';
 import { SinistreListComponent } from './user/sinistre-list/sinistre-list.component';
 import { SinistreFormComponent } from './user/sinistre-form/sinistre-form.component';
 import { SinistreDetailComponent } from './user/sinistre-detail/sinistre-detail.component';
+import { QuizComponent } from './user/quiz/quiz.component';
 
 
 
@@ -171,6 +172,11 @@ export const PagesRoutes: Routes = [
     path: 'myposts',
     component: MyPostsComponent,
     data: { title: 'MyPosts' },
+  },
+  {
+    path: 'quiz',
+    component: QuizComponent,
+    data: { title: 'Quiz' },
   },
   { path: 'sinistre-list', component: SinistreListComponent ,data: { title: 'Sinistre-list' }},
   { path: 'sinistre-form', component: SinistreFormComponent },

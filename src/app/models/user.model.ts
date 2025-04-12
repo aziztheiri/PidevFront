@@ -9,7 +9,11 @@ export interface User {
   userRole: number;
   showMenu?: boolean;
   verified?: boolean ;
+  reduction?:boolean;
+  qrCodeRedeemed?:boolean;
   creationDate:Date;
+  points:number;
+  quizpassed?:boolean;
   age:number;
   gender:string;
   cluster?: number;

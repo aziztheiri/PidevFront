@@ -47,6 +47,11 @@ export const navItems: NavItem[] = [
     iconName: 'file-text', //
     route: '/user/posts',
   },
+  {
+    displayName: 'Quiz',
+    iconName: 'help-circle', //
+    route: '/user/quiz',
+  },
   
 
 ];

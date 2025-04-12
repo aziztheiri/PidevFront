@@ -1,0 +1,79 @@
+.quiz-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  .quiz-container h2 {
+    color: #004a8d; /* Blue accent */
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+  }
+  
+  .quiz-container .question {
+    margin-bottom: 20px;
+  }
+  
+  .quiz-container p {
+    color: #333;
+    line-height: 1.5;
+  }
+  
+  .quiz-container p.question-text {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .quiz-container label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .quiz-container label:hover {
+    color: #004a8d;
+  }
+  
+  .quiz-container input[type="radio"] {
+    margin-right: 8px;
+    accent-color: #f38f1d; /* Use your orange for radio button accents if supported */
+  }
+  
+  .quiz-container button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #f38f1d; /* Orange accent */
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .quiz-container button:hover {
+    background-color: darken(#f38f1d, 10%);
+  }
+  
+  .quiz-container .quiz-result {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .quiz-container .milestone-message {
+    color: #004a8d;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  

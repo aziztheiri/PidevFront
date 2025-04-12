@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
-import { Observable } from 'rxjs';
+import { Observable,throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators'; // ✅ Import tap operator
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,38 @@ export class UserService {
   private apiUrl = 'http://localhost:8090/users/gemini-content';
   requestPasswordReset(email: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/forgot-password`, { email }, { responseType: 'text' });
+  }
+    submitQuiz(passed: boolean): Observable<any> {
+    const currentUser = this.authService.currentUserSubject.getValue();
+    if (!currentUser || !currentUser.cin) {
+      throw new Error('User not authenticated or CIN is missing');
+    }
+    return this.http.post(`${this.baseUrl}/submit/${currentUser.cin}`, { passed }, { 
+      headers: this.getAuthHeaders(), 
+      responseType: 'json' 
+    });
+  }
+  applyReduction(): Observable<any> {
+    const currentUser = this.authService.currentUserSubject.getValue();
+    if (!currentUser || !currentUser.cin) {
+      return throwError(() => new Error('User not authenticated or CIN is missing'));
+    }
+    return this.http.post(`${this.baseUrl}/reduction/${currentUser.cin}`, null, {
+      headers: this.getAuthHeaders(),
+      responseType: 'text'
+    });
+  }
+  
+  redeemQRCode(): Observable<any> {
+    const currentUser = this.authService.currentUserSubject.getValue();
+    if (!currentUser || !currentUser.cin) {
+      return throwError(() => new Error('User is not authenticated or CIN is missing'));
+    }
+    const cin = currentUser.cin;
+    return this.http.post(`${this.baseUrl}/redeem/${cin}`, null, { 
+      headers: this.getAuthHeaders(), 
+      responseType: 'text' 
+    });
   }
   predictUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/cluster`,{ headers: this.getAuthHeaders()});
@@ -26,7 +59,7 @@ export class UserService {
   getGeminiContent(): Observable<{ text: string }> { // Specify response type
     return this.http.post<{ text: string }>(this.apiUrl, {});
   }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private authService:AuthService) { }
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('accessToken');
     return new HttpHeaders({

@@ -26,7 +26,7 @@ export class HeaderUserComponent {
   showFiller = false;
   userName: string = ''; 
   userImageUrl: string | undefined = ''; // Propriété pour l'image de l'utilisateur
-
+  points: number |undefined = 0;
 
   constructor(private authService: AuthService, private router: Router,public dialog: MatDialog) {}
   ngOnInit(): void {
@@ -35,6 +35,7 @@ export class HeaderUserComponent {
       if (user) {
         this.userName = user.name;
         this.userImageUrl = user.image;
+        this.points=user.points;
       }
     });
 

@@ -6,4 +6,25 @@
     <div [innerHTML]="responseText | cleanContent | safeHtml"></div>
   </div>
 </div>
+<hr />
+
+<div *ngIf="!qrRedeemed" class="qr-section">
+  <h3>Scan me for points ! </h3>
+
+  <button class="no-style" (click)="redeemQRCode()">
+    <canvas #canvas></canvas>
+  </button>
+</div>
+
+<div *ngIf="qrRedeemed" class="success-message">
+  <p>✅ QR Code Redeemed! You earned 150 points.</p>
+</div>
+<div *ngIf="currentUser && currentUser.points > 2000 && !reductionApplied" class="reduction-section">
+  <h3 style="color: #1e88e5;">🎁 You're eligible for a discount!</h3>
+  <button class="btn btn-success" (click)="applyReduction()">Claim Your Reduction</button>
+</div>
+<div *ngIf="reductionApplied" class="alert alert-success">
+  🎉 You've successfully claimed your reduction on your devis!
+</div>
+
 

@@ -81,6 +81,8 @@ import { PerformancesComponent } from './admin/performances/performances.compone
 import { AgencesFormDialogComponent } from './admin/agences/agences-form-dialog/agences-form-dialog.component';
 import { PerformanceFormDialogComponent } from './admin/performances/performance-form-dialog/performance-form-dialog.component';
 import { StatisticsDashboardComponent } from './admin/statistics-dashboard/statistics-dashboard.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { QuizComponent } from './user/quiz/quiz.component';
 
 @NgModule({
   declarations: [
@@ -138,7 +140,8 @@ import { StatisticsDashboardComponent } from './admin/statistics-dashboard/stati
     PerformancesComponent,
     AgencesFormDialogComponent,
     PerformanceFormDialogComponent,
-    StatisticsDashboardComponent
+    StatisticsDashboardComponent,
+    QuizComponent
   ],
   imports: [
     CommonModule,
@@ -148,6 +151,7 @@ import { StatisticsDashboardComponent } from './admin/statistics-dashboard/stati
     ReactiveFormsModule, // Add if you're using reactive forms
     NgApexchartsModule,
     NgxChartsModule,
+    ZXingScannerModule,
     KeycloakAngularModule,
     MatCardModule,
     RouterModule.forChild(PagesRoutes),
