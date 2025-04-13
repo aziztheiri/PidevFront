@@ -147,7 +147,7 @@ export class PaiementfrontComponent implements OnInit, OnDestroy  {
                             'font-size': '18px'
                         },
                         '.number': {
-                            'font-family': 'monospace'  // Custom web fonts are not supported. Only use system installed fonts.
+                            'font-family': 'monospace'  
                         },
                         '.invalid': {
                             color: 'red'
