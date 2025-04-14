@@ -10,10 +10,11 @@ export interface Paiement {
 export interface PaiementSurPlace extends Paiement {
   agence: string;
   date_rdv: string;
+  creneau: string;
+
 }
 
 export interface PaiementEnLigne extends Paiement {
-  numeroCarte: string;
-  cvv: string;
-  expiration: string;
+  paymentMethodNonce: string;
+
 }

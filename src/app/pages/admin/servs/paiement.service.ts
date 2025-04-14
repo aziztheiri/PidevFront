@@ -6,6 +6,7 @@ import { Observable ,throwError} from 'rxjs';
 import { Paiement, PaiementSurPlace, PaiementEnLigne } from './paiement.model';
 import emailjs from 'emailjs-com';
 import { AuthService } from 'src/app/services/auth.service';
+import { Agency } from './agency.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,14 +16,27 @@ export class PaiementService {
 
   constructor(private http: HttpClient, private authService:AuthService) { }
  
-
+  getCreneauxDisponibles(agence: string, date: string): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/surplace/creneaux-disponibles`, {
+      params: { agence, date },
+      headers: this.authService.getAuthHeaders()
+    });
+  }
   getPaiements(): Observable<Paiement[]> {
     return this.http.get<Paiement[]>(this.apiUrl,{
       headers: this.authService.getAuthHeaders()
     });
   }
-
-
+  getAgencies(): Observable<Agency[]> {
+    return this.http.get<Agency[]>('http://localhost:8090/paiements/agencies',{
+      headers: this.authService.getAuthHeaders()
+    });
+  }
+  getClientToken(): Observable<string> {
+    return this.http.get<string>(`http://localhost:8090/paiements/enligne/token`,{
+      headers: this.authService.getAuthHeaders()
+    });
+  }
   getPaiementsSurPlace(): Observable<PaiementSurPlace[]> {
     return this.http.get<PaiementSurPlace[]>(`${this.apiUrl}/surplace`, {
       headers: this.authService.getAuthHeaders()
@@ -41,7 +55,7 @@ export class PaiementService {
   addPaiement(paiement: Paiement): Observable<Paiement> {
     if ('agence' in paiement) {  // Vérifier si le paiement est en ligne
       return this.ajouterPaiementSurPlace(paiement);
-    } else if ('numeroCarte' in paiement) {  // Vérifier si le paiement est sur place
+    } else {  // Vérifier si le paiement est sur place
       return this.ajouterPaiementEnLigne(paiement);
     }
     throw new Error('Type de paiement inconnu');

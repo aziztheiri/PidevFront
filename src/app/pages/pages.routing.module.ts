@@ -35,6 +35,7 @@ import { SinistreListComponent } from './user/sinistre-list/sinistre-list.compon
 import { SinistreFormComponent } from './user/sinistre-form/sinistre-form.component';
 import { SinistreDetailComponent } from './user/sinistre-detail/sinistre-detail.component';
 import { QuizComponent } from './user/quiz/quiz.component';
+import { WalletRechargeComponent } from './user/mespaiements/wallet-recharge/wallet-recharge.component';
 
 
 
@@ -181,7 +182,11 @@ export const PagesRoutes: Routes = [
   { path: 'sinistre-list', component: SinistreListComponent ,data: { title: 'Sinistre-list' }},
   { path: 'sinistre-form', component: SinistreFormComponent },
   { path: 'sinistre-form/:id', component: SinistreFormComponent },
-  { path: 'sinistre-detail/:id', component: SinistreDetailComponent }
+  { path: 'sinistre-detail/:id', component: SinistreDetailComponent },
+  { path: 'paiement/wallet',
+    component: WalletRechargeComponent ,
+    data: { title: 'Rehcharge wallet' },
+  },
 
 
 ];

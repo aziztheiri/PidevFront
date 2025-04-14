@@ -6,92 +6,95 @@
   </button>
 
   <div *ngIf="showOnlineForm">
-    <!-- Formulaire de paiement en ligne -->
-    <form [formGroup]="paiementEnLigneForm" (ngSubmit)="addPaiementEnLigne()" class="paiement-form">
-      <label for="montant1">Montant:</label>
-      <input id="montant1" type="number" formControlName="montant">
-      <div *ngIf="paiementEnLigneForm.controls['montant'].invalid && paiementEnLigneForm.controls['montant'].touched" class="error-message">
-        Montant requis et doit être supérieur à 0.
-      </div>
-
-      <label for="numeroCarte">Numéro de Carte:</label>
-      <div class="card-input-container">
-        <input id="numeroCarte" type="text" formControlName="numeroCarte" (input)="detectCardType()" appCardFormat>
-        <img [src]="getCardLogo()" alt="Card Logo" class="card-logo">
-      </div>
-
-      <div *ngIf="paiementEnLigneForm.controls['numeroCarte'].invalid && paiementEnLigneForm.controls['numeroCarte'].touched" class="error-message">
-        Le numéro de carte est requis et doit comporter 16 chiffres.
-      </div>
-
-      <label for="expiration">Date d'Expiration:</label>
-      <input id="expiration" type="month" formControlName="expiration">
-      <div *ngIf="paiementEnLigneForm.controls['expiration'].hasError('expired') && paiementEnLigneForm.controls['expiration'].touched" class="error-message">
-        La date d'expiration est invalide. Elle doit être dans le futur.
-      </div>
-
-      <label for="cvv">CVV:</label>
-      <input id="cvv" type="text" formControlName="cvv">
-      <div *ngIf="paiementEnLigneForm.controls['cvv'].invalid && paiementEnLigneForm.controls['cvv'].touched" class="error-message">
-        Le CVV est requis et doit comporter 3 ou 4 chiffres.
-      </div>
-
-      <button type="submit" class="paiement-button" [disabled]="paiementEnLigneForm.invalid">Payer</button>
-    </form>
+<!-- Formulaire de paiement en ligne -->
+<form class="pai1" (ngSubmit)="submitPayment()">
+  <div>
+    <label for="montant">Montant:</label>
+    <input class="abc" type="number" id="montant" name="montant" [(ngModel)]="paymentData.montant" required>
+  </div>
+  <div>
+    
+    <div id="dropin-container" *ngIf="clientToken && !braintreeError"></div>
+    <div *ngIf="braintreeError" class="error-message">{{ braintreeError }}</div>
+  </div>
+  <button type="submit" class="paiement-button" [disabled]="!clientToken">Payer</button>
+</form>
+    
+    
   </div>
 
   <div *ngIf="!showOnlineForm">
     <!-- Formulaire de paiement sur place -->
     <form [formGroup]="paiementSurPlaceForm" (ngSubmit)="addPaiementSurPlace()" class="paiement-form">
-      <label for="montant">Montant:</label>
-      <input id="montant" type="number" formControlName="montant">
-      <div *ngIf="paiementSurPlaceForm.controls['montant'].invalid && paiementSurPlaceForm.controls['montant'].touched" class="error-message">
-        Montant requis et doit être supérieur à 0.
-      </div>
+        <label for="montant">Montant:</label>
+        <input class="abc"
+        type="number"
+        id="montant"
+        name="montant"
+        [(ngModel)]="paymentData.montant"
+        required>        <div *ngIf="paiementSurPlaceForm.controls['montant'].invalid && paiementSurPlaceForm.controls['montant'].touched" class="error-message">
+            Montant requis et doit être supérieur à 0.
+        </div>
 
-      <label for="agence">Agence:</label>
-      <div class="agence-container">
-        <input id="agence" type="text" formControlName="agence" [value]="selectedAgence" placeholder="Choisir une agence">
-        <button type="button" class="select-agence-btn" (click)="openMap()">
-          <fa-icon [icon]="faMapMarkerAlt"></fa-icon> <!-- Icône de carte -->
+        <label for="agence">Agence:</label>
+        <div class="agence-container">
+            <input id="agence" type="text" formControlName="agence" [value]="selectedAgence" placeholder="Choisir une agence" readonly>
+            <button type="button" class="select-agence-btn" (click)="openMapInNewTab()">
+                <fa-icon [icon]="faMapMarkerAlt"></fa-icon>
+            </button>
+        </div>
+        <div *ngIf="paiementSurPlaceForm.controls['agence'].invalid && paiementSurPlaceForm.controls['agence'].touched" class="error-message">
+            L'agence est requise.
+        </div>
+
+        <div *ngIf="false">
+          <label for="date_rdv">Date RDV:</label>
+          <input id="date_rdv" type="date" formControlName="date_rdv" (change)="chargerCreneaux()">
+        </div>
+
+        <!-- Bloc Créneau intégré -->
+        <div *ngIf="paiementSurPlaceForm.get('agence')?.valid && paiementSurPlaceForm.get('date_rdv')?.valid">
+          <input type="hidden" formControlName="creneau">
+  
+          <!-- Carte pour sélectionner le créneau -->
+          <div *ngIf="creneauxDisponibles.length > 0" class="creneau-grid">
+            <div *ngFor="let creneau of creneauxDisponibles" 
+                 class="creneau-item"
+                 [class.selected]="creneauSelectionne === creneau"
+                 (click)="selectCreneau(creneau)">
+              {{creneau}}
+            </div>
+          </div>
+        </div>
+
+        <button class="paiement-button" type="submit" [disabled]="paiementSurPlaceForm.invalid">
+            Prendre Rendez-Vous
         </button>
-      </div>
-      <div *ngIf="paiementSurPlaceForm.controls['agence'].invalid && paiementSurPlaceForm.controls['agence'].touched" class="error-message">
-        L'agence est requise.
-      </div>
-
-      <label for="date_rdv">Date RDV:</label>
-      <input id="date_rdv" type="date" formControlName="date_rdv">
-      <div *ngIf="paiementSurPlaceForm.controls['date_rdv'].invalid && paiementSurPlaceForm.controls['date_rdv'].touched" class="error-message">
-        La date de rendez-vous est requise.
-      </div>
-
-      <button class="paiement-button" type="submit" [disabled]="paiementSurPlaceForm.invalid">Prendre Rendez-Vous</button>
     </form>
 
+    <!-- Modal de la carte (inchangé) -->
     <div *ngIf="mapVisible" class="modal" (click)="closeMap()">
-      <div class="modal-content" (click)="$event.stopPropagation()">
-        <button (click)="closeMap()" class="close-button">X</button>
-        <div class="map-container">
-          <img src="assets/map-image.jpg" alt="Map" class="map-image">
-          <div class="marker" (click)="selectAgence('Agence Grand Tunis')" style="top: 30%; left: 40%;">📍</div>
-          <div class="marker" (click)="selectAgence('Agence Ariana Supérieure')" style="top: 50%; left: 60%;">📍</div>
-          <div class="marker" (click)="selectAgence('Agence Manouba')" style="top: 70%; left: 80%;">📍</div>
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <button (click)="closeMap()" class="close-button">X</button>
+            <div class="map-container">
+                <img src="assets/map-image.jpg" alt="Map" class="map-image">
+                <div class="marker" (click)="selectAgence('Agence Grand Tunis')" style="top: 30%; left: 40%;">📍</div>
+                <div class="marker" (click)="selectAgence('Agence Ariana Supérieure')" style="top: 50%; left: 60%;">📍</div>
+                <div class="marker" (click)="selectAgence('Agence Manouba')" style="top: 70%; left: 80%;">📍</div>
+            </div>
         </div>
-      </div>
     </div>
 
+    <!-- Carte des régions (inchangé) -->
     <div *ngIf="selectedRegion" class="map-container">
-      <img [src]="'assets/images/' + selectedRegion + '.jpg'" alt="Map Image" class="map-image">
-
-      <div class="markers-container">
-        <div *ngFor="let marker of markers" class="marker"
-             [ngStyle]="{ left: marker.x + 'px', top: marker.y + 'px' }"
-             (click)="onMarkerClick(marker.name)">
-          <span>{{ marker.name }}</span>
+        <img [src]="'assets/images/' + selectedRegion + '.jpg'" alt="Map Image" class="map-image">
+        <div class="markers-container">
+            <div *ngFor="let marker of markers" class="marker"
+                [ngStyle]="{ left: marker.x + 'px', top: marker.y + 'px' }"
+                (click)="onMarkerClick(marker.name)">
+                <span>{{ marker.name }}</span>
+            </div>
         </div>
-      </div>
     </div>
-
-  </div>
+</div>
 </div>

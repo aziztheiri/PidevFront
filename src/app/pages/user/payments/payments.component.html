@@ -19,8 +19,6 @@
            
               <th>Date</th>
               <th>Amount</th>
-              <th>Card Number</th>
-              <th>Expiration</th>
             </tr>
           </thead>
           <tbody>
@@ -28,8 +26,7 @@
      
               <td>{{ paiement.date_paiement | date:'medium' }}</td>
               <td>{{ paiement.montant | currency }}</td>
-              <td>{{ paiement.numeroCarte }}</td>
-              <td>{{ paiement.expiration }}</td>
+           
             </tr>
             <tr *ngIf="paiementsEnLigne.length === 0">
               <td colspan="5" class="no-data">No online payments found.</td>

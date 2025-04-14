@@ -47,7 +47,7 @@ export class PaymentsComponent {
 
   // Type guard for PaiementEnLigne
   isPaiementEnLigne(paiement: Paiement): paiement is PaiementEnLigne {
-    return (paiement as PaiementEnLigne).numeroCarte !== undefined;
+    return (paiement as PaiementEnLigne).paymentMethodNonce !== undefined;
   }
 
   // Type guard for PaiementSurPlace

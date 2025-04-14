@@ -26,8 +26,8 @@
     <div class="paiement-info">
       <p><strong>Montant :</strong> {{ primeTotale }} €</p>
       <p><strong>Date :</strong> {{ paiement.date_paiement | date: 'dd/MM/yyyy' }}</p>
-      <p><strong>Carte :</strong> **** **** **** {{ paiement.numeroCarte | slice: -4 }}</p>
-    </div>
+      <p><strong>Carte :</strong>  {{ paiement.paymentMethodNonce}}</p>
+        </div>
     <button mat-raised-button color="warn" (click)="deletePaiement(paiement.id_p)">
       Supprimer
     </button>

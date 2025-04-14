@@ -61,6 +61,7 @@ import { NgChartjsModule } from 'ng-chartjs';
     BrowserAnimationsModule,
     FormsModule,
     KeycloakAngularModule,
+    
     ReactiveFormsModule,
     MaterialModule,
     NgChartjsModule,

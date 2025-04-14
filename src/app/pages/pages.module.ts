@@ -83,6 +83,8 @@ import { PerformanceFormDialogComponent } from './admin/performances/performance
 import { StatisticsDashboardComponent } from './admin/statistics-dashboard/statistics-dashboard.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { QuizComponent } from './user/quiz/quiz.component';
+import { WalletRechargeComponent } from './user/mespaiements/wallet-recharge/wallet-recharge.component';
+import { AgencyMapComponent } from './user/mespaiements/leaftet/agency-map/agency-map.component';
 
 @NgModule({
   declarations: [
@@ -141,7 +143,9 @@ import { QuizComponent } from './user/quiz/quiz.component';
     AgencesFormDialogComponent,
     PerformanceFormDialogComponent,
     StatisticsDashboardComponent,
-    QuizComponent
+    QuizComponent,
+    WalletRechargeComponent
+    
   ],
   imports: [
     CommonModule,
