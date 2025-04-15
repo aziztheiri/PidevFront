@@ -1,67 +1,43 @@
-form {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    font-family: sans-serif;
-  
-    div {
-      margin-bottom: 15px;
-  
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-        color: #333;
-      }
-  
-      input[type="number"] {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 3px;
-        box-sizing: border-box;
-        font-size: 16px;
-      }
-  
-      #paypal-button-container {
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-  
-      .error-message {
-        color: red;
-        font-size: 0.9em;
-        margin-top: 5px;
-      }
-  
-      .success-message {
-        color: green;
-        font-weight: bold;
-        margin-top: 5px;
-      }
-    }
-  
-    button[type="submit"] {
-      background-color: #28a745; /* Couleur verte pour le rechargement */
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-  
-      &:hover {
-        background-color: darken(#28a745, 10%);
-      }
-  
-      &:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-        color: #666;
-      }
-    }
+.recharge-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f4f4f4;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.input-group {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
   }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+}
+
+.paypal-btn-container {
+  margin-top: 20px;
+}
+
+.success-message {
+  margin-top: 20px;
+  color: green;
+  font-weight: bold;
+}
+
+.error-message {
+  margin-top: 20px;
+  color: red;
+  font-weight: bold;
+}

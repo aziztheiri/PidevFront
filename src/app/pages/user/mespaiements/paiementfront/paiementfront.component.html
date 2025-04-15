@@ -1,3 +1,6 @@
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+
 <!-- Formulaire de paiement -->
 <div class="form-container">
   <button (click)="toggleForm()" class="toggle-button">
@@ -7,18 +10,21 @@
 
   <div *ngIf="showOnlineForm">
 <!-- Formulaire de paiement en ligne -->
-<form class="pai1" (ngSubmit)="submitPayment()">
-  <div>
-    <label for="montant">Montant:</label>
-    <input class="abc" type="number" id="montant" name="montant" [(ngModel)]="paymentData.montant" required>
-  </div>
-  <div>
-    
+<!-- Paiement en ligne -->
+  <form class="pai1" (ngSubmit)="submitPayment()">
+    <div class="montant-wrapper">
+      <input class="montant-input" type="number" id="montant" name="montant"
+            [(ngModel)]="paymentData.montant" required placeholder="Montant">
+      <span class="montant-suffix">DNT</span>
+    </div>
+    <div style="height: 10px;"></div>
+
     <div id="dropin-container" *ngIf="clientToken && !braintreeError"></div>
     <div *ngIf="braintreeError" class="error-message">{{ braintreeError }}</div>
-  </div>
-  <button type="submit" class="paiement-button" [disabled]="!clientToken">Payer</button>
-</form>
+
+    <button type="submit" class="paiement-button" [disabled]="!clientToken">Payer</button>
+  </form>
+
     
     
   </div>

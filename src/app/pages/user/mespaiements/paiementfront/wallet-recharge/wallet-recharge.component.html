@@ -1,18 +1,26 @@
-<div class="wallet-recharge">
-  <h2>Recharger mon portefeuille</h2>
+<div class="recharge-container">
+  <h2>Recharger votre portefeuille</h2>
 
-  <div class="form-group">
-    <label for="amount">Montant (€) :</label>
-    <input type="number" id="amount" [(ngModel)]="rechargeAmount" class="form-control" placeholder="Ex: 10">
+  <div class="input-group">
+    <label for="amount">Montant (DNT)</label>
+    <input
+      id="amount"
+      type="number"
+      [(ngModel)]="rechargeAmount"
+      (input)="onAmountChange()"
+      min="1"
+      step="0.01"
+      placeholder="Ex : 20.00"
+    />
   </div>
 
-  <div *ngIf="paypalError" class="alert alert-danger mt-2">
-    {{ paypalError }}
-  </div>
+  <div id="paypal-button-container" class="paypal-btn-container"></div>
 
-  <div *ngIf="paypalSuccessMessage" class="alert alert-success mt-2">
+  <div *ngIf="paypalSuccessMessage" class="success-message">
     {{ paypalSuccessMessage }}
   </div>
 
-  <div id="paypal-button-container" class="mt-3"></div>
+  <div *ngIf="paypalError" class="error-message">
+    {{ paypalError }}
+  </div>
 </div>

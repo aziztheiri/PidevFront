@@ -295,3 +295,175 @@ input::placeholder {
   color: #2c3e50;
   margin-bottom: 5px;
 }
+
+#dropin-container {
+  background-color: #ffffff; /* beige clair */
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e0dcd4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+  max-width: 500px;
+  margin: 0 auto;
+  transition: box-shadow 0.3s ease;
+}
+
+#dropin-container:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+}
+
+.braintree-form {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 16px;
+  color: #424242;
+}
+
+.braintree-toggle {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.braintree-method {
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.braintree-method--active {
+  border: 2px solid #ffa726;
+  background-color: #fff8f1;
+}
+
+
+/* Conteneur du champ montant */
+.montant-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.montant-input {
+  width: 100%;
+  padding: 12px 45px 12px 12px; // espace à droite pour "DNT"
+  font-size: 20px;
+  font-weight: bold;
+  color: #2c3e50;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #c95018;
+  appearance: textfield;
+}
+
+.montant-input::placeholder {
+  color: #aaa;
+  font-weight: normal;
+}
+
+.montant-suffix {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  font-weight: bold;
+  color: #2c3e50;
+  pointer-events: none; // évite d’intercepter les clics
+}
+
+.pai1 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; // Ajoute de l'espace entre chaque bloc
+  align-items: center;
+}
+
+.montant-wrapper,
+#dropin-container,
+.paiement-button {
+  width: 100%;
+  max-width: 500px;
+}
+
+#dropin-container .braintree-toggle {
+  display: none !important;
+}
+
+div.braintree-toggle[data-braintree-id="toggle"] {
+  display: none !important;
+}
+
+::ng-deep .payment-success-notification {
+  background: linear-gradient(135deg, #ffffff, #f5f5f5);
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.success-content h3 {
+  color: #ff6f00; /* orange vif */
+  font-size: 1.8rem;
+  margin-top: 1rem;
+}
+
+.success-content p {
+  color: #333;
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  color: #1976d2; /* bleu */
+}
+
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-retour {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background-color: #1976d2;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-retour:hover {
+  background-color: #125ea5;
+}
+
+.icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.lucide {
+  stroke: #a03f14; 
+}
+
+
+
+

@@ -48,6 +48,8 @@ export class PaiementfrontComponent implements OnInit, OnDestroy  {
     faCreditCard = faCreditCard;
     faHome = faHome;
     paiements: Paiement[] = [];
+    paymentCompleted = false;
+paymentSuccess = false;
     paiementsEnLigne: PaiementEnLigne[] = [];
     paiementsSurPlace: PaiementSurPlace[] = [];
     paiementEnLigneForm!: FormGroup;
@@ -64,6 +66,7 @@ export class PaiementfrontComponent implements OnInit, OnDestroy  {
     selectedRegion: string = "";
     markers: any[] = [];
     cardType: string = 'default';
+    
 
     constructor(private paiementService: PaiementService, private fb: FormBuilder,private creneauService: CreneauService,private http: HttpClient) { }
 
@@ -139,22 +142,46 @@ export class PaiementfrontComponent implements OnInit, OnDestroy  {
           this.braintreeInstance = await braintree.create({
             authorization: clientToken,
             container: '#dropin-container',
+            vaultManager:false,
+            paymentOptionPriority: ['card'],
             card: {
                 overrides: {
-                    styles: {
-                        input: {
-                            color: 'blue',
-                            'font-size': '18px'
-                        },
-                        '.number': {
-                            'font-family': 'monospace'  
-                        },
-                        '.invalid': {
-                            color: 'red'
-                        }
+                  styles: {
+                    input: {
+                      color: '#5D4037', // brun doux
+                      'font-size': '16px',
+                      'font-family': 'Segoe UI, sans-serif',
+                      'border': '1px solid #e0dcd4',
+                      'background-color': '#fefcf9', // beige très clair
+                      'padding': '10px',
+                      'border-radius': '8px',
+                      'box-shadow': 'none'
+                    },
+                    '.number': {
+                      'font-weight': '500',
+                      color: '#6d4c41'
+                    },
+                    '.valid': {
+                      color: '#2e7d32' // vert sobre
+                    },
+                    '.invalid': {
+                      color: '#c62828', // rouge atténué
+                      'border-color': '#ef9a9a',
+                      'background-color': '#fbe9e7'
+                    },
+                    '::placeholder': {
+                      color: '#bdbdbd'
+                    },
+                    ':focus': {
+                      outline: 'none',
+                      'border-color': '#ffa726',
+                      'box-shadow': '0 0 0 2px rgba(255, 167, 38, 0.25)' // effet subtil orange doux
                     }
+                  }
                 }
-            }
+              }
+              
+              
             
             
           });
@@ -167,7 +194,7 @@ export class PaiementfrontComponent implements OnInit, OnDestroy  {
         if (this.braintreeInstance) {
           this.braintreeInstance.teardown();
         }
-      }
+   }
 
 
       async submitPayment() {
@@ -188,22 +215,89 @@ export class PaiementfrontComponent implements OnInit, OnDestroy  {
 
       async sendPaymentDataToBackend() {
         const dataToSend = {
-          montant: this.paymentData.montant,
-          paymentMethodNonce: this.paymentData.paymentMethodNonce
+            montant: this.paymentData.montant,
+            paymentMethodNonce: this.paymentData.paymentMethodNonce
         };
     
+        // Masquer IMMÉDIATEMENT le container avant même la requête HTTP
+        const container = document.getElementById('dropin-container');
+        if (container) {
+            container.style.opacity = '0';
+            container.style.transition = 'opacity 0.15s ease-out';
+            container.style.pointerEvents = 'none';
+        }
+    
         this.http.post('http://localhost:8080/paiements/enligne', dataToSend)
-          .subscribe(
-            (response) => {
-              console.log('Informations de paiement sauvegardées avec le nonce:', response);
-              // Gérer le succès
-            },
-            (error) => {
-              console.error('Erreur lors de la sauvegarde du nonce:', error);
-              // Gérer l'erreur
-            }
-          );
+            .subscribe(
+                async (response) => {
+                    console.log('Paiement réussi:', response);
+                    
+                    // 1. Suppression visuelle instantanée
+                    if (container) {
+                        container.style.display = 'none';
+                    }
+                    
+                    // 2. Nettoyage technique accéléré
+                    setTimeout(async () => {
+                        if (this.braintreeInstance) {
+                            await this.braintreeInstance.teardown();
+                            this.braintreeInstance = null as any;
+                        }
+                    }, 0); // Timeout minimal pour décaler dans la queue d'event loop
+                    
+                    // 3. Affichage succès immédiat
+                    this.showPaymentSuccess();
+                },
+                (error) => {
+                    console.error('Erreur:', error);
+                    // Réafficher si erreur
+                    if (container) {
+                        container.style.opacity = '1';
+                        container.style.pointerEvents = 'auto';
+                    }
+                }
+            );
+    }
+
+
+    showPaymentSuccess() {
+        // Masquer le bouton Payer et le dropin
+        const dropinContainer = document.getElementById('dropin-container') as HTMLElement;
+        const payButton = document.querySelector('.paiement-button') as HTMLElement;
+        if (dropinContainer) dropinContainer.style.display = 'none';
+        if (payButton) payButton.style.display = 'none';
+      
+        // Créez un élément de notification moderne
+        const successDiv = document.createElement('div');
+        successDiv.className = 'payment-success-notification';
+        successDiv.innerHTML = `
+          <div class="success-content">
+  <div class="icon-wrapper">
+    <svg xmlns="http://www.w3.org/2000/svg" class="lucide lucide-check-circle" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 12l2 2l4 -4" />
+      <circle cx="12" cy="12" r="10" />
+    </svg>
+  </div>
+  <h3>Paiement Réussi</h3>
+  <p>Votre paiement a été confirmé avec succès.</p>
+</div>
+
+        `;
+      
+        // Ajout au DOM
+        const container = document.getElementById('dropin-container')?.parentElement;
+        if (container) {
+          container.appendChild(successDiv);
+        }
+      
+        // Optionnel: Rediriger après quelques secondes
+        setTimeout(() => { 
+            window.location.href = '/user/home';
+        }, 1000);
       }
+      
+
+
 
 
 

@@ -10,61 +10,75 @@ export class WalletRechargeComponent implements OnInit {
   rechargeAmount: number = 0;
   paypalSuccessMessage: string | null = null;
   paypalError: string | null = null;
+  isButtonRendered: boolean = false;
 
   constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {
-    this.loadPayPalScript();
+  ngOnInit(): void {}
+
+  onAmountChange() {
+    this.paypalSuccessMessage = null;
+    this.paypalError = null;
+
+    // Ne pas recréer le bouton inutilement
+    if (this.rechargeAmount > 0 && !this.isButtonRendered) {
+      this.loadPayPalScript();
+    }
   }
 
   loadPayPalScript() {
-    const script = document.createElement('script');
-    script.src = 'https://www.paypal.com/sdk/js?client-id=AU6MDYYQAx_o--v0mcocH47xwnKdLjYisVK9fqhCPXsBaDR4ObNSkrl9yE3gUY2D8UMR5xHasoi0BeMS&currency=EUR&debug=true';
-    script.onload = () => this.renderPayPalButton();
-    document.body.appendChild(script);
+    if ((window as any).paypal) {
+      this.renderPayPalButton();
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://www.paypal.com/sdk/js?client-id=AU6MDYYQAx_o--v0mcocH47xwnKdLjYisVK9fqhCPXsBaDR4ObNSkrl9yE3gUY2D8UMR5xHasoi0BeMS&disable-funding=card&currency=EUR&debug=true';
+      script.onload = () => this.renderPayPalButton();
+      document.body.appendChild(script);
+    }
   }
 
   renderPayPalButton() {
+    this.isButtonRendered = true;
+
     (window as any).paypal.Buttons({
       style: {
         layout: 'vertical',
-        color:  'blue',
+        color:'silver',
         shape:  'rect',
         label:  'paypal'
       },
-      createOrder: (data: any, actions: any) => {
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: this.rechargeAmount.toFixed(2)
-            }
-          }]
-        }).then((orderID: string) => {
-          console.log("OrderID généré : ", orderID);  // Assurez-vous que l'orderID est bien généré
-          return orderID;
-        });
-      },
-      onApprove: async (data: any, actions: any) => {
-        console.log("PayPal Order Approved: ", data);
+      createOrder: async () => {
         try {
-          const res: any = await this.http.post('http://localhost:8080/paiements/enligne/paypal/validate', {
-            orderID: data.orderID
+          const response: any = await this.http.post('http://localhost:8080/paiements/enligne/paypal/create-order', { montant: this.rechargeAmount.toFixed(2)
           }).toPromise();
-          
-          console.log("Réponse backend : ", res);  // Affichez la réponse du backend
-          this.paypalSuccessMessage = res.message;
+
+          return response.orderID;
+        } catch (error) {
+          this.paypalError = 'Erreur lors de la création de l’ordre.';
+          throw error;
+        }
+      },
+
+      onApprove: async (data: any, actions: any) => {
+        try {
+          const res: any = await this.http.post('http://localhost:8080/paiements/enligne/paypal/capture-order', {
+            orderID: data.orderID,
+            montant: this.rechargeAmount.toFixed(2),
+            userId: 1
+          }).toPromise();
+
+          this.paypalSuccessMessage = '✅ Paiement effectué avec succès !';
           this.paypalError = null;
         } catch (error: any) {
-          console.error("Erreur lors de la validation : ", error);  // Affichez l'erreur si elle se produit
-          this.paypalError = error.error.message || 'Erreur inconnue.';
+          this.paypalError = error.error?.message || 'Erreur lors de la capture.';
           this.paypalSuccessMessage = null;
         }
       },
+
       onError: (err: any) => {
-        console.error("Erreur PayPal : ", err);  // Affichez les erreurs liées à PayPal
         this.paypalError = 'Erreur avec PayPal.';
       }
+
     }).render('#paypal-button-container');
   }
-  
 }
