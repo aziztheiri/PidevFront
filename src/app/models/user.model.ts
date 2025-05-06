@@ -19,6 +19,7 @@ export interface User {
   cluster?: number;
   features?: {
     CIN: string;
+    image:string;
     'Customer Lifetime Value': number;
     EmploymentStatus_Employed: number;
     'Location Code_Suburban': number;
@@ -28,4 +29,5 @@ export interface User {
     'Total Claim Amount': number;
     'Vehicle Class_Luxury Car': number;
   };
+  recommendations?: string[];
 }

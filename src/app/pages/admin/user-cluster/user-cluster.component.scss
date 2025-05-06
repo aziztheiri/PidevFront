@@ -1,43 +1,173 @@
+/* Base container */
 .container {
-    margin: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .title {
-    text-align: center;
-    color: #004a8d;
-    margin-bottom: 20px;
-  }
-  
-  .cluster-card {
-    border: 2px solid #004a8d;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 20px;
-    background-color: #f0f4f8;
-  }
-  
-  .cluster-card h2 {
-    background-color: #004a8d;
-    color: #ffffff;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .user-card {
-    border: 1px solid #f38f1d;
-    border-radius: 3px;
-    padding: 10px;
-    margin: 10px 0;
-  }
-  
-  .user-card p {
-    margin: 5px 0;
-  }
-  
-  .error {
-    color: red;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  padding: 1rem;
+}
+
+/* Page title */
+.title {
+  text-align: center;
+  color: #004a8d;
+  margin-bottom: 20px;
+}
+
+/* Cluster cards */
+.cluster-card {
+  border: 2px solid #004a8d;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f0f4f8;
+}
+.cluster-card h2 {
+  background-color: #004a8d;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* User cards */
+/* User card: clean layout with shadow and spacing */
+.user-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.user-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+/* Avatar image */
+.user-photo {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-right: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* Textual details beside the avatar */
+.user-details {
+  flex: 1;
+}
+
+.user-details p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.user-card p {
+  margin: 5px 0;
+}
+
+/* Buttons */
+.btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: .5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.btn:hover {
+  background: #0056b3;
+}
+/* Special SHAP button */
+.shap-btn {
+  background: #28a745;
+}
+.shap-btn:hover {
+  background: #1e7e34;
+}
+
+/* Error message */
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Modal backdrop & box */
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+}
+.modal {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%; max-width: 400px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.close-btn {
+  margin-top: 1rem;
+  background: #dc3545;
+}
+.close-btn:hover {
+  background: #a71d2a;
+}
+
+/* Header inside modals */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+
+/* ===== SHAP TABLE STYLES ===== */
+
+/* Make the container a single-row flexbox with horizontal scrolling */
+.shap-table-container {
+  display: flex;
+  flex-wrap: nowrap;       /* no wrapping */
+  gap: 15px;
+  overflow-x: auto;        /* horizontal scrollbar if needed */
+  padding: 10px 0;
+}
+
+/* Each SHAP “card” */
+.shap-table-wrapper {
+  flex: 0 0 300px;         /* fixed width */
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  overflow: auto;          /* scroll within card if needed */
+}
+
+/* The SHAP table */
+.shap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85em;
+  table-layout: auto;      /* columns size to their content */
+  margin-bottom: 1rem;
+}
+
+.shap-table th,
+.shap-table td {
+  border: 1px solid #ddd;
+  padding: .4rem .6rem;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.shap-table th {
+  background: #f0f0f0;
+}

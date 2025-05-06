@@ -1,46 +1,74 @@
 <div class="container">
-    <h1 class="title">User Clusters</h1>
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-    <div *ngFor="let clusterEntry of (clusters | keyvalue)">
-      <div class="cluster-card">
-        <ng-container [ngSwitch]="clusterEntry.key">
-          <ng-container *ngSwitchCase="'0'">
-            <h2>Young Clients with High Lifetime Value</h2>
-            <p>
-              <em>
-                Hypothesis: Young professionals with high potential value but unstable situation (unemployment + basic education). 
-                Need for a retention strategy.
-              </em>
-            </p>
-          </ng-container>
-          <ng-container *ngSwitchCase="'1'">
-            <h2>Established High-Income Clients</h2>
-            <p>
-              <em>
-                Hypothesis: Stable clients with good purchasing power. Ideal target for cross-selling (additional policies).
-              </em>
-            </p>
-          </ng-container>
-          <ng-container *ngSwitchCase="'2'">
-            <h2>Intermediate Multi-Policy Clients</h2>
-            <p>
-              <em>
-                Hypothesis: Loyal clients but price-sensitive. Potential for retention via personalized offers.
-              </em>
-            </p>
-          </ng-container>
-          <ng-container *ngSwitchDefault>
-            <h2>Cluster {{ clusterEntry.key }}</h2>
-          </ng-container>
-        </ng-container>
-        <div *ngFor="let user of clusterEntry.value" class="user-card">
-          <p><strong>Name:</strong> {{ user.features?.Name }}</p>
-          <p><strong>CIN:</strong> {{ user.features?.CIN }}</p>
-          <p><strong>Customer Lifetime Value:</strong> {{ user.features?.['Customer Lifetime Value'] }}</p>
-          <p><strong>Monthly Premium Auto:</strong> {{ user.features?.['Monthly Premium Auto'] }}</p>
-          <!-- Additional fields as needed -->
-        </div>
+  <h1 class="title">Personalized Policy Insights
+  </h1>
+  <button class="btn shap-btn" (click)="openShapModal()">
+    Show Feature Influences
+  </button>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngFor="let clusterEntry of (clusters | keyvalue)">  
+    <div class="cluster-card">
+      <!-- cluster header -->
+      <ng-container [ngSwitch]="clusterEntry.key">
+        <ng-container *ngSwitchCase="'0'"><h2>Young Clients with High Lifetime Value</h2></ng-container>
+        <ng-container *ngSwitchCase="'1'"><h2>Established High-Income Clients</h2></ng-container>
+        <ng-container *ngSwitchCase="'2'"><h2>Intermediate Multi-Policy Clients</h2></ng-container>
+        <ng-container *ngSwitchDefault><h2>Cluster {{ clusterEntry.key }}</h2></ng-container>
+      </ng-container>
+
+      <!-- list users (no individual buttons) -->
+      <div *ngFor="let user of clusterEntry.value" class="user-card">
+        <img 
+        *ngIf="user.features?.image" 
+        [src]="user.features?.image" 
+        alt="Photo of {{ user.features?.Name }}" 
+        class="user-photo"
+      />
+      <div class="user-details">
+        <p><strong>Name:</strong> {{ user.features?.Name }}</p>
+        <p><strong>CIN:</strong> {{ user.features?.CIN }}</p>
+        <p><strong>Customer Lifetime Value:</strong> {{ user.features?.['Customer Lifetime Value'] | number }}</p>
+        <p><strong>Monthly Premium Auto:</strong> {{ user.features?.['Monthly Premium Auto'] | currency:'USD' }}</p>
       </div>
+      </div>
+
+      <!-- single button per cluster -->
+      <button class="btn" (click)="openClusterModal(clusterEntry.key)">
+        Show Recommendations 
+      </button>
     </div>
   </div>
-  
+
+  <!-- Cluster Recommendations Modal -->
+  <div class="modal-backdrop" *ngIf="selectedCluster">
+    <div class="modal">
+      <h3>Recommendations for {{ clusterNames[selectedCluster] || 'Cluster ' + selectedCluster }}</h3>
+      <ul>
+        <li *ngFor="let rec of clusterRecommendations[selectedCluster]">
+          {{ rec }}
+        </li>
+      </ul>
+      <button class="btn close-btn" (click)="closeClusterModal()">Close</button>
+    </div>
+  </div>
+
+  <!-- SHAP Modal -->
+  <div class="modal-backdrop" *ngIf="showShapModal">
+    <div class="modal shap-modal">
+      <h3>Average Feature Influence </h3>
+      <div class="shap-table-container">
+        <div *ngFor="let entry of (shapByCluster | keyvalue)" class="shap-table-wrapper">
+          <h4>{{ clusterNames[entry.key] || 'Cluster ' + entry.key }}</h4>
+          <table class="shap-table">
+            <tr><th>Feature</th><th>Influence</th></tr>
+            <tr *ngFor="let shapVal of entry.value; let i = index">
+              <td>{{ featureNames[i] }}</td>
+              <td>{{ shapVal | number:'1.4-4' }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <button class="btn close-btn" (click)="closeShapModal()">Close</button>
+    </div>
+  </div>
+</div>

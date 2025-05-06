@@ -30,8 +30,8 @@ export const navItems: NavItem[] = [
     route: '/admin/reponse', 
   },
   {
-    displayName: 'Clusters',
-    iconName: 'circle-dot',
+    displayName: 'Policy Insights & Actions',
+    iconName: 'trending-up',
     route: '/admin/cluster',
   },
   {

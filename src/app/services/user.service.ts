@@ -4,6 +4,7 @@ import { Observable,throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators'; // ✅ Import tap operator
 import { AuthService } from './auth.service';
+import { ShapResult } from '../models/shap.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class UserService {
       headers: this.getAuthHeaders(), 
       responseType: 'json' 
     });
+  }
+  getShapValues(): Observable<ShapResult[]> {
+    return this.http.get<ShapResult[]>(`${this.baseUrl}/shap`,{ 
+      headers: this.getAuthHeaders(), });
   }
   applyReduction(): Observable<any> {
     const currentUser = this.authService.currentUserSubject.getValue();
