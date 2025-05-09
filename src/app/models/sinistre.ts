@@ -1,4 +1,8 @@
 export interface Sinistre {
+  weatherCondition: any;
+  roadSurfaceCondition: any;
+  lightCondition: any;
+  urbanOrRuralArea: any;
   id: number;
   dateDeclaration: Date;  // Change from string to Date
   description: string;
@@ -9,4 +13,5 @@ export interface Sinistre {
   responsabilite: string;
   dateCloture: Date | null;  // Change from string to Date | null
   telephone: string;
+  accidentSeverity: number | null;
 }

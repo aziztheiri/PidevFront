@@ -31,6 +31,8 @@ import { PagesModule } from './pages/pages.module';
 import { AdminSinistreListComponent } from './pages/admin-sinistre-list/admin-sinistre-list.component';
 import { AdminRoutingModule } from './pages/admin/admin-routing.module';
 import { NgChartjsModule } from 'ng-chartjs';
+import { ChatbotComponent } from './pages/user/chatbot/chatbot.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +47,7 @@ import { NgChartjsModule } from 'ng-chartjs';
     AppNavUserItemComponent,
     SidebarUserComponent,
      AdminSinistreListComponent,
+     ChatbotComponent
   ],
   imports: [
     BrowserModule,

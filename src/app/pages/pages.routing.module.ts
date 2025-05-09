@@ -9,6 +9,7 @@ import { MesreclamationsComponent } from './user/mesreclamations/mesreclamations
 import { SinistreListComponent } from './user/sinistre-list/sinistre-list.component';
 import { SinistreDetailComponent } from './user/sinistre-detail/sinistre-detail.component';
 import { SinistreFormComponent } from './user/sinistre-form/sinistre-form.component';
+import { ChatbotComponent } from './user/chatbot/chatbot.component';
 
 export const PagesRoutes: Routes = [
  
@@ -41,5 +42,5 @@ export const PagesRoutes: Routes = [
   { path: 'sinistre-detail/:id', component: SinistreDetailComponent },
   { path: 'sinistre-form', component: SinistreFormComponent },
 { path: 'sinistre-form/:id', component: SinistreFormComponent },
-
+{ path: 'chatbot', component: ChatbotComponent },
 ];

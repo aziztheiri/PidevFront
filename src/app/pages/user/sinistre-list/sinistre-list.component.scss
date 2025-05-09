@@ -1,103 +1,18 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: white;
-    color: #004a8d;
-    margin: 20px;
-  }
-  
-  h3 {
-    color: #004a8d;
-  }
-  
-  /* Styles pour les boutons */
-  .btn-primary {
-    background-color: #004a8d;
-    border-color: #004a8d;
-    color: white;
-  }
-  
-  .btn-primary:hover {
-    background-color: #003366;
-    border-color: #003366;
-  }
-  
-  .btn-warning {
-    background-color: #f38f1d;
-    border-color: #f38f1d;
-    color: white;
-  }
-  
-  .btn-warning:hover {
-    background-color: #d9770e;
-    border-color: #d9770e;
-  }
-  
-  .btn-danger {
-    background-color: red;
-    border-color: darkred;
-    color: white;
-  }
-  
-  .btn-danger:hover {
-    background-color: darkred;
-    border-color: darkred;
-  }
-  
-  /* Nouveau style pour le bouton de téléchargement PDF */
-  .btn-success {
-    background-color: #28a745; /* Vert pour le téléchargement */
-    border-color: #28a745;
-    color: white;
-    margin-left: 10px;
-  }
-  
-  .btn-success:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
-  }
-  
-  /* Table styling */
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  .table th {
-    background-color: #004a8d;
-    color: white;
-    padding: 10px;
-  }
-  
-  .table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-  }
-  
-  .table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  .table tbody tr:hover {
-    background-color: #e9ecef; /* Ajout d'un effet au survol de la ligne */
-  }
-  
-  /* Alert styling */
-  .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    padding: 10px;
-  }
-  
-  .alert-danger button {
-    background-color: #721c24;
-    color: white;
-    border: none;
-  }
-  
-  .alert-danger button:hover {
-    background-color: #f5c6cb;
-    color: #721c24;
-  }
-  
+body { font-family: Arial, sans-serif; background: #fff; color: #004a8d; margin: 20px; }
+h3 { color: #004a8d; }
+.btn-primary { background: #004a8d; border: #004a8d; color: #fff; }
+.btn-primary:hover { background: #003366; }
+.btn-warning { background: #f38f1d; border: #f38f1d; color: #fff; }
+.btn-warning:hover { background: #d9770e; }
+.btn-danger { background: red; border: darkred; color: #fff; }
+.btn-danger:hover { background: darkred; }
+.btn-success { background: #28a745; border: #28a745; color: #fff; margin-left:10px; }
+.btn-success:hover { background: #218838; }
+.table { width:100%; border-collapse: collapse; margin-top:20px; }
+.table th { background:#004a8d; color:#fff; padding:10px; }
+.table td { padding:10px; border:1px solid #ddd; }
+.table tr:nth-child(even) { background:#f2f2f2; }
+.table tr:hover { background:#e9ecef; }
+.alert-danger { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; padding:10px; }
+.alert-danger button { background:#721c24; color:#fff; border:none; }
+.alert-danger button:hover { background:#f5c6cb; color:#721c24; }

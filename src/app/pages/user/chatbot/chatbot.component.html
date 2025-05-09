@@ -1,0 +1,26 @@
+<div class="chatbot-container">
+    <h2>Chatbot de Prédiction de Sévérité</h2>
+    <form (ngSubmit)="submitData()">
+      <div class="form-group">
+        <label>Conditions météorologiques :</label>
+        <input [(ngModel)]="data.Weather_Conditions" name="weather" required placeholder="ex: Fine no high winds">
+      </div>
+      <div class="form-group">
+        <label>État de la chaussée :</label>
+        <input [(ngModel)]="data.Road_Surface_Conditions" name="road" required placeholder="ex: Dry">
+      </div>
+      <div class="form-group">
+        <label>Conditions lumineuses :</label>
+        <input [(ngModel)]="data.Light_Conditions" name="light" required placeholder="ex: Daylight">
+      </div>
+      <div class="form-group">
+        <label>Zone (1.0 = urbain, 2.0 = rural) :</label>
+        <input [(ngModel)]="data.Urban_or_Rural_Area" name="area" type="number" step="1.0" min="1" max="2" required>
+      </div>
+      <button type="submit">Prédire la sévérité</button>
+    </form>
+    <div *ngIf="prediction !== null" class="prediction">
+      <h3>Sévérité prédite : {{ prediction }}</h3>
+      <p>{{ prediction === 1 ? 'Légère ou modérée' : 'Grave' }}</p>
+    </div>
+  </div>

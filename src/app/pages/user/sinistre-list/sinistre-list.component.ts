@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SinistreService } from 'src/app/services/sinistres/sinistre.service';
+import { ApiService } from 'src/app/services/api/api.service';
 import { Sinistre } from 'src/app/models/sinistre';
 import { jsPDF } from 'jspdf';
 
@@ -10,15 +11,19 @@ import { jsPDF } from 'jspdf';
 })
 export class SinistreListComponent implements OnInit {
   sinistres: Sinistre[] = [];
-  isLoading: boolean = true;
+  predictions: { [id: number]: number } = {};
+  isLoading = true;
   errorMessage: string | null = null;
-  searchText: string = '';
-  selectedStatut: string = '';
+  searchText = '';
+  selectedStatut = '';
   sortColumn: keyof Sinistre | '' = '';
-  sortDirection: string = 'asc';
-  statutsDisponibles: string[] = ['En attente', 'Validé', 'Rejeté'];
+  sortDirection: 'asc' | 'desc' = 'asc';
+  statutsDisponibles = ['En attente', 'Validé', 'Rejeté'];
 
-  constructor(private sinistreService: SinistreService) {}
+  constructor(
+    private sinistreService: SinistreService,
+    private apiService: ApiService
+  ) {}
 
   ngOnInit(): void {
     this.loadSinistres();
@@ -27,32 +32,43 @@ export class SinistreListComponent implements OnInit {
   loadSinistres(): void {
     this.isLoading = true;
     this.errorMessage = null;
-
-    this.sinistreService.getSinistres().subscribe(
-      (data: Sinistre[]) => {
+    this.sinistreService.getSinistres().subscribe({
+      next: data => {
         this.sinistres = data;
         this.isLoading = false;
       },
-      (error) => {
-        this.errorMessage = 'Erreur lors du chargement des sinistres.';
+      error: () => {
+        this.errorMessage = 'Erreur lors du chargement.';
         this.isLoading = false;
-        console.error('Erreur:', error);
       }
-    );
+    });
   }
 
   deleteSinistre(id: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce sinistre ?')) {
-      this.sinistreService.deleteSinistre(id).subscribe(
-        () => {
-          this.sinistres = this.sinistres.filter(s => s.id !== id);
-        },
-        (error) => {
-          this.errorMessage = 'Erreur lors de la suppression.';
-          console.error('Erreur:', error);
-        }
-      );
+    if (confirm('Confirmer suppression ?')) {
+      this.sinistreService.deleteSinistre(id).subscribe({
+        next: () => this.sinistres = this.sinistres.filter(s => s.id !== id),
+        error: () => this.errorMessage = 'Erreur suppression.'
+      });
     }
+  }
+
+  predictSeverity(s: Sinistre): void {
+    const payload = {
+      Weather_Conditions: s.weatherCondition,
+      Road_Surface_Conditions: s.roadSurfaceCondition,
+      Light_Conditions: s.lightCondition,
+      Urban_or_Rural_Area: s.urbanOrRuralArea
+    };
+
+    this.apiService.predict(payload).subscribe({
+      next: res => this.predictions[s.id] = res.prediction,
+      error: () => alert(`Échec de la prédiction pour #${s.id}`)
+    });
+  }
+
+  getLabel(pred: number): string {
+    return pred === 1 ? 'Légère ou modérée' : 'Grave';
   }
 
   get filteredSinistres(): Sinistre[] {
@@ -61,25 +77,17 @@ export class SinistreListComponent implements OnInit {
         s.description.toLowerCase().includes(this.searchText.toLowerCase()) ||
         s.lieu.toLowerCase().includes(this.searchText.toLowerCase())
       )
-      .filter(s => this.selectedStatut === '' || s.statut === this.selectedStatut)
+      .filter(s => !this.selectedStatut || s.statut === this.selectedStatut)
       .sort((a, b) => this.sortTable(a, b));
   }
 
-  sortTable(a: Sinistre, b: Sinistre): number {
-    if (this.sortColumn === '') return 0;
-
-    let valueA = a[this.sortColumn] ?? '';
-    let valueB = b[this.sortColumn] ?? '';
-
-    if (typeof valueA === 'string' && typeof valueB === 'string') {
-      return this.sortDirection === 'asc'
-        ? valueA.localeCompare(valueB)
-        : valueB.localeCompare(valueA);
-    }
-
-    return this.sortDirection === 'asc'
-      ? (valueA as number) - (valueB as number)
-      : (valueB as number) - (valueA as number);
+  private sortTable(a: Sinistre, b: Sinistre): number {
+    if (!this.sortColumn) return 0;
+    const aVal = a[this.sortColumn] as any;
+    const bVal = b[this.sortColumn] as any;
+    return typeof aVal === 'string'
+      ? this.sortDirection === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
+      : this.sortDirection === 'asc' ? aVal - bVal : bVal - aVal;
   }
 
   sortSinistres(column: keyof Sinistre): void {
@@ -90,32 +98,22 @@ export class SinistreListComponent implements OnInit {
       this.sortDirection = 'asc';
     }
   }
+
   generatePDF(): void {
     const doc = new jsPDF();
-    let startX = 10;
-    let startY = 20;
-    let rowHeight = 10;
-    let colWidths = [10, 30, 50, 30, 30, 30, 30, 30, 30]; // Largeurs des colonnes
-    let margin = 5;
-  
-    // **Titre du document**
+    let x = 10, y = 20, h = 10;
+
     doc.setFontSize(16);
-    doc.text('Liste des Sinistres', startX, startY - 5);
-  
-    // **Définition des en-têtes**
-    const headers = ['ID', 'Date', 'Description', 'Statut', 'Montant', 'Lieu', 'Type', 'Resp.', 'Clôture'];
-  
-    headers.forEach((header, i) => {
-      doc.rect(startX, startY, colWidths[i], rowHeight);
-      doc.text(header, startX + margin, startY + 7);
-      startX += colWidths[i];
+    doc.text('Liste des Sinistres', x, y - 5);
+
+    const heads = ['ID', 'Date', 'Desc', 'Statut', 'Montant', 'Lieu', 'Type', 'Resp.', 'Tél.', 'Météo', 'Route', 'Lumière', 'Zone', 'Clôture'];
+    heads.forEach((t, i) => {
+      doc.rect(x + i * 20, y, 20, h);
+      doc.text(t, x + i * 20 + 2, y + 7);
     });
-  
-    // **Ajout des lignes de données**
-    startX = 10;
-    this.filteredSinistres.forEach((s, rowIndex) => {
-      let currentY = startY + (rowIndex + 1) * rowHeight;
-      let row = [
+
+    this.filteredSinistres.forEach((s, i) => {
+      const row = [
         s.id.toString(),
         new Date(s.dateDeclaration).toLocaleDateString(),
         s.description,
@@ -124,20 +122,19 @@ export class SinistreListComponent implements OnInit {
         s.lieu,
         s.typeSinistre,
         s.responsabilite,
-        s.dateCloture ? new Date(s.dateCloture).toLocaleDateString() : 'Non clôturé'
+        s.telephone,
+        s.weatherCondition,
+        s.roadSurfaceCondition,
+        s.lightCondition,
+        s.urbanOrRuralArea === 1 ? 'Urbain' : 'Rural',
+        s.dateCloture ? new Date(s.dateCloture).toLocaleDateString() : 'Non'
       ];
-  
-      row.forEach((cell, colIndex) => {
-        doc.rect(startX, currentY, colWidths[colIndex], rowHeight);
-        doc.text(cell, startX + margin, currentY + 7);
-        startX += colWidths[colIndex];
+      row.forEach((c, j) => {
+        doc.rect(x + j * 20, y + (i + 1) * h, 20, h);
+        doc.text(c, x + j * 20 + 2, y + (i + 1) * h + 7);
       });
-      startX = 10;
     });
-  
-    // **Téléchargement du fichier**
+
     doc.save('sinistres.pdf');
   }
-  
-  
 }
